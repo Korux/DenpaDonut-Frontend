@@ -8,7 +8,7 @@ import AudioPlayer from './audioPlayer';
 
 const BottomBarContainer = styled.div`
     width : 100%;
-    height : 10%;
+    height : 20%;
     position : fixed;
     bottom : 0;
     right : 0;
@@ -25,7 +25,7 @@ function BottomBar(){
             {currSong.artist}
             <AudioPlayer/>
         </BottomBarContainer>
-        
+
     );
 }
 

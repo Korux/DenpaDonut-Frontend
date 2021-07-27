@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, createRef } from 'react';
 
 import Player from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
@@ -11,6 +11,7 @@ import globalVars from '../global';
 
 function AudioPlayer(){
 
+    const audio = createRef();
     const dispatch = useDispatch();
 
     var id = useSelector(getSong).mp3;
@@ -21,7 +22,8 @@ function AudioPlayer(){
     function nextSong(){
         if(playlistIdx === -1) return;
         else if(playlistIdx + 1 === playlist.length){
-            // jump to end of song
+            let audioHandle = audio.current.audio.current;
+            audioHandle.currentTime = audioHandle.duration;
         }
         else{
             dispatch(setPlaylistIdx(playlistIdx + 1));
@@ -29,14 +31,18 @@ function AudioPlayer(){
     }
 
     function previousSong(){
+        let audioHandle = audio.current.audio.current;
         if(playlistIdx === -1) return;
         else if(playlistIdx === 0){
-            // seek to beginning of song
+            audioHandle.currentTime = 0;
         }else{
-            dispatch(setPlaylistIdx(playlistIdx - 1));
+            if(audioHandle.currentTime > 3)
+                audioHandle.currentTime = 0;
+            else
+                dispatch(setPlaylistIdx(playlistIdx - 1));
         }
     }
-    
+
     useEffect(() => {
         if(id !== null){
             let url = globalVars.server + "/mp3/" + id;
@@ -72,7 +78,7 @@ function AudioPlayer(){
             });
         }
     },[id, dispatch]);
-    
+
     useEffect(() => {
         if(playlist && playlistIdx !== -1){
             dispatch(setSong(playlist[playlistIdx]));
@@ -82,9 +88,10 @@ function AudioPlayer(){
     return(
         <Player
             src={url}
+            ref={audio}
             showFilledVolume
             showSkipControls
-            // showJumpControls={false}
+            showJumpControls={false}
             onCanPlayThrough={() => dispatch(setShuffleState("ready"))}
             onClickNext={nextSong}
             onClickPrevious={previousSong}
