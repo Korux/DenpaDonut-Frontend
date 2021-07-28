@@ -1,15 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Navbar } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Logo from '../images/logo.png';
 
+const StyledNavbar = styled(Navbar)`
+    display:flex;
+    background-color:${({ theme }) => theme.navbar};
+`;
 
-const NavbarContainer = styled.div`
-    width : 100%;
-    height : 10%;
-    position : fixed;
-    top : 0px;
-    left : 0px;
-    background-color : black;
+const StyledBrand = styled(Navbar.Brand)`
+    text-align : center;
+    margin : 0 auto;
+    align : center;
+
+    img{
+        
+        height:45px;
+    }
+`;
+
+const NavColumn = styled.div`
+    flex:1;
 `;
 
 const StyledLink = styled(Link)`
@@ -18,10 +31,14 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const DDLogo = styled.img`
-    width : 100px;
-    hieght : 100px;
-    background-color:white;
+const FaIcon = styled(FontAwesomeIcon)`
+    color:gray;
+    margin:0px 10px;
+
+    &:hover{
+        color:rgb(180,180,180)
+    }
+
 `;
 
 
@@ -29,13 +46,20 @@ const DDLogo = styled.img`
 function NavBar(){
 
     return(
-        <NavbarContainer>
+        <StyledNavbar variant="dark" fixed="top">
+            <NavColumn>
+                <StyledLink to="/home">
+                    <StyledBrand><img src={Logo} alt="logo"/></StyledBrand>
+                </StyledLink>
+            </NavColumn>
 
-            <StyledLink to="/home">
-                <DDLogo/>
-            </StyledLink>
+            <NavColumn>
+            </NavColumn>
 
-        </NavbarContainer>
+            <NavColumn>
+            </NavColumn>
+
+        </StyledNavbar>
     );
 
 };
