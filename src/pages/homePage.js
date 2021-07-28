@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 import AddSongButton from '../components/addSongButton';
 import ShuffleButton from '../components/shuffleButton';
 
 function HomePage(){
-  
+
     return (
-      <div className="App">
+      <Fragment>
         <AddSongButton type="youtube"/>
         <AddSongButton type="spotify"/>
         <ShuffleButton/>
-      </div>
+      </Fragment>
     );
 }
 
