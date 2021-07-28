@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 import { GlobalStyles } from './global';
@@ -8,10 +9,11 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 
 import HomePage from './pages/homePage';
 import ErrorPage from './pages/errorPage';
-import SongsPage from './pages/SongsPage';
-import PlaylistPage from './pages/PlaylistPage';
+import SongsPage from './pages/songsPage';
+import PlaylistPage from './pages/playlistPage';
 
 import BottomBar from './components/bottomBar';
+import NavBar from './components/navBar';
 
 import {SuccessToast, ErrorToast, RegularToast } from './components/toast';
 
@@ -30,7 +32,9 @@ function App() {
     <ErrorToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "error"} message={useSelector(getToast).msg}/>
     <SuccessToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "success"} message={useSelector(getToast).msg}/>
     <RegularToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "regular"} message={useSelector(getToast).msg}/>
-    {/* navbar here */}
+
+    <NavBar/>
+
     <Switch>
 
       <Route exact path="/home">

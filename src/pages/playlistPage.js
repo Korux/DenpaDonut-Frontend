@@ -1,12 +1,12 @@
 import React from 'react';
 
 function PlaylistPage(){
-    
+
     return(
         <div>
             Playlist page
-        </div>);
-
+        </div>
+    );
 }
 
 export default PlaylistPage;
