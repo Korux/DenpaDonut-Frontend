@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 import Logo from '../images/logo.png';
+
+import SearchFilter from './searchFilter';
+import AddSongModal from './addSongModal';
+
 
 const StyledNavbar = styled(Navbar)`
     display:flex;
     background-color:${({ theme }) => theme.navbar};
+    z-index : 990;
 `;
 
 const StyledBrand = styled(Navbar.Brand)`
@@ -16,7 +23,7 @@ const StyledBrand = styled(Navbar.Brand)`
     align : center;
 
     img{
-        
+
         height:45px;
     }
 `;
@@ -31,6 +38,8 @@ const StyledLink = styled(Link)`
     }
 `;
 
+const StyledButton = styled.button``;
+
 const FaIcon = styled(FontAwesomeIcon)`
     color:gray;
     margin:0px 10px;
@@ -41,25 +50,38 @@ const FaIcon = styled(FontAwesomeIcon)`
 
 `;
 
-
-
 function NavBar(){
 
+    const [showModal, setShowModal] = React.useState(false);
+
     return(
-        <StyledNavbar variant="dark" fixed="top">
-            <NavColumn>
-                <StyledLink to="/home">
-                    <StyledBrand><img src={Logo} alt="logo"/></StyledBrand>
-                </StyledLink>
-            </NavColumn>
+        <Fragment>
+            <AddSongModal show={showModal} setShow={setShowModal}/>
+            <StyledNavbar variant="dark" fixed="top">
+                <NavColumn>
+                    <StyledLink to="/home">
+                        <StyledBrand><img src={Logo} alt="logo"/></StyledBrand>
+                    </StyledLink>
+                    <StyledLink to="/playlist">
+                        <FaIcon size={"lg"}icon={faSearch}/>
+                    </StyledLink>
+                    <StyledLink to="/songs">
+                        <FaIcon size={"lg"}icon={faSearch}/>
+                    </StyledLink>
+                </NavColumn>
 
-            <NavColumn>
-            </NavColumn>
+                <NavColumn>
+                    <SearchFilter/>
+                </NavColumn>
 
-            <NavColumn>
-            </NavColumn>
+                <NavColumn>
+                    <StyledButton onClick={() => setShowModal(!showModal)}>
+                        <FaIcon size={"lg"}icon={faSearch}/>
+                    </StyledButton>
+                </NavColumn>
 
-        </StyledNavbar>
+            </StyledNavbar>
+        </Fragment>
     );
 
 };

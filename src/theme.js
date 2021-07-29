@@ -7,4 +7,7 @@ export const theme = {
     navbar : 'rgb(20,20,20)',
     disabled : 'rgb(100,100,100)',
     mobile: '576px',
+
+    //modal colors
+    modalColor : 'rgb(50,50,50)'
   }
