@@ -10,7 +10,8 @@ import {
     SET_SHUFFLE,
     SET_PLAYLIST_IDX,
     SET_MODAL_SHOW,
-    SET_MODAL_STATE
+    SET_MODAL_STATE,
+    SET_MODAL_EDITED_SONG
 } from './actions.js';
 
 const baseSong = {

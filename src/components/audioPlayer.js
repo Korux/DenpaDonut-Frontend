@@ -95,6 +95,7 @@ function AudioPlayer(){
             onCanPlayThrough={() => dispatch(setShuffleState("ready"))}
             onClickNext={nextSong}
             onClickPrevious={previousSong}
+            onEnded={nextSong}
         />
     );
 

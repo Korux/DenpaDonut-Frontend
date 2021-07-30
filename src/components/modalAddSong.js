@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { setToast } from '../redux/actions';
+import { setToast, setModalEditedSong, setModalState } from '../redux/actions';
+
+import globalVars from '../global';
 
 function ModalAddSong(){
 
@@ -21,17 +23,29 @@ function ModalAddSong(){
         body : JSON.stringify(reqData),
         };
 
-        fetch("http://localhost:3000/songs, reqOpts)
+        fetch(globalVars.server + "/songs", reqOpts)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            // do something with data
             if(data.Error)dispatch(setToast({msg : data.Error, type:"error"}));
-            else dispatch(setToast({msg : "Successfully added song.", type:"success"}));
+            else{
+                fetch(globalVars.server + "/songs/" + data.id)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.Error)dispatch(setToast({msg : data.Error, type:"error"}));
+                    else{
+                        dispatch(setModalEditedSong(data));
+                        dispatch(setModalState("edit"));
+                        dispatch(setToast({msg : "Successfully added song.", type:"success"}));
+                    }
+                })
+                .catch(err => {
+                    // do something with error from GET
+                    dispatch(setToast({msg : "Unknown error getting song data. Please try again.", type:"error"}));
+                });
+            }
         })
         .catch(err => {
-            console.log(err);
-            // do something with error
+            // do something with error from POST
             dispatch(setToast({msg : "Unknown error adding song. Please try again.", type:"error"}));
         });
     }
