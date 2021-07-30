@@ -8,8 +8,10 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../images/logo.png';
 
 import SearchFilter from './searchFilter';
-import AddSongModal from './addSongModal';
+import SongModal from './songModal';
 
+import { useDispatch} from 'react-redux';
+import { setModalState, setModalShow } from '../redux/actions';
 
 const StyledNavbar = styled(Navbar)`
     display:flex;
@@ -52,11 +54,16 @@ const FaIcon = styled(FontAwesomeIcon)`
 
 function NavBar(){
 
-    const [showModal, setShowModal] = React.useState(false);
+    const dispatch = useDispatch();
+
+    const showModal = () => {
+        dispatch(setModalState("add"));
+        dispatch(setModalShow(true));
+    };
 
     return(
         <Fragment>
-            <AddSongModal show={showModal} setShow={setShowModal}/>
+            <SongModal/>
             <StyledNavbar variant="dark" fixed="top">
                 <NavColumn>
                     <StyledLink to="/home">
@@ -75,7 +82,7 @@ function NavBar(){
                 </NavColumn>
 
                 <NavColumn>
-                    <StyledButton onClick={() => setShowModal(!showModal)}>
+                    <StyledButton onClick={showModal}>
                         <FaIcon size={"lg"}icon={faSearch}/>
                     </StyledButton>
                 </NavColumn>

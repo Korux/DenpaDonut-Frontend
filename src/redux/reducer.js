@@ -9,6 +9,8 @@ import {
     CLEAR_TOAST,
     SET_SHUFFLE,
     SET_PLAYLIST_IDX,
+    SET_MODAL_SHOW,
+    SET_MODAL_STATE
 } from './actions.js';
 
 const baseSong = {
@@ -22,16 +24,6 @@ const baseSong = {
     nosong : true
 };
 
-const basePlaylist = {
-    playlist : null,
-    noplaylist : true,
-    idx : -1,
-}
-
-const baseToast = {
-    type : "none",
-    msg : ""
-}
 
 function songReducer(state=baseSong, action){
     switch(action.type){
@@ -51,6 +43,12 @@ function songReducer(state=baseSong, action){
         default:
             return state;
     }
+}
+
+const basePlaylist = {
+    playlist : null,
+    noplaylist : true,
+    idx : -1,
 }
 
 function playlistReducer(state=basePlaylist, action){
@@ -73,6 +71,11 @@ function playlistReducer(state=basePlaylist, action){
     }
 }
 
+const baseToast = {
+    type : "none",
+    msg : ""
+}
+
 function toastReducer(state=baseToast, action){
     switch(action.type){
         case SET_TOAST:
@@ -88,11 +91,43 @@ function toastReducer(state=baseToast, action){
     }
 }
 
-function shuffleReducer(state={shuffle:"ready"}, action){
+const baseShuffle = {
+    shuffle : "ready"
+}
+
+function shuffleReducer(state=baseShuffle, action){
     switch(action.type){
         case SET_SHUFFLE:
             return{
                 shuffle : action.shuffle
+            }
+        default:
+            return state;
+    }
+}
+
+const baseModal = {
+    show : false,
+    type : "none",
+    song : null
+};
+
+function modalReducer(state=baseModal, action){
+    switch(action.type){
+        case SET_MODAL_SHOW:
+            return{
+                ...state,
+                show : action.show
+            }
+        case SET_MODAL_STATE:
+            return{
+                ...state,
+                type : action.mState
+            }
+        case SET_MODAL_EDITED_SONG:
+            return{
+                ...state,
+                song : action.song
             }
         default:
             return state;
@@ -104,6 +139,7 @@ const rootReducer = combineReducers({
     playlist : playlistReducer,
     toast : toastReducer,
     shuffle : shuffleReducer,
+    modal : modalReducer
 });
 
 export default rootReducer;

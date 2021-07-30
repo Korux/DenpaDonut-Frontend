@@ -14,3 +14,7 @@ export function getToast(state){
 export function getShuffle(state){
     return state.shuffle;
 }
+
+export function getModal(state){
+    return state.modal;
+}
