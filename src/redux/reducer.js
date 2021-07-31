@@ -11,7 +11,8 @@ import {
     SET_QUEUE_IDX,
     SET_MODAL_SHOW,
     SET_MODAL_STATE,
-    SET_MODAL_EDITED_SONG
+    SET_MODAL_EDITED_SONG,
+    SET_SEARCH_FILTER
 } from './actions.js';
 
 const baseSong = {
@@ -135,12 +136,24 @@ function modalReducer(state=baseModal, action){
     }
 }
 
+function searchReducer(state={query : ""}, action){
+    switch(action.type){
+        case SET_SEARCH_FILTER:
+            return{
+                query : action.query
+            }
+        default:
+            return state;    
+    }
+}
+
 const rootReducer = combineReducers({
     song : songReducer,
     queue : queueReducer,
     toast : toastReducer,
     shuffle : shuffleReducer,
-    modal : modalReducer
+    modal : modalReducer,
+    search : searchReducer
 });
 
 export default rootReducer;
