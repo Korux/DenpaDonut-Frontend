@@ -2,13 +2,13 @@ import { combineReducers } from 'redux';
 
 import {
     SET_SONG,
-    SET_PLAYLIST,
+    SET_QUEUE,
     CLEAR_SONG,
-    CLEAR_PLAYLIST,
+    CLEAR_QUEUE,
     SET_TOAST,
     CLEAR_TOAST,
     SET_SHUFFLE,
-    SET_PLAYLIST_IDX,
+    SET_QUEUE_IDX,
     SET_MODAL_SHOW,
     SET_MODAL_STATE,
     SET_MODAL_EDITED_SONG
@@ -46,23 +46,23 @@ function songReducer(state=baseSong, action){
     }
 }
 
-const basePlaylist = {
-    playlist : null,
-    noplaylist : true,
+const baseQueue = {
+    queue: null,
+    noqueue : true,
     idx : -1,
 }
 
-function playlistReducer(state=basePlaylist, action){
+function queueReducer(state=baseQueue, action){
     switch(action.type){
-        case SET_PLAYLIST:
+        case SET_QUEUE:
             return{
                 ...state,
-                playlist : action.playlist,
-                noplaylist : false,
+                queue : action.queue,
+                noqueue : false,
             }
-        case CLEAR_PLAYLIST:
-            return basePlaylist;
-        case SET_PLAYLIST_IDX:
+        case CLEAR_QUEUE:
+            return baseQueue;
+        case SET_QUEUE_IDX:
             return{
                 ...state,
                 idx : action.idx,
@@ -137,7 +137,7 @@ function modalReducer(state=baseModal, action){
 
 const rootReducer = combineReducers({
     song : songReducer,
-    playlist : playlistReducer,
+    queue : queueReducer,
     toast : toastReducer,
     shuffle : shuffleReducer,
     modal : modalReducer

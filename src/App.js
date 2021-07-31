@@ -10,7 +10,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import HomePage from './pages/homePage';
 import ErrorPage from './pages/errorPage';
 import SongsPage from './pages/songsPage';
-import PlaylistPage from './pages/playlistPage';
+import QueuePage from './pages/queuePage';
 
 import BottomBar from './components/bottomBar';
 import NavBar from './components/navBar';
@@ -45,8 +45,8 @@ function App() {
           <SongsPage/>
       </Route>
 
-      <Route exact path="/playlist">
-          <PlaylistPage/>
+          <Route exact path="/queue">
+          <QueuePage/>
       </Route>
 
       <Route exact path="/">

@@ -4,8 +4,8 @@ import Player from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getSong, getPlaylist } from '../redux/selectors';
-import { setPlaylistIdx, setShuffleState, setSong, setToast } from "../redux/actions";
+import { getSong, getQueue } from '../redux/selectors';
+import { setQueueIdx, setShuffleState, setSong, setToast } from "../redux/actions";
 
 import globalVars from '../global';
 
@@ -15,31 +15,31 @@ function AudioPlayer(){
     const dispatch = useDispatch();
 
     var id = useSelector(getSong).mp3;
-    var playlist = useSelector(getPlaylist).playlist;
-    var playlistIdx = useSelector(getPlaylist).idx;
+    var queue = useSelector(getQueue).queue;
+    var queueIdx = useSelector(getQueue).idx;
     const [url, setURL] = React.useState(null);
 
     function nextSong(){
-        if(playlistIdx === -1) return;
-        else if(playlistIdx + 1 === playlist.length){
+        if(queueIdx === -1) return;
+        else if(queueIdx + 1 === queue.length){
             let audioHandle = audio.current.audio.current;
             audioHandle.currentTime = audioHandle.duration;
         }
         else{
-            dispatch(setPlaylistIdx(playlistIdx + 1));
+            dispatch(setQueueIdx(queueIdx + 1));
         }
     }
 
     function previousSong(){
         let audioHandle = audio.current.audio.current;
-        if(playlistIdx === -1) return;
-        else if(playlistIdx === 0){
+        if(queueIdx === -1) return;
+        else if(queueIdx === 0){
             audioHandle.currentTime = 0;
         }else{
             if(audioHandle.currentTime > 3)
                 audioHandle.currentTime = 0;
             else
-                dispatch(setPlaylistIdx(playlistIdx - 1));
+                dispatch(setQueueIdx(queueIdx - 1));
         }
     }
 
@@ -80,10 +80,10 @@ function AudioPlayer(){
     },[id, dispatch]);
 
     useEffect(() => {
-        if(playlist && playlistIdx !== -1){
-            dispatch(setSong(playlist[playlistIdx]));
+        if(queue && queueIdx !== -1){
+            dispatch(setSong(queue[queueIdx]));
         }
-    }, [playlistIdx, playlist, dispatch]);
+    }, [queueIdx, queue, dispatch]);
 
     return(
         <Player

@@ -1,11 +1,11 @@
 export const SET_SONG = "SET_SONG";
-export const SET_PLAYLIST = "SET_PLAYLIST";
+export const SET_QUEUE = "SET_QUEUE";
 export const CLEAR_SONG = "CLEAR_SONG";
-export const CLEAR_PLAYLIST = "CLEAR_PLAYLIST";
+export const CLEAR_QUEUE = "CLEAR_QUEUE";
 export const SET_TOAST = "SET_TOAST";
 export const CLEAR_TOAST = "CLEAR_TOAST";
 export const SET_SHUFFLE = "SET_SHUFFLE";
-export const SET_PLAYLIST_IDX = "SET_PLAYLIST_IDX";
+export const SET_QUEUE_IDX = "SET_QUEUE_IDX";
 export const SET_MODAL_SHOW = "SET_MODAL_SHOW";
 export const SET_MODAL_STATE = "SET_MODAL_STATE";
 export const SET_MODAL_EDITED_SONG = "SET_MODAL_EDITED_SONG";
@@ -18,16 +18,16 @@ export function clearSong(){
     return { type : CLEAR_SONG };
 }
 
-export function setPlaylistIdx(idx){
-    return { type : SET_PLAYLIST_IDX, idx };
+export function setQueueIdx(idx){
+    return { type : SET_QUEUE_IDX, idx };
 }
 
-export function setPlaylist(playlist){
-    return {type : SET_PLAYLIST, playlist };
+export function setQueue(queue){
+    return {type : SET_QUEUE, queue };
 }
 
-export function clearPlaylist(){
-    return { type : CLEAR_PLAYLIST };
+export function clearQueue(){
+    return { type : CLEAR_QUEUE };
 }
 
 export function setToast(toast){

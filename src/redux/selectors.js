@@ -3,8 +3,8 @@ export function getSong(state){
     return state.song;
 }
 
-export function getPlaylist(state){
-    return state.playlist;
+export function getQueue(state){
+    return state.queue;
 }
 
 export function getToast(state){

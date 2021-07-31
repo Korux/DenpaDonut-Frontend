@@ -1,31 +1,30 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {clearPlaylist, clearSong, setPlaylist, setPlaylistIdx, setShuffleState, setToast} from '../redux/actions';
-import PlaylistShuffler from '../components/playlistShuffler';
+import {clearQueue, clearSong, setQueue, setQueueIdx, setShuffleState, setToast} from '../redux/actions';
+import QueueShuffler from '../components/queueShuffler';
 import { getShuffle } from '../redux/selectors';
 
 function ShuffleButton(){
 
     const dispatch = useDispatch();
 
-    const setShuffledPlaylist = () => {
+    const setShuffledQueue = () => {
         dispatch(setShuffleState("loading"));
-        dispatch(clearPlaylist());
+        dispatch(clearQueue());
         dispatch(clearSong());
-        PlaylistShuffler().then(shuffledPlaylist => {
-            let playlistAction = setPlaylist(shuffledPlaylist);
-            dispatch(playlistAction);
-            dispatch(setPlaylistIdx(0));
+        QueueShuffler().then(shuffledQueue => {
+            dispatch(setQueue(shuffledQueue));
+            dispatch(setQueueIdx(0));
         })
         .catch(err => {
             console.log(err);
-            dispatch(setToast({type : "error", msg : "Error shuffling playlist. Please try again."}));
+            dispatch(setToast({type : "error", msg : "Error shuffling queue. Please try again."}));
         });
     };
 
     return(
-        <button onClick={setShuffledPlaylist} disabled={useSelector(getShuffle).shuffle === "loading"}>
+        <button onClick={setShuffledQueue} disabled={useSelector(getShuffle).shuffle === "loading"}>
             aa
         </button>
     );

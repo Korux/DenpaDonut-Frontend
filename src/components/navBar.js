@@ -66,13 +66,13 @@ function NavBar(){
             <SongModal/>
             <StyledNavbar variant="dark" fixed="top">
                 <NavColumn>
-                    <StyledLink to="/home">
+                    <StyledLink to="/home" replace>
                         <StyledBrand><img src={Logo} alt="logo"/></StyledBrand>
                     </StyledLink>
-                    <StyledLink to="/playlist">
+                    <StyledLink to="/queue" replace>
                         <FaIcon size={"lg"}icon={faSearch}/>
                     </StyledLink>
-                    <StyledLink to="/songs">
+                    <StyledLink to="/songs" replace>
                         <FaIcon size={"lg"}icon={faSearch}/>
                     </StyledLink>
                 </NavColumn>
