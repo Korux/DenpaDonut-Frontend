@@ -24,6 +24,7 @@ const QueueShuffler = () => {
         fetch(globalVars.server + "/songs")
         .then(response => response.json())
         .then(data => {
+            if(data.Error)reject(data.Error);
             shuffle(data);
             resolve(data);
         })
