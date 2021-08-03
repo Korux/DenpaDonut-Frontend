@@ -5,15 +5,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setToast} from '../redux/actions';
 import {getSearchFilter} from '../redux/selectors';
 
-
 import SongItem from '../components/songItem';
-
-
 import globalVars from '../global';
 
 
 const SongsContainer = styled.div`
-
+    display : flex;
+    flex-wrap : wrap;
+    justify-content : center;
 `;
 
 function SongsPage(){
@@ -25,7 +24,6 @@ function SongsPage(){
     //componentdidmount
     useEffect(() => {
         if(songs === null){
-            console.log("mount");
             fetch(globalVars.server + '/songs')
             .then(response => response.json())
             .then(data => {
@@ -48,7 +46,6 @@ function SongsPage(){
     // update based on search query
     useEffect(() => {
         if(searchFilter){
-            console.log("uopdate");
             fetch(globalVars.server + "/songs?search=" + searchFilter)
             .then(response => response.json())
             .then(data => {

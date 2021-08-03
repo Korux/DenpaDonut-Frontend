@@ -22,7 +22,7 @@ function BottomBar(){
 
     return(
         <BottomBarContainer>
-            {currSong.artist}
+            {currSong.title}
             <AudioPlayer/>
         </BottomBarContainer>
 

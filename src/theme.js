@@ -9,5 +9,8 @@ export const theme = {
     mobile: '576px',
 
     //modal colors
-    modalColor : 'rgb(50,50,50)'
+    modalColor : 'rgb(50,50,50)',
+
+    // song item colors
+    songInfoBackground : 'rgb(100,10,10)',
   }
