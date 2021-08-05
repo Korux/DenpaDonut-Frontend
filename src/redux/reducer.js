@@ -12,7 +12,8 @@ import {
     SET_MODAL_SHOW,
     SET_MODAL_STATE,
     SET_MODAL_EDITED_SONG,
-    SET_SEARCH_FILTER
+    SET_SEARCH_FILTER,
+    SET_SONG_PLAYING
 } from './actions.js';
 
 const baseSong = {
@@ -23,7 +24,8 @@ const baseSong = {
     year : null,
     pic : null,
     mp3 : null,
-    nosong : true
+    nosong : true,
+    playing : false
 };
 
 
@@ -38,10 +40,16 @@ function songReducer(state=baseSong, action){
                 year : action.song.year,
                 pic : action.song.picid,
                 mp3 : action.song.songid,
-                nosong : false
+                nosong : false,
+                playing : true
             }
         case CLEAR_SONG:
             return baseSong;
+        case SET_SONG_PLAYING:
+            return{
+                ...state,
+                playing : action.play
+            }
         default:
             return state;
     }
@@ -143,7 +151,7 @@ function searchReducer(state={query : ""}, action){
                 query : action.query
             }
         default:
-            return state;    
+            return state;
     }
 }
 

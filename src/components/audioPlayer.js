@@ -5,7 +5,7 @@ import 'react-h5-audio-player/lib/styles.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getSong, getQueue } from '../redux/selectors';
-import { setQueueIdx, setShuffleState, setSong, setToast } from "../redux/actions";
+import { setQueueIdx, setShuffleState, setSong, setToast, setSongPlaying } from "../redux/actions";
 
 import globalVars from '../global';
 
@@ -17,6 +17,7 @@ function AudioPlayer(){
     var id = useSelector(getSong).mp3;
     var queue = useSelector(getQueue).queue;
     var queueIdx = useSelector(getQueue).idx;
+    var audioPlaying = useSelector(getSong).playing;
     const [url, setURL] = React.useState(null);
 
     function nextSong(){
@@ -41,6 +42,14 @@ function AudioPlayer(){
             else
                 dispatch(setQueueIdx(queueIdx - 1));
         }
+    }
+
+    function audioOnPlay(){
+        dispatch(setSongPlaying(true));
+    }
+
+    function audioOnPause(){
+        dispatch(setSongPlaying(false));
     }
 
     useEffect(() => {
@@ -85,6 +94,12 @@ function AudioPlayer(){
         }
     }, [queueIdx, queue, dispatch]);
 
+    useEffect(() => {
+        let audioHandle = audio.current.audio.current;
+        if(audioPlaying && audioHandle.paused)audioHandle.play();
+        if(!audioPlaying && !audioHandle.paused) audioHandle.pause();
+    },[audioPlaying, audio]);
+
     return(
         <Player
             src={url}
@@ -96,6 +111,8 @@ function AudioPlayer(){
             onClickNext={nextSong}
             onClickPrevious={previousSong}
             onEnded={nextSong}
+            onPlay={audioOnPlay}
+            onPause={audioOnPause}
         />
     );
 

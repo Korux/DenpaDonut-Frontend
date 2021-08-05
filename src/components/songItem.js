@@ -4,38 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setModalState, setModalEditedSong, setModalShow, setQueue, setQueueIdx } from '../redux/actions';
-import { getQueue } from '../redux/selectors';
+import { setModalState, setModalEditedSong, setModalShow, setQueue, setQueueIdx, setSongPlaying } from '../redux/actions';
+import { getQueue, getSong } from '../redux/selectors';
 
 
 import globalVars from '../global';
 
-const SongPopup = styled.div`
-    width : 100%;
-    height : 30%;
-`;
 
-const PopupAdd = styled.div`
-    width : 50%;
-    height : 100%;
-`;
 
 const SongContainer = styled.div`
     width : 20%;
     margin : 20px;
     position : relative;
     background-color:blue;
-    ${SongPopup} {
-        display:none;
-    }
-
-    &:hover ${SongPopup} {
-        display : inline-block;
-        background-color : black;
-        position : absolute;
-        bottom:0px;
-        left:0px;
-    }
 `;
 
 const SongImage = styled.img`
@@ -47,6 +28,19 @@ const QueueIcon = styled(FontAwesomeIcon)`
     position : absolute;
     bottom : 0px;
     right : 0px;
+    background-color:black;
+    &:hover{
+        cursor : pointer;
+    }
+`;
+
+const QueueNextIcon = styled(FontAwesomeIcon)`
+    position : absolute;
+    top : 0;
+    bottom : 0;
+    left : 0;
+    right : 0;
+    margin : auto;
     background-color:black;
     &:hover{
         cursor : pointer;
@@ -71,7 +65,20 @@ const PlayIcon = styled(FontAwesomeIcon)`
     left : 0;
     right : 0;
     margin : auto;
-    background-color:black;
+    background-color:red;
+    &:hover{
+        cursor : pointer;
+    }
+`;
+
+const PauseIcon = styled(FontAwesomeIcon)`
+    position : absolute;
+    top : 0;
+    bottom : 0;
+    left : 0;
+    right : 0;
+    margin : auto;
+    background-color:blue;
     &:hover{
         cursor : pointer;
     }
@@ -106,7 +113,15 @@ const ImageContainer = styled.div`
         display : none;
     }
 
+    ${QueueNextIcon}{
+        display : none;
+    }
+
     ${PlayIcon}{
+        display : none;
+    }
+
+    ${PauseIcon}{
         display : none;
     }
 
@@ -122,7 +137,15 @@ const ImageContainer = styled.div`
         display : inline-block;
     }
 
+    &:hover ${QueueNextIcon}{
+        display : inline-block;
+    }
+
     &:hover ${PlayIcon}{
+        display : inline-block;
+    }
+
+    &:hover ${PauseIcon}{
         display : inline-block;
     }
 
@@ -159,6 +182,8 @@ function SongItem({data}){
     var queue = useSelector(getQueue).queue;
     var noQueue = useSelector(getQueue).noqueue;
     var queueIdx = useSelector(getQueue).idx;
+    var currSongId = useSelector(getSong).mp3;
+    var currSongPlaying = useSelector(getSong).playing;
 
     const editClick = () => {
         dispatch(setModalEditedSong(data));
@@ -166,8 +191,20 @@ function SongItem({data}){
         dispatch(setModalShow(true));
     };
 
+    const queueNextClick = () => {
+        let newQueue = noQueue ? [] : queue.slice();
+        let newIdx = queueIdx === -1 ? 0 : queueIdx + 1;
+        newQueue.splice(newIdx,0,data);
+        dispatch(setQueue(newQueue));
+        dispatch(setQueueIdx(newIdx));
+    };
+
     const playClick = () => {
-        // play the song
+        dispatch(setSongPlaying(true));
+    };
+
+    const pauseClick = () => {
+        dispatch(setSongPlaying(false));
     };
 
     const queueClick = () => {
@@ -183,8 +220,20 @@ function SongItem({data}){
                 <SongImage src={globalVars.server + "/pic/" + data.picid}/>
                 <SongHoverDim/>
                 <QueueIcon size={"lg"}icon={faSearch} onClick={queueClick}/>
+                {
+                    data.songid !== currSongId &&
+                    <QueueNextIcon size={"lg"}icon={faSearch} onClick={queueNextClick}/>
+                }
                 <EditIcon size={"lg"}icon={faSearch} onClick={editClick}/>
-                <PlayIcon size={"lg"}icon={faSearch} onClick={playClick}/>
+                {
+                    data.songid === currSongId && !currSongPlaying &&
+                    <PlayIcon size={"lg"}icon={faSearch} onClick={playClick}/>
+                }
+                {
+                    data.songid === currSongId && currSongPlaying &&
+                    <PauseIcon size={"lg"}icon={faSearch} onClick={pauseClick}/>
+                }
+
             </ImageContainer>
             <InfoContainer>
                 <InfoMainText>
