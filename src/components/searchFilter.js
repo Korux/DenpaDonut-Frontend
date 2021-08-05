@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-import { setSearchFilter }  from '../redux/actions';
-
-import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 
 const SearchContainer = styled.form``;
 
@@ -16,11 +14,14 @@ const SearchIcon = styled(FontAwesomeIcon)``;
 function SearchFilter(){
 
     const [query, setQuery] = React.useState("");
-    const dispatch = useDispatch();
+    const history = useHistory();
 
     function handleSubmit(event){
         event.preventDefault();
-        if(query) dispatch(setSearchFilter(query));
+
+        // check if string empty or white spaces
+        if(query === null || query.match(/^ *$/) !== null) return;
+        else history.replace('/songs?search=' + query.trim());
     }
 
     return(

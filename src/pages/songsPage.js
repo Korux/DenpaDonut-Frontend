@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
 
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setToast} from '../redux/actions';
-import {getSearchFilter} from '../redux/selectors';
 
 import SongItem from '../components/songItem';
 import globalVars from '../global';
 
+import { useLocation } from 'react-router-dom';
 
 const SongsContainer = styled.div`
     display : flex;
@@ -19,12 +19,12 @@ function SongsPage(){
 
     const [songs, setSongs] = React.useState(null);
     const dispatch = useDispatch();
-    var searchFilter = useSelector(getSearchFilter).query;
-
+    const search = useLocation().search;
     //componentdidmount
     useEffect(() => {
         if(songs === null){
-            fetch(globalVars.server + '/songs')
+            let fetchStr = search ? globalVars.server + '/songs' + search : globalVars.server + '/songs';
+            fetch(fetchStr)
             .then(response => response.json())
             .then(data => {
                 if(data.Error)dispatch(setToast({type : "error", msg : data.Error}));
@@ -41,29 +41,28 @@ function SongsPage(){
                 dispatch(setToast({type : "error", msg : "Error fetching song data. Please try again."}));
             });
         }
-    },[songs, dispatch]);
+    },[songs, dispatch, search]);
 
-    // update based on search query
+    //update based on search query
     useEffect(() => {
-        if(searchFilter){
-            fetch(globalVars.server + "/songs?search=" + searchFilter)
-            .then(response => response.json())
-            .then(data => {
-                if(data.Error)dispatch(setToast({type : "error", msg : data.Error}));
-                else{
-                    let newSongs = [];
-                    data.forEach((item, i) => {
-                        newSongs.push(<SongItem data={item} key={i}/>);
-                    });
-                    setSongs(newSongs);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch(setToast({type : "error", msg : "Error fetching song data. Please try again."}));
-            });
-        }
-    },[searchFilter, dispatch]);
+        let fetchStr = search ? globalVars.server + '/songs' + search : globalVars.server + '/songs';
+        fetch(fetchStr)
+        .then(response => response.json())
+        .then(data => {
+            if(data.Error)dispatch(setToast({type : "error", msg : data.Error}));
+            else{
+                let newSongs = [];
+                data.forEach((item, i) => {
+                    newSongs.push(<SongItem data={item} key={i}/>);
+                });
+                setSongs(newSongs);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch(setToast({type : "error", msg : "Error fetching song data. Please try again."}));
+        });
+    },[search, dispatch]);
 
     return(
         <SongsContainer>

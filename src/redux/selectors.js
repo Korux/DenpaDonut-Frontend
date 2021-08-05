@@ -18,7 +18,3 @@ export function getShuffle(state){
 export function getModal(state){
     return state.modal;
 }
-
-export function getSearchFilter(state){
-    return state.search;
-}

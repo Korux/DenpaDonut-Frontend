@@ -9,7 +9,6 @@ export const SET_QUEUE_IDX = "SET_QUEUE_IDX";
 export const SET_MODAL_SHOW = "SET_MODAL_SHOW";
 export const SET_MODAL_STATE = "SET_MODAL_STATE";
 export const SET_MODAL_EDITED_SONG = "SET_MODAL_EDITED_SONG";
-export const SET_SEARCH_FILTER = "SET_SEARCH_FILTER";
 export const SET_SONG_PLAYING = "SET_SONG_PLAYING";
 
 export function setSong(song){
@@ -58,8 +57,4 @@ export function setModalShow(show){
 
 export function setModalEditedSong(song){
     return { type : SET_MODAL_EDITED_SONG, song };
-}
-
-export function setSearchFilter(query){
-    return { type : SET_SEARCH_FILTER, query };
 }
