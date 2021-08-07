@@ -16,16 +16,17 @@ function QueuePage(){
 
     // load queue, componentdidmount
     useEffect(() => {
-        if(queueItems === null && !queue.noqueue){
+        if(queue.noqueue){
+            setQueueItems([]);
+        }else{
             let items = [];
             queue.queue.forEach((item, i) => {
                 items.push(<QueueItem data={item} key={i}/>);
             });
+            if(queue.idx > 0) items = items.slice(queue.idx);
             setQueueItems(items);
-        }else if(queueItems === null && queue.noqueue){
-            setQueueItems([]);
         }
-    },[queue, queueItems]);
+    },[queue]);
 
     return(
         <QueueContainer>
