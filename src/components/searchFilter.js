@@ -31,7 +31,7 @@ function SearchFilter(){
             if(query === null || query.match(/^ *$/) !== null) history.replace('/songs');
             else history.replace('/songs?search=' + query.trim());
         }
-    },[query]);
+    },[query, history, location.pathname]);
 
     return(
         <SearchContainer onSubmit={handleSubmit}>
