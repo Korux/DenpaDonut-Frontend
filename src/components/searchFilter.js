@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 const SearchContainer = styled.form``;
 
@@ -15,6 +15,7 @@ function SearchFilter(){
 
     const [query, setQuery] = React.useState("");
     const history = useHistory();
+    const location = useLocation();
 
     function handleSubmit(event){
         event.preventDefault();
@@ -23,6 +24,14 @@ function SearchFilter(){
         if(query === null || query.match(/^ *$/) !== null) return;
         else history.replace('/songs?search=' + query.trim());
     }
+
+    useEffect(() => {
+        if(location.pathname === '/songs'){
+            // check if string empty or white spaces
+            if(query === null || query.match(/^ *$/) !== null) history.replace('/songs');
+            else history.replace('/songs?search=' + query.trim());
+        }
+    },[query]);
 
     return(
         <SearchContainer onSubmit={handleSubmit}>
