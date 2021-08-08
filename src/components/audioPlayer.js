@@ -5,7 +5,7 @@ import 'react-h5-audio-player/lib/styles.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getSong, getQueue } from '../redux/selectors';
-import { setQueueIdx, setShuffleState, setSong, setToast, setSongPlaying } from "../redux/actions";
+import { setQueueIdx, setShuffleState, setSong, setToast, setSongPlaying, clearQueue, clearSong } from "../redux/actions";
 
 import globalVars from '../global';
 
@@ -24,7 +24,10 @@ function AudioPlayer(){
         if(queueIdx === -1) return;
         else if(queueIdx + 1 === queue.length){
             let audioHandle = audio.current.audio.current;
-            audioHandle.currentTime = audioHandle.duration;
+            audioHandle = null;
+            setURL(null);
+            dispatch(clearQueue());
+            dispatch(clearSong());
         }
         else{
             dispatch(setQueueIdx(queueIdx + 1));
@@ -53,7 +56,7 @@ function AudioPlayer(){
     }
 
     useEffect(() => {
-        if(id !== null){
+        if(id !== null && queueIdx >= 0){
             let url = globalVars.server + "/mp3/" + id;
             fetch(url)
             .then(response => response.body)
@@ -86,7 +89,7 @@ function AudioPlayer(){
                 dispatch(setToast({type : "error", msg : "Error loading audio. Please try again."}));
             });
         }
-    },[id, dispatch]);
+    },[id, queueIdx, dispatch]);
 
     useEffect(() => {
         if(queue && queueIdx !== -1){
