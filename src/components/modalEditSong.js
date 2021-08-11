@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { getModal } from '../redux/selectors';
 
-import {setToast} from '../redux/actions';
+import {setForceUpdate, setToast} from '../redux/actions';
 
 
 import globalVars from '../global';
@@ -97,6 +97,7 @@ function ModalEditSong(){
                 dispatch(setToast({type : "error", msg : "Error with saving changes, please try again"}));
                 cancelEdit();
             }else{
+                dispatch(setForceUpdate(true));
                 setSong({...tmpSong});
                 setMode("text");
                 dispatch(setToast({type : "success", msg : "Song info saved"}));

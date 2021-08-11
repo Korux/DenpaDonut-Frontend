@@ -18,3 +18,7 @@ export function getShuffle(state){
 export function getModal(state){
     return state.modal;
 }
+
+export function getUpdate(state){
+    return state.update;
+}

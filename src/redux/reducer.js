@@ -12,7 +12,8 @@ import {
     SET_MODAL_SHOW,
     SET_MODAL_STATE,
     SET_MODAL_EDITED_SONG,
-    SET_SONG_PLAYING
+    SET_SONG_PLAYING,
+    SET_FORCE_UPDATE
 } from './actions.js';
 
 const baseSong = {
@@ -143,12 +144,24 @@ function modalReducer(state=baseModal, action){
     }
 }
 
+function updateReducer(state={update:false}, action){
+    switch(action.type){
+        case SET_FORCE_UPDATE:
+            return{
+                update : action.val
+            }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     song : songReducer,
     queue : queueReducer,
     toast : toastReducer,
     shuffle : shuffleReducer,
-    modal : modalReducer
+    modal : modalReducer,
+    update : updateReducer
 });
 
 export default rootReducer;

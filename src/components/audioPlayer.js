@@ -23,9 +23,6 @@ function AudioPlayer(){
     function nextSong(){
         if(queueIdx === -1) return;
         else if(queueIdx + 1 === queue.length){
-            let audioHandle = audio.current.audio.current;
-            audioHandle = null;
-            setURL(null);
             dispatch(clearQueue());
             dispatch(clearSong());
         }

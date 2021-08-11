@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { setToast, setModalEditedSong, setModalState } from '../redux/actions';
+import { setToast, setModalEditedSong, setModalState, setForceUpdate } from '../redux/actions';
 
 import globalVars from '../global';
 
@@ -28,6 +28,7 @@ function ModalAddSong(){
         .then(data => {
             if(data.Error)dispatch(setToast({msg : data.Error, type:"error"}));
             else{
+                dispatch(setForceUpdate(true));
                 fetch(globalVars.server + "/songs/" + data.id)
                 .then(response => response.json())
                 .then(data => {
