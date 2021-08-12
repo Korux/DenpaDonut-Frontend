@@ -22,7 +22,8 @@ function DropZone(){
             //handle error
         }else{
             let data = new FormData();
-            data.append('pic', file);
+            data.append('file', file);
+            data.append('id',modalEditedSong._id);
             let reqOpts = {
                 method : 'PATCH',
                 body : data
