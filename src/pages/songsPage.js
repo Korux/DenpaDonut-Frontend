@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import styled from 'styled-components';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {setForceUpdate, setToast} from '../redux/actions';
+import {setToast} from '../redux/actions';
 
 import SongItem from '../components/songItem';
 import globalVars from '../global';
@@ -44,7 +44,7 @@ function SongsPage(){
             console.log(err);
             dispatch(setToast({type : "error", msg : "Error fetching song data. Please try again."}));
         });
-    },[search, dispatch]);
+    },[search]);
 
     //componentdidmount, cancel async tasks on unmount
     useEffect(() => {
@@ -55,7 +55,7 @@ function SongsPage(){
     //update songs
     useEffect(() => {
         fetchSongs();
-    },[fetchSongs, search, update]);
+    },[search, update]);
 
     return(
         <SongsContainer>

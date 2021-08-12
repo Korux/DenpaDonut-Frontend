@@ -25,13 +25,14 @@ function SearchFilter(){
         else history.replace('/songs?search=' + query.trim());
     }
 
+    // update search when query changes and on song page
     useEffect(() => {
         if(location.pathname === '/songs'){
             // check if string empty or white spaces
             if(query === null || query.match(/^ *$/) !== null) history.replace('/songs');
             else history.replace('/songs?search=' + query.trim());
         }
-    },[query]);// eslint-disable-line react-hooks/exhaustive-deps
+    },[query]);
 
     return(
         <SearchContainer onSubmit={handleSubmit}>

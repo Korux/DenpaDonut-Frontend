@@ -14,7 +14,7 @@ function QueuePage(){
     var queue = useSelector(getQueue);
     const [queueItems, setQueueItems] = React.useState(null);
 
-    // load queue, componentdidmount
+    // update queue on change
     useEffect(() => {
         if(queue.noqueue){
             setQueueItems([]);

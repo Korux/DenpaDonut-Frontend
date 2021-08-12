@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from 'react';
+import React, { useEffect, createRef, Fragment } from 'react';
 
 import Player from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
@@ -15,6 +15,7 @@ function AudioPlayer(){
     const dispatch = useDispatch();
 
     var id = useSelector(getSong).mp3;
+    var noQueue = useSelector(getQueue).noqueue;
     var queue = useSelector(getQueue).queue;
     var queueIdx = useSelector(getQueue).idx;
     var audioPlaying = useSelector(getSong).playing;
@@ -52,6 +53,7 @@ function AudioPlayer(){
         dispatch(setSongPlaying(false));
     }
 
+    // load new song on id change
     useEffect(() => {
         if(id !== null && queueIdx >= 0){
             let url = globalVars.server + "/mp3/" + id;
@@ -86,34 +88,51 @@ function AudioPlayer(){
                 dispatch(setToast({type : "error", msg : "Error loading audio. Please try again."}));
             });
         }
-    },[id, queueIdx, dispatch]);
+    },[id]);
 
+    // set new song when queue index changes
     useEffect(() => {
         if(queue && queueIdx !== -1){
             dispatch(setSong(queue[queueIdx]));
         }
-    }, [queueIdx, queue, dispatch]);
+    }, [queueIdx]);
 
+    // pause or play song from other components
     useEffect(() => {
-        let audioHandle = audio.current.audio.current;
-        if(audioPlaying && audioHandle.paused)audioHandle.play();
-        if(!audioPlaying && !audioHandle.paused) audioHandle.pause();
-    },[audioPlaying, audio]);
+        if(audio.current !== null){
+            let audioHandle = audio.current.audio.current;
+            if(audioPlaying && audioHandle.paused)audioHandle.play();
+            if(!audioPlaying && !audioHandle.paused) audioHandle.pause();
+        }
+    },[audioPlaying]);
 
     return(
-        <Player
-            src={url}
-            ref={audio}
-            showFilledVolume
-            showSkipControls
-            showJumpControls={false}
-            onCanPlayThrough={() => dispatch(setShuffleState("ready"))}
-            onClickNext={nextSong}
-            onClickPrevious={previousSong}
-            onEnded={nextSong}
-            onPlay={audioOnPlay}
-            onPause={audioOnPause}
-        />
+        <Fragment>
+            {
+            noQueue &&
+                <Player
+                    src={null}
+                    showFilledVolume
+                    showSkipControls
+                    showJumpControls={false}
+                />
+        }
+            {!noQueue &&
+                <Player
+                    src={url}
+                    ref={audio}
+                    showFilledVolume
+                    showSkipControls
+                    showJumpControls={false}
+                    onCanPlayThrough={() => dispatch(setShuffleState("ready"))}
+                    onClickNext={nextSong}
+                    onClickPrevious={previousSong}
+                    onEnded={nextSong}
+                    onPlay={audioOnPlay}
+                    onPause={audioOnPause}
+                />
+            }
+        </Fragment>
     );
 
 }
