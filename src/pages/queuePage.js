@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getQueue } from '../redux/selectors';
 
+import ShuffleButton from '../components/shuffleButton';
+
+
 import QueueItem from '../components/queueItem';
 
 const QueueContainer = styled.div`
@@ -31,7 +34,14 @@ function QueuePage(){
     return(
         <QueueContainer>
             {queueItems === null && 'loading'}
-            {queueItems !== null && queueItems.length === 0 && 'empty'}
+
+            {queueItems !== null && queueItems.length === 0 &&
+                <div>
+                    'empty'
+                    <ShuffleButton/>
+                </div>
+            }
+
             {queueItems !== null && queueItems.length > 0 && queueItems}
         </QueueContainer>
     );

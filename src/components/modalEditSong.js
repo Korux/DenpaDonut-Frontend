@@ -6,9 +6,9 @@ import { getModal } from '../redux/selectors';
 
 import {setForceUpdate, setToast} from '../redux/actions';
 
+import DropZone from './dropZone';
 
 import globalVars from '../global';
-
 
 const ModalErrorContainer = styled.div`
 
@@ -119,6 +119,7 @@ function ModalEditSong(){
     }else{
         return(
             <ModalContainer>
+                <DropZone/>
                 <TitleEditable value={song.title} tmp={tmpSong.title} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, title : e})}/>
                 <ArtistEditable value={song.artist} tmp={tmpSong.artist}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, artist : e})}/>
                 <AlbumEditable value = {song.album} tmp={tmpSong.album}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, album : e})}/>

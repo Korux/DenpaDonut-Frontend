@@ -144,7 +144,7 @@ function modalReducer(state=baseModal, action){
     }
 }
 
-function updateReducer(state={update:false}, action){
+function updateReducer(state={update:true}, action){
     switch(action.type){
         case SET_FORCE_UPDATE:
             return{
