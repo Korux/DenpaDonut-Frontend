@@ -47,6 +47,7 @@ function ModalAddSong(){
         })
         .catch(err => {
             // do something with error from POST
+            console.log(err);
             dispatch(setToast({msg : "Unknown error adding song. Please try again.", type:"error"}));
         });
     }

@@ -19,7 +19,7 @@ function DropZone(){
         let file = acceptedFiles[0];
         if(file['type'].split('/')[0] !== 'image'){
             // file is not image
-            //handle error
+            dispatch(setToast({msg : "This file is not an image.", type:"error"}));
         }else{
             let data = new FormData();
             data.append('file', file);
