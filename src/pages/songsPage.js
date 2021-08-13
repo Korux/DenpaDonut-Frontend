@@ -54,10 +54,7 @@ function SongsPage(){
 
     //update songs
     useEffect(() => {
-        if(update.update === true){
-            fetchSongs();
-            return () => {dispatch(setForceUpdate(false))};
-        }
+        fetchSongs();
     },[search, update]);
 
     return(
