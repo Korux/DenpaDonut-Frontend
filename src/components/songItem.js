@@ -13,15 +13,24 @@ import globalVars from '../global';
 
 
 const SongContainer = styled.div`
-    width : 20%;
-    margin : 20px;
+    width : 18%;
+    min-width : 225px;
+    height : auto;
+    margin : 2%;
     position : relative;
-    background-color:blue;
+    background-color:${({ theme }) => theme.songContainerBackground};
+
 `;
 
 const SongImage = styled.img`
-    width : 100%;
-    height : 100%;
+    width : 95%;
+    height : auto;
+    position : absolute;
+    top : 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color : ${({ theme }) => theme.songImageBackground};
 `;
 
 const QueueIcon = styled(FontAwesomeIcon)`
@@ -90,20 +99,17 @@ const SongHoverDim = styled.div`
     position : absolute;
     top : 0;
     left : 0;
-    background-color:rgba(0,0,0,0.2);
-    transition : opacity 0.2s ease-in-out;
+    background-color:rgba(0,0,0,0.35);
+    transition : opacity 0.3s ease-in-out;
     pointer-events:none;
 `;
 
 const ImageContainer = styled.div`
     width : 100%;
+    height : 0;
     position : relative;
-    height : auto;
-    &:before{
-        content : "";
-        float : left;
-        padding-top : 100%;
-    }
+    padding-top : 100%;
+
 
     ${EditIcon}{
         display : none;
@@ -156,12 +162,14 @@ const ImageContainer = styled.div`
 
 const InfoContainer = styled.div`
     width : 100%;
+    height : auto;
+    overflow : hidden;
     position : relative;
     background-color : ${({ theme }) => theme.songInfoBackground};
     &:before{
         content : "";
         float : left;
-        padding-top : 100%;
+        padding-top : 40%;
     }
 `;
 

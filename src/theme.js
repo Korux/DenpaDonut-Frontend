@@ -1,5 +1,5 @@
 export const theme = {
-    primaryDark: 'rgb(40,40,40)',
+    primaryDark: 'rgb(20,20,20)',
     primaryLight: 'rgb(239, 255, 250)',
     primaryHover: 'rgb(65, 60, 140)',
     secondaryDark : 'rgb(20,20,20)',
@@ -12,5 +12,7 @@ export const theme = {
     modalColor : 'rgb(50,50,50)',
 
     // song item colors
-    songInfoBackground : 'rgb(100,10,10)',
+    songInfoBackground : 'rgba(0,0,0,0)',
+    songContainerBackground : 'rgb(60,60,60)',
+    songImageBackground : 'rgb(220,220,220)'
   }
