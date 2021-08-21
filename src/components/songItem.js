@@ -1,46 +1,93 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faStream, faEdit, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setModalState, setModalEditedSong, setModalShow, setQueue, setQueueIdx, setSongPlaying } from '../redux/actions';
+import { setModalState, setModalEditedSong, setModalShow, setQueue, setQueueIdx, setSongPlaying, setToast } from '../redux/actions';
 import { getQueue, getSong } from '../redux/selectors';
 
 
 import globalVars from '../global';
 
 
+const SongHoverDim = styled.div`
+    width : 100%;
+    height : 100%;
+    border-radius : 10px;
+    position : absolute;
+    top : 0;
+    left : 0;
+    background-color:rgba(200,200,200,0.05);
+    transition : opacity 0.2s ease-in-out;
+    pointer-events:none;
+`;
+
+const ImageHoverDim = styled.div`
+    width : 100%;
+    height : 35%;
+    position : absolute;
+    bottom : 0;
+    left : 0;
+    background-image : linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0));
+    transition : opacity 0.2s ease-in-out;
+    pointer-events:none;
+`;
 
 const SongContainer = styled.div`
-    width : 18%;
+    width : 20%;
     min-width : 225px;
+    max-width : 250px;
+    border-radius : 10px;
     height : auto;
     margin : 2%;
     position : relative;
     background-color:${({ theme }) => theme.songContainerBackground};
+    
+    ${SongHoverDim}{
+        opacity : 0;
+    }
+
+    &:hover ${SongHoverDim}{
+        opacity : 1;
+    }
 
 `;
 
-const SongImage = styled.img`
-    width : 95%;
+const ImageSubContainer = styled.div`
+    width : 85%;
     height : auto;
     position : absolute;
     top : 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
+    font-size : 0.5rem;
+
     background-color : ${({ theme }) => theme.songImageBackground};
+
+    ${ImageHoverDim}{
+        opacity : 0;
+    }
+
+    &:hover ${ImageHoverDim}{
+        opacity : 1;
+    }
+`;
+
+const SongImage = styled.img`
+    width : 100%;
+    height : 100%;
 `;
 
 const QueueIcon = styled(FontAwesomeIcon)`
     position : absolute;
-    bottom : 0px;
-    right : 0px;
-    background-color:black;
+    bottom : 10px;
+    right : 5%;
     &:hover{
         cursor : pointer;
     }
+    transition : all 0.2s ease-in-out;
 `;
 
 const QueueNextIcon = styled(FontAwesomeIcon)`
@@ -50,7 +97,7 @@ const QueueNextIcon = styled(FontAwesomeIcon)`
     left : 0;
     right : 0;
     margin : auto;
-    background-color:black;
+    background-color:rgba(0,0,0,0);
     &:hover{
         cursor : pointer;
     }
@@ -58,13 +105,12 @@ const QueueNextIcon = styled(FontAwesomeIcon)`
 
 const EditIcon = styled(FontAwesomeIcon)`
     position : absolute;
-    bottom : 0px;
-    left : 0px;
-    background-color:black;
-
+    bottom : 10px;
+    right : 20%;
     &:hover{
         cursor : pointer;
     }
+    transition : all 0.2s ease-in-out;
 `;
 
 const PlayIcon = styled(FontAwesomeIcon)`
@@ -74,7 +120,7 @@ const PlayIcon = styled(FontAwesomeIcon)`
     left : 0;
     right : 0;
     margin : auto;
-    background-color:red;
+    background-color:rgba(0,0,0,0);
     &:hover{
         cursor : pointer;
     }
@@ -87,22 +133,31 @@ const PauseIcon = styled(FontAwesomeIcon)`
     left : 0;
     right : 0;
     margin : auto;
-    background-color:blue;
+    background-color:rgba(0,0,0,0);
     &:hover{
         cursor : pointer;
     }
 `;
 
-const SongHoverDim = styled.div`
-    width : 100%;
-    height : 100%;
+const CenterButtonContainer = styled.div`
+    width : 30%;
+    height : 30%;
+    border-radius : 50%;
     position : absolute;
     top : 0;
+    bottom : 0;
     left : 0;
-    background-color:rgba(0,0,0,0.35);
-    transition : opacity 0.3s ease-in-out;
-    pointer-events:none;
+    right : 0;
+    margin : auto;
+    background-color : ${({ theme }) => theme.songPlayPauseColor};
+    &:hover{
+        cursor : pointer;
+    }
+    transition : opacity 0.2s ease-in-out;
 `;
+
+const CurrentCenterButtonContainer = styled(CenterButtonContainer)``;
+
 
 const ImageContainer = styled.div`
     width : 100%;
@@ -112,52 +167,37 @@ const ImageContainer = styled.div`
 
 
     ${EditIcon}{
-        display : none;
+        opacity : 0;
+        bottom : 5px;
     }
 
     ${QueueIcon}{
-        display : none;
+        opacity : 0;
+        bottom : 5px;
     }
 
-    ${QueueNextIcon}{
-        display : none;
-    }
-
-    ${PlayIcon}{
-        display : none;
-    }
-
-    ${PauseIcon}{
-        display : none;
-    }
-
-    ${SongHoverDim}{
+    ${CenterButtonContainer}{
         opacity : 0;
     }
 
+    ${CurrentCenterButtonContainer}{
+        opacity : 1;
+    }
+
     &:hover ${EditIcon}{
-        display : inline-block;
+        opacity : 1;
+        bottom : 10px;
     }
 
     &:hover ${QueueIcon}{
-        display : inline-block;
+        opacity : 1;
+        bottom : 10px;
     }
 
-    &:hover ${QueueNextIcon}{
-        display : inline-block;
-    }
-
-    &:hover ${PlayIcon}{
-        display : inline-block;
-    }
-
-    &:hover ${PauseIcon}{
-        display : inline-block;
-    }
-
-    &:hover ${SongHoverDim}{
+    &:hover ${CenterButtonContainer}{
         opacity : 1;
     }
+
 `;
 
 const InfoContainer = styled.div`
@@ -176,12 +216,17 @@ const InfoContainer = styled.div`
 const InfoMainText = styled.div`
     width : 100%;
     text-align : left;
-
+    text-overflow: ellipsis;
+    overflow:hidden; 
+    white-space:nowrap; 
 `;
 
 const InfoSubText = styled.div`
     width : 100%;
     text-align : left;
+    text-overflow: ellipsis;
+    overflow:hidden; 
+    white-space:nowrap; 
 `;
 
 function SongItem({data}){
@@ -219,28 +264,40 @@ function SongItem({data}){
         let newQueue = noQueue ? [] : queue.slice();
         newQueue.push(data);
         dispatch(setQueue(newQueue));
+        dispatch(setToast({type:"success",msg:"Added to Queue"}));
         if(queueIdx === -1) dispatch(setQueueIdx(0));
     };
 
     return(
         <SongContainer>
+            <SongHoverDim/>
             <ImageContainer>
-                <SongImage src={globalVars.server + "/pic/" + data.picid}/>
-                <SongHoverDim/>
-                <QueueIcon size={"lg"}icon={faSearch} onClick={queueClick}/>
-                {
-                    data.songid !== currSongId &&
-                    <QueueNextIcon size={"lg"}icon={faSearch} onClick={queueNextClick}/>
-                }
-                <EditIcon size={"lg"}icon={faSearch} onClick={editClick}/>
-                {
-                    data.songid === currSongId && !currSongPlaying &&
-                    <PlayIcon size={"lg"}icon={faSearch} onClick={playClick}/>
-                }
-                {
-                    data.songid === currSongId && currSongPlaying &&
-                    <PauseIcon size={"lg"}icon={faSearch} onClick={pauseClick}/>
-                }
+                <ImageSubContainer>
+                    <ImageHoverDim/>
+                    <SongImage src={globalVars.server + "/pic/" + data.picid}/>
+                    {
+                        data.songid === currSongId && !currSongPlaying &&
+                        <CenterButtonContainer onClick={playClick}>
+                            <PlayIcon size={"3x"}icon={faPlay}/>
+                        </CenterButtonContainer>
+
+                    }
+                    {
+                        data.songid === currSongId && currSongPlaying &&
+                        <CurrentCenterButtonContainer onClick={pauseClick}>
+                        <PauseIcon size={"3x"}icon={faPause}/>
+                        </CurrentCenterButtonContainer>
+                    }
+                    {
+                        data.songid !== currSongId &&
+                        <CenterButtonContainer onClick={queueNextClick}>
+                        <QueueNextIcon size={"3x"}icon={faPlay}/>
+                        </CenterButtonContainer>
+                    }
+
+                    <QueueIcon size={"2x"}icon={faStream} onClick={queueClick} title="Add to Queue"/>
+                    <EditIcon size={"2x"}icon={faEdit} onClick={editClick}  title="Edit Song"/>
+                </ImageSubContainer>
 
             </ImageContainer>
             <InfoContainer>

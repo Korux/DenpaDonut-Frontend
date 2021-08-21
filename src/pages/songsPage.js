@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import styled from 'styled-components';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {setToast, setForceUpdate} from '../redux/actions';
+import {setToast} from '../redux/actions';
 
 import SongItem from '../components/songItem';
 import globalVars from '../global';
