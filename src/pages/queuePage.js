@@ -8,8 +8,19 @@ import ShuffleButton from '../components/shuffleButton';
 
 
 import QueueItem from '../components/queueItem';
+import QueueHeader from '../components/queueHeader';
 
 const QueueContainer = styled.div`
+    display : flex;
+    flex-flow: column wrap;
+    justify-content : center;
+    align-items : center;
+`;
+
+const LineBreak = styled.span`
+    width : 100%;
+    height : 2px;
+    background-color:white;
 `;
 
 function QueuePage(){
@@ -33,6 +44,8 @@ function QueuePage(){
 
     return(
         <QueueContainer>
+            <QueueHeader/>
+            <LineBreak/>
             {queueItems === null && 'loading'}
 
             {queueItems !== null && queueItems.length === 0 &&

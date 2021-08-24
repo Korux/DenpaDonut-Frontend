@@ -54,27 +54,6 @@ const SongContainer = styled.div`
 
 `;
 
-const ImageSubContainer = styled.div`
-    width : 85%;
-    height : auto;
-    position : absolute;
-    top : 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    font-size : 0.5rem;
-
-    background-color : ${({ theme }) => theme.songImageBackground};
-
-    ${ImageHoverDim}{
-        opacity : 0;
-    }
-
-    &:hover ${ImageHoverDim}{
-        opacity : 1;
-    }
-`;
-
 const SongImage = styled.img`
     width : 100%;
     height : 100%;
@@ -164,8 +143,27 @@ const ImageContainer = styled.div`
     height : 0;
     position : relative;
     padding-top : 100%;
+`;
 
+const ImageSubContainer = styled.div`
+    width : 85%;
+    height : auto;
+    position : absolute;
+    top : 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
+    font-size : 0.5rem;
+
+    background-color : ${({ theme }) => theme.songImageBackground};
+
+    ${ImageHoverDim}{
+        opacity : 0;
+    }
+
+    &:hover ${ImageHoverDim}{
+        opacity : 1;
+    }
     ${EditIcon}{
         opacity : 0;
         bottom : 5px;
@@ -197,7 +195,6 @@ const ImageContainer = styled.div`
     &:hover ${CenterButtonContainer}{
         opacity : 1;
     }
-
 `;
 
 const InfoContainer = styled.div`

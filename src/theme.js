@@ -6,9 +6,13 @@ export const theme = {
     //modal colors
     modalColor : 'rgb(50,50,50)',
 
-    // song item colors
+    // song page colors
     songInfoBackground : 'rgba(0,0,0,0)',
     songContainerBackground : 'rgb(40,40,40)',
     songImageBackground : 'rgb(220,220,220)',
-    songPlayPauseColor : '#FFB8BF'
+    songPlayPauseColor : '#FFB8BF', //#D8368D
+
+    // queue page colors
+    queueItemBackground : 'rgb(60,60,60)',
+    queueImageBackground : 'rgb(220,220,220)',
   }
