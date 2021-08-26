@@ -5,6 +5,57 @@ import { setToast, setModalEditedSong, setModalState, setForceUpdate } from '../
 
 import globalVars from '../global';
 
+const ModalContainer = styled.div`
+    width : 35vw;
+    min-width : 250px;
+    max-width : 450px;
+    padding : 30px 15px;
+    display : flex;
+    flex-flow : column wrap;
+    justify-content : center;
+    align-items : center;
+`;
+
+const ModalForm = styled.form`
+    width : 90%;
+`;
+
+const ModalInput = styled.input`
+    width : 100%;
+    background-color:${({ theme }) => theme.modalColor};
+    border : 0;
+    border-bottom : 1px solid black;
+    margin : 15px 0;
+    color : ${({ theme }) => theme.modalTextColorDark};
+
+    transition : border 0.3s ease-in-out;
+
+    &:focus {
+        outline : none;
+        color : ${({ theme }) => theme.modalTextColor};
+        border-bottom : 1px solid rgb(200,200,200);
+        ::placeholder,
+        ::-webkit-input-placeholder {
+          color : ${({ theme }) => theme.modalTextColor};
+        }
+        :-ms-input-placeholder {
+           color : ${({ theme }) => theme.modalTextColor};
+        }
+    }
+`;
+
+const ModalAddButton = styled.button`
+    color : ${({ theme }) => theme.modalTextColor};
+    background-color : ${({ theme }) => theme.modalButtonColor};
+    border : none;
+    padding : 5px 15px;
+    border-radius : 5px;
+`;
+
+const ModalMessage = styled.div`
+    width : 100%;
+`;
+
 function ModalAddSong(){
 
     const [url, setURL] = React.useState("");
@@ -53,10 +104,13 @@ function ModalAddSong(){
     }
 
     return(
-        <form onSubmit={postSong}>
-        <input value={url} onChange={(e) => setURL(e.target.value)}/>
-        <button>add song</button>
-      </form>
+        <ModalContainer>
+            <ModalMessage>Input Youtube or Spotify link to add the song.</ModalMessage>
+            <ModalForm onSubmit={postSong}>
+                <ModalInput value={url} onChange={(e) => setURL(e.target.value)} placeholder="Song Link"/>
+                <ModalAddButton>Add Song</ModalAddButton>
+            </ModalForm>
+        </ModalContainer>
     );
 
 }

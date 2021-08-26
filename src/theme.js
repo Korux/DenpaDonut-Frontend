@@ -5,6 +5,10 @@ export const theme = {
 
     //modal colors
     modalColor : 'rgb(50,50,50)',
+    modalTextColor : 'rgb(200,200,200)',
+    modalTextColorDark : 'rgb(120,120,120)',
+    modalButtonColor : '#D8368D',
+    modalEditImageButtonColor : '#FFB8BF',
 
     // song item colors
     songInfoBackground : 'rgba(0,0,0,0)',

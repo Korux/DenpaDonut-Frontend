@@ -15,14 +15,15 @@ import ModalError  from './modalError';
 const ModalContainer = styled.div`
     opacity :  ${({show}) => show ? '1' : '0'};
     pointer-events :  ${({show}) => show ? 'auto' : 'none'};
-    width : 200px;
-    height : 500px;
+    width : auto;
+    height : auto;
     background-color : ${({ theme }) => theme.modalColor};
     z-index : 999;
     position : fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius : 15px;
 `;
 
 const ModalDim = styled.a`

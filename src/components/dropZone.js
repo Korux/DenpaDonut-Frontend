@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, Fragment} from 'react';
 import styled from 'styled-components';
 
 import {useDropzone} from 'react-dropzone'
@@ -9,7 +9,34 @@ import {setToast, setForceUpdate} from '../redux/actions';
 import {getModal} from '../redux/selectors';
 
 
-function DropZone(){
+const DropZoneContainer = styled.div`
+    opacity :  ${({show}) => show ? '1' : '0'};
+    pointer-events :  ${({show}) => show ? 'auto' : 'none'};
+    width : auto;
+    height : auto;
+    background-color : ${({ theme }) => theme.modalColor};
+    z-index : 1000;
+    position : fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius : 15px;
+`;
+
+const DropZoneDim = styled.a`
+    display: inline-block;
+    opacity :  ${({show}) => show ? '0.5' : '0'};
+    pointer-events :  ${({show}) => show ? 'auto' : 'none'};
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 999;
+    top: 0;
+    left: 0;
+`;
+
+function DropZone({show}){
 
     const dispatch = useDispatch();
     var modalEditedSong = useSelector(getModal).song;
@@ -48,14 +75,17 @@ function DropZone(){
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
     return (
-        <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {
-                isDragActive ?
-                <p>Drop the files here ...</p> :
-                <p>Drag 'n' drop some files here, or click to select files</p>
-            }
-        </div>
+        <Fragment>
+            <DropZoneDim/>
+            <DropZoneContainer {...getRootProps()}>
+                <input {...getInputProps()} />
+                {
+                    isDragActive ?
+                    <p>Drop the files here ...</p> :
+                    <p>Drag 'n' drop some files here, or click to select files</p>
+                }
+            </DropZoneContainer>
+        </Fragment>
     )
 }
 
