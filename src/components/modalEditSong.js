@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,15 +6,52 @@ import { getModal } from '../redux/selectors';
 
 import {setForceUpdate, setToast} from '../redux/actions';
 
-import DropZone from './dropZone';
-
 import globalVars from '../global';
 
-const ModalErrorContainer = styled.div`
-
-`;
+import DropZone from './dropZone';
 
 const ModalContainer = styled.div`
+    display : flex;
+    flex-flow : row wrap;
+    min-width : 500px;
+`;
+
+const ImageContainer = styled.div`
+    width : 31%;
+    height : auto;
+    margin : 2%;
+    position : relative;
+    background-color:black;
+`;
+
+const InfoContainer = styled.div`
+    width : 65%;
+`;
+
+const ButtonContainer = styled.div`
+    width : 100%;
+`;
+
+const ImageEditable = styled.img`
+    width : 100%;
+    height : auto;
+`;
+
+const ImageEditButton = styled.div`
+    width : 30%;
+    height : 30%;
+    border-radius : 50%;
+    position : absolute;
+    top : 0;
+    bottom : 0;
+    left : 0;
+    right : 0;
+    margin : auto;
+    background-color : ${({ theme }) => theme.songPlayPauseColor};
+    &:hover{
+        cursor : pointer;
+    }
+    transition : opacity 0.2s ease-in-out;
 `;
 
 const EditButton = styled.button`
@@ -65,6 +102,7 @@ function ModalEditSong(){
     const [song, setSong] = React.useState(useSelector(getModal).song);
     const [tmpSong, setTmpSong] = React.useState(useSelector(getModal).song);
     const [mode, setMode] = React.useState("text");
+    const [showDZ , setShowDZ] = React.useState(false);
 
     const dispatch = useDispatch();
 
@@ -111,28 +149,39 @@ function ModalEditSong(){
     };
 
     if(song === null) {
-        return(
-            <ModalErrorContainer>
-                No song to edit
-            </ModalErrorContainer>
-        );
+        return null;
     }else{
         return(
-            <ModalContainer>
-                <DropZone/>
-                <TitleEditable value={song.title} tmp={tmpSong.title} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, title : e})}/>
-                <ArtistEditable value={song.artist} tmp={tmpSong.artist}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, artist : e})}/>
-                <AlbumEditable value = {song.album} tmp={tmpSong.album}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, album : e})}/>
-                <EditButton mode={mode} onClick={() => setMode("edit")}>
-                    Edit
-                </EditButton>
-                <SaveButton mode={mode} onClick={saveEdit}>
-                    Save
-                </SaveButton>
-                <CancelButton mode={mode} onClick={cancelEdit}>
-                    Cancel
-                </CancelButton>
-            </ModalContainer>
+            <Fragment>
+                <DropZone show={showDZ}/>
+                <ModalContainer>
+                    <ImageContainer>
+                        <ImageEditButton>
+                            
+                        </ImageEditButton>
+                        <ImageEditable src={globalVars.server + '/pic/' + song.picid}/>
+                    </ImageContainer>
+
+                    <InfoContainer>
+                        <TitleEditable value={song.title} tmp={tmpSong.title} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, title : e})}/>
+                        <ArtistEditable value={song.artist} tmp={tmpSong.artist}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, artist : e})}/>
+                        <AlbumEditable value = {song.album} tmp={tmpSong.album}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, album : e})}/>
+                    </InfoContainer>
+
+                    <ButtonContainer>
+                        <EditButton mode={mode} onClick={() => setMode("edit")}>
+                            Edit
+                        </EditButton>
+                        <SaveButton mode={mode} onClick={saveEdit}>
+                            Save
+                        </SaveButton>
+                        <CancelButton mode={mode} onClick={cancelEdit}>
+                            Cancel
+                        </CancelButton>
+                    </ButtonContainer>
+
+                </ModalContainer>
+            </Fragment>
         );
     }
 }
