@@ -8,9 +8,6 @@ import { setModalShow, setModalState } from '../redux/actions';
 
 import ModalAddSong from './modalAddSong';
 import ModalEditSong from './modalEditSong';
-import ModalError  from './modalError';
-
-
 
 const ModalContainer = styled.div`
     opacity :  ${({show}) => show ? '1' : '0'};
@@ -55,7 +52,6 @@ function SongModal(){
             <ModalContainer show={modal.show}>
                 {modal.type === "add" && <ModalAddSong/>}
                 {modal.type === "edit" && <ModalEditSong/>}
-                {modal.type === "none" && <ModalError/>}
             </ModalContainer>
         </Fragment>
     );

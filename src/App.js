@@ -1,5 +1,6 @@
 
 import React from 'react';
+import styled from 'styled-components';
 
 import { GlobalStyles } from './global';
 import { ThemeProvider } from 'styled-components';
@@ -20,6 +21,11 @@ import {SuccessToast, ErrorToast, RegularToast } from './components/toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearToast } from './redux/actions';
 import { getToast } from './redux/selectors';
+
+const BlankFooter = styled.div`
+  width : 100%;
+  height : 20vh;
+`;
 
 function App() {
 
@@ -63,7 +69,7 @@ function App() {
 
 
     </Switch>
-
+    <BlankFooter/>
     <BottomBar/>
 
 </ThemeProvider>

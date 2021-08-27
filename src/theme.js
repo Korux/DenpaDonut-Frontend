@@ -8,7 +8,6 @@ export const theme = {
     modalTextColor : 'rgb(200,200,200)',
     modalTextColorDark : 'rgb(120,120,120)',
     modalButtonColor : '#D8368D',
-    modalEditImageButtonColor : '#FFB8BF',
 
     // song page colors
     songInfoBackground : 'rgba(0,0,0,0)',

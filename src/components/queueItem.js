@@ -22,12 +22,18 @@ const QueueImage = styled.img`
     background-color:${({ theme }) => theme.queueImageBackground};
 `;
 
+const QueueDuration = styled.span`
+    position : absolute;
+    right : 10px;
+`;
+
 function QueueItem({data}){
     console.log(data);
     return(
         <QueueItemContainer>
             <QueueImage src={globalVars.server + '/pic/' + data.picid}/>
             {data.title}
+            <QueueDuration>{Math.floor(data.duration / 60)}:{data.duration%60 < 10 ? '0' : ''}{Math.floor(data.duration%60)}</QueueDuration>
         </QueueItemContainer>
     );
 }
