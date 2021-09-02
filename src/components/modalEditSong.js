@@ -165,7 +165,7 @@ function ModalEditSong(){
         let data = {
             album : tmpSong.album,
             artist : tmpSong.artist,
-            artists : tmpSong.artists,
+            tags : tmpSong.tags,
             title : tmpSong.title,
             year : tmpSong.year
         };

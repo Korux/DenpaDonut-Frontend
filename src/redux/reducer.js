@@ -19,7 +19,7 @@ import {
 const baseSong = {
     album : null,
     artist : null,
-    artists : null,
+    tags : null,
     title : null,
     year : null,
     pic : null,
@@ -35,7 +35,7 @@ function songReducer(state=baseSong, action){
             return{
                 album : action.song.album,
                 artist : action.song.artist,
-                artists : action.song.artists,
+                tags : action.song.tags,
                 title : action.song.title,
                 year : action.song.year,
                 pic : action.song.picid,
