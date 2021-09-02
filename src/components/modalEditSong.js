@@ -124,7 +124,6 @@ function ModalEditSong(){
     }, []);
 
     const handleFiles = (e) => {
-        console.log(e.target.files);
         let file = e.target.files[0];
         if(file['type'].split('/')[0] !== 'image'){
             // file is not image
@@ -144,6 +143,7 @@ function ModalEditSong(){
                 if(data.Error)dispatch(setToast({msg : data.Error, type:"error"}));
                 else{
                     setSong({...song, picid : data.picid});
+                    setTmpSong({...tmpSong, picid : data.picid});
                     dispatch(setForceUpdate(true));
                     dispatch(setToast({msg : "Successfully updated image.", type:"success"}));
                 }
