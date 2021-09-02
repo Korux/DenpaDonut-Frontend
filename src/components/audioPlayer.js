@@ -1,4 +1,5 @@
 import React, { useEffect, createRef, Fragment } from 'react';
+import styled from 'styled-components';
 
 import Player from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
@@ -8,6 +9,23 @@ import { getSong, getQueue } from '../redux/selectors';
 import { setQueueIdx, setShuffleState, setSong, setToast, setSongPlaying, clearQueue, clearSong } from "../redux/actions";
 
 import globalVars from '../global';
+
+const PlayerContainer = styled.div`
+    width : 60%;
+    float : left;
+    height : 100px;
+    display : flex;
+    align-items:center;
+`;
+
+const StyledPlayer = styled(Player)`
+    background-color:${({theme}) => theme.bottomBarBackground};
+
+    // time text
+    > * > .rhap_progress-section > *{
+        color : rgb(230,230,230);
+    }
+`;
 
 function AudioPlayer(){
 
@@ -108,30 +126,33 @@ function AudioPlayer(){
 
     return(
         <Fragment>
+            <PlayerContainer>
+
             {
             noQueue &&
-                <Player
+                <StyledPlayer
                     src={null}
                     showFilledVolume
                     showSkipControls
                     showJumpControls={false}
                 />
-        }
-            {!noQueue &&
-                <Player
-                    src={url}
-                    ref={audio}
-                    showFilledVolume
-                    showSkipControls
-                    showJumpControls={false}
-                    onCanPlayThrough={() => dispatch(setShuffleState("ready"))}
-                    onClickNext={nextSong}
-                    onClickPrevious={previousSong}
-                    onEnded={nextSong}
-                    onPlay={audioOnPlay}
-                    onPause={audioOnPause}
-                />
             }
+                {!noQueue &&
+                    <StyledPlayer
+                        src={url}
+                        ref={audio}
+                        showFilledVolume
+                        showSkipControls
+                        showJumpControls={false}
+                        onCanPlayThrough={() => dispatch(setShuffleState("ready"))}
+                        onClickNext={nextSong}
+                        onClickPrevious={previousSong}
+                        onEnded={nextSong}
+                        onPlay={audioOnPlay}
+                        onPause={audioOnPause}
+                    />
+                }
+            </PlayerContainer>
         </Fragment>
     );
 

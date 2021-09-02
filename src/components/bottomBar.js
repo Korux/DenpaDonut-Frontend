@@ -1,28 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { useSelector } from 'react-redux';
-import { getSong } from '../redux/selectors';
-
 import AudioPlayer from './audioPlayer';
+import BottomSongInfo from './bottomSongInfo';
 
 const BottomBarContainer = styled.div`
     width : 100%;
-    height : 20%;
+    height : 100px;
     position : fixed;
     bottom : 0;
     right : 0;
-    background-color:black;
+    background-color:${({theme}) => theme.bottomBarBackground};
+    border-top : 1px solid rgb(80,80,80);
 `;
-
 
 function BottomBar(){
 
-    var currSong = useSelector(getSong);
-
     return(
         <BottomBarContainer>
-            {currSong.title}
+            <BottomSongInfo/>
             <AudioPlayer/>
         </BottomBarContainer>
 

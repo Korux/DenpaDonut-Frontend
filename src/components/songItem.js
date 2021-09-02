@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStream, faEdit, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setModalState, setModalEditedSong, setModalShow, setQueue, setQueueIdx, setSongPlaying, setToast } from '../redux/actions';
 import { getQueue, getSong } from '../redux/selectors';
+
+import {RiPlayListFill} from 'react-icons/ri';
 
 
 import globalVars from '../global';
@@ -59,7 +61,7 @@ const SongImage = styled.img`
     height : 100%;
 `;
 
-const QueueIcon = styled(FontAwesomeIcon)`
+const QueueIcon = styled(RiPlayListFill)`
     position : absolute;
     bottom : 10px;
     right : 5%;
@@ -67,6 +69,7 @@ const QueueIcon = styled(FontAwesomeIcon)`
         cursor : pointer;
     }
     transition : all 0.2s ease-in-out;
+    
 `;
 
 const QueueNextIcon = styled(FontAwesomeIcon)`
@@ -189,7 +192,7 @@ const ImageSubContainer = styled.div`
 
     &:hover ${QueueIcon}{
         opacity : 1;
-        bottom : 10px;
+        bottom : 9px;
     }
 
     &:hover ${CenterButtonContainer}{
@@ -211,11 +214,14 @@ const InfoContainer = styled.div`
 `;
 
 const InfoMainText = styled.div`
-    width : 100%;
+    width : 95%;
     text-align : left;
     text-overflow: ellipsis;
     overflow:hidden; 
     white-space:nowrap; 
+    margin : 0px 0 5px 5px;
+    font-size : 1.15rem;
+    color : rgb(240,240,240);
 `;
 
 const InfoSubText = styled.div`
@@ -224,6 +230,9 @@ const InfoSubText = styled.div`
     text-overflow: ellipsis;
     overflow:hidden; 
     white-space:nowrap; 
+    margin : 0 5px;
+    font-size : 0.9rem;
+    color : rgb(180,180,180);
 `;
 
 function SongItem({data}){
@@ -271,7 +280,7 @@ function SongItem({data}){
             <ImageContainer>
                 <ImageSubContainer>
                     <ImageHoverDim/>
-                    <SongImage src={globalVars.server + "/pic/" + data.picid}/>
+                    <SongImage src={globalVars.server + "/pic/" + data.picid} alt={"album art"}/>
                     {
                         data.songid === currSongId && !currSongPlaying &&
                         <CenterButtonContainer onClick={playClick}>
@@ -289,10 +298,10 @@ function SongItem({data}){
                         data.songid !== currSongId &&
                         <CenterButtonContainer onClick={queueNextClick}>
                         <QueueNextIcon size={"3x"}icon={faPlay}/>
+                        
                         </CenterButtonContainer>
                     }
-
-                    <QueueIcon size={"2x"}icon={faStream} onClick={queueClick} title="Add to Queue"/>
+                    <QueueIcon size={"1.15rem"} onClick={queueClick} title="Add to Queue"/>
                     <EditIcon size={"2x"}icon={faEdit} onClick={editClick}  title="Edit Song"/>
                 </ImageSubContainer>
 
@@ -302,10 +311,10 @@ function SongItem({data}){
                     {data.title}
                 </InfoMainText>
                 <InfoSubText>
-                    Album:{data.album}
+                    {data.artist}
                 </InfoSubText>
                 <InfoSubText>
-                    Artist:{data.artist}
+                    {data.album === '-' ? "" : data.album}
                 </InfoSubText>
             </InfoContainer>
         </SongContainer>

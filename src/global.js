@@ -5,7 +5,14 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     margin-top : 35px;
     padding: 0;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
+
+  *::-webkit-scrollbar {
+    display : none;
+  }
+  
   *, *::after, *::before {
     box-sizing: border-box;
   }

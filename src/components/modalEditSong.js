@@ -1,4 +1,4 @@
-import React, {Fragment, useRef} from 'react';
+import React, {Fragment, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,22 +8,34 @@ import {setForceUpdate, setToast} from '../redux/actions';
 
 import globalVars from '../global';
 
+import EditableText from './editableText';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
+
+import FastAverageColor from 'fast-average-color';
+const fac = new FastAverageColor();
 
 const ModalContainer = styled.div`
     display : flex;
     flex-flow : row wrap;
     width : 40vw;
     min-width : 500px;
+
+    //background: linear-gradient( ${({gcolor}) => gcolor === null ? 'rgb(200,200,200)' : gcolor} 0%, rgba(0,0,0,0) 35%);
+    border-radius : 15px;
 `;
 
 const InfoContainer = styled.div`
     width : 55%;
+    position : relative;
 `;
 
 const ButtonContainer = styled.div`
+    margin: 15px 0;
     width : 100%;
+    position : absolute;
+    bottom : 5px;
 `;
 
 const ImageEditable = styled.img`
@@ -75,45 +87,22 @@ const ImageContainer = styled.div`
 
 const EditButton = styled.button`
     display : ${({mode}) => mode === "text" ? 'inline-block' : 'none'};
+    border : 0;
+    margin : 0 10px;
+    background-color : ${({theme}) => theme.modalButtonColor};
+    border-radius : 5px;
+    padding : 2px 10px;
+    color : ${({ theme }) => theme.modalTextColor};
 `;
 
-const SaveButton = styled.button`
+const CSButton = styled.button`
     display : ${({mode}) => mode === "edit" ? 'inline-block' : 'none'};
-`;
-
-const CancelButton = styled.button`
-    display : ${({mode}) => mode === "edit" ? 'inline-block' : 'none'};
-`;
-
-const EditableText = ({value, tmp, mode, onEdit}) => {
-
-    if(mode === "edit"){
-        return(
-            <input value={tmp} onChange={(e) => onEdit(e.target.value)}/>
-        );
-    }else if(mode === "text"){
-        return(
-            <div>
-                {value}
-            </div>
-        );
-    }else{
-        //something went wrong
-        return null;
-    }
-
-};
-
-const TitleEditable = styled(EditableText)`
-
-`;
-
-const ArtistEditable = styled(EditableText)`
-
-`;
-
-const AlbumEditable = styled(EditableText)`
-
+    border : 0;
+    margin : 0 10px;
+    background-color : ${({theme}) => theme.modalButtonColor};
+    border-radius : 5px;
+    padding : 2px 10px;
+    color : ${({ theme }) => theme.modalTextColor};
 `;
 
 function ModalEditSong(){
@@ -121,12 +110,18 @@ function ModalEditSong(){
     const [song, setSong] = React.useState(useSelector(getModal).song);
     const [tmpSong, setTmpSong] = React.useState(useSelector(getModal).song);
     const [mode, setMode] = React.useState("text");
+    const [avgColor, setColor] = React.useState(null);
 
     const fileRef = useRef(null);
-
     const dispatch = useDispatch();
-
     var modalEditedSong = useSelector(getModal).song;
+
+    useEffect(() => {
+        fac.getColorAsync(globalVars.server + '/pic/' + song.picid)
+        .then(color => {
+            setColor(color.hex);
+        });
+    }, []);
 
     const handleFiles = (e) => {
         console.log(e.target.files);
@@ -208,7 +203,7 @@ function ModalEditSong(){
     }else{
         return(
             <Fragment>
-                <ModalContainer>
+                <ModalContainer gcolor={avgColor}>
                     <ImageContainer>
                         <ImageEditDim>
                             <input type="file" ref={fileRef} onChange={handleFiles} hidden={true} accept="image/*"/>
@@ -218,22 +213,26 @@ function ModalEditSong(){
                     </ImageContainer>
 
                     <InfoContainer>
-                        <TitleEditable value={song.title} tmp={tmpSong.title} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, title : e})}/>
-                        <ArtistEditable value={song.artist} tmp={tmpSong.artist}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, artist : e})}/>
-                        <AlbumEditable value = {song.album} tmp={tmpSong.album}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, album : e})}/>
+                        <EditableText type="title" value={song.title} tmp={tmpSong.title} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, title : e})}/>
+                        <EditableText type="artist" value={song.artist} tmp={tmpSong.artist}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, artist : e})}/>
+                        <EditableText type="album" value = {song.album} tmp={tmpSong.album}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, album : e})}/>
+
+                        <EditableText type="year" value={song.year} tmp={tmpSong.year} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, year : e})}/>
+                        <EditableText type="duration" value={song.duration} mode={mode} />
+
+                        <ButtonContainer>
+                            <EditButton mode={mode} onClick={() => setMode("edit")}>
+                                Edit
+                            </EditButton>
+                            <CSButton mode={mode} onClick={cancelEdit}>
+                                Cancel
+                            </CSButton>
+                            <CSButton mode={mode} onClick={saveEdit}>
+                                Save
+                            </CSButton>
+                        </ButtonContainer>
                     </InfoContainer>
 
-                    <ButtonContainer>
-                        <EditButton mode={mode} onClick={() => setMode("edit")}>
-                            Edit
-                        </EditButton>
-                        <SaveButton mode={mode} onClick={saveEdit}>
-                            Save
-                        </SaveButton>
-                        <CancelButton mode={mode} onClick={cancelEdit}>
-                            Cancel
-                        </CancelButton>
-                    </ButtonContainer>
 
                 </ModalContainer>
             </Fragment>

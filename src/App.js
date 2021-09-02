@@ -16,6 +16,8 @@ import QueuePage from './pages/queuePage';
 import BottomBar from './components/bottomBar';
 import NavBar from './components/navBar';
 
+import ReactFontLoader from 'react-font-loader';
+
 import {SuccessToast, ErrorToast, RegularToast } from './components/toast';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -33,46 +35,46 @@ function App() {
 
   return(
     <ThemeProvider theme={theme}>
+      <ReactFontLoader url="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"/>
+      <GlobalStyles />
+      <ErrorToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "error"} message={useSelector(getToast).msg}/>
+      <SuccessToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "success"} message={useSelector(getToast).msg}/>
+      <RegularToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "regular"} message={useSelector(getToast).msg}/>
 
-    <GlobalStyles />
-    <ErrorToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "error"} message={useSelector(getToast).msg}/>
-    <SuccessToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "success"} message={useSelector(getToast).msg}/>
-    <RegularToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "regular"} message={useSelector(getToast).msg}/>
+      <NavBar/>
 
-    <NavBar/>
+      <Switch>
 
-    <Switch>
+        <Route exact path="/home">
+          <HomePage/>
+        </Route>
 
-      <Route exact path="/home">
-        <HomePage/>
-      </Route>
+        <Route exact path="/songs">
+            <SongsPage/>
+        </Route>
 
-      <Route exact path="/songs">
-          <SongsPage/>
-      </Route>
+            <Route exact path="/queue">
+            <QueuePage/>
+        </Route>
 
-          <Route exact path="/queue">
-          <QueuePage/>
-      </Route>
+        <Route exact path="/">
+          <Redirect to="/home"/>
+        </Route>
 
-      <Route exact path="/">
-        <Redirect to="/home"/>
-      </Route>
+        <Route exact path="/error">
+          <ErrorPage/>
+        </Route>
 
-      <Route exact path="/error">
-        <ErrorPage/>
-      </Route>
-
-      <Route>
-        <Redirect to="/error"/>
-      </Route>
+        <Route>
+          <Redirect to="/error"/>
+        </Route>
 
 
-    </Switch>
-    <BlankFooter/>
-    <BottomBar/>
+      </Switch>
+      <BlankFooter/>
+      <BottomBar/>
 
-</ThemeProvider>
+    </ThemeProvider>
   );
 }
 
