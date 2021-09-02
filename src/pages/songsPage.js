@@ -37,6 +37,14 @@ function SongsPage(){
                 data.forEach((item, i) => {
                     newSongs.push(<SongItem data={item} key={i}/>);
                 });
+                newSongs.sort(function(a,b) {
+                    var keyA = a.props.data.album,
+                    keyB = b.props.data.album;
+                    if (keyA < keyB) return -1;
+                    if (keyA > keyB) return 1;
+                    return 0;
+                });
+                while(newSongs[0].props.data.album === '-') newSongs.push(newSongs.shift());
                 if(songsMounted) setSongs(newSongs);
             }
         })
