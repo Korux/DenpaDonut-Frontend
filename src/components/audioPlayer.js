@@ -9,6 +9,7 @@ import { getSong, getQueue } from '../redux/selectors';
 import { setQueueIdx, setShuffleState, setSong, setToast, setSongPlaying, clearQueue, clearSong } from "../redux/actions";
 
 import globalVars from '../global';
+import { faAudioDescription } from '@fortawesome/free-solid-svg-icons';
 
 const PlayerContainer = styled.div`
     width : 60%;
@@ -73,39 +74,7 @@ function AudioPlayer(){
 
     // load new song on id change
     useEffect(() => {
-        if(id !== null && queueIdx >= 0){
-            let url = globalVars.server + "/mp3/" + id;
-            fetch(url)
-            .then(response => response.body)
-            .then(body => {
-                const reader = body.getReader();
-                return new ReadableStream({
-                    start(controller) {
-                      return pump();
-                      function pump() {
-                        return reader.read().then(({ done, value }) => {
-                          // When no more data needs to be consumed, close the stream
-                            if (done) {
-                              controller.close();
-                              return;
-                            }
-                            // Enqueue the next data chunk into our target stream
-                            controller.enqueue(value);
-                            return pump();
-                            });
-                        }
-                    }
-                })
-            })
-            .then(stream => new Response(stream))
-            .then(response => response.blob())
-            .then(blob => URL.createObjectURL(blob))
-            .then(url => setURL(url))
-            .catch(err => {
-                console.log(err);
-                dispatch(setToast({type : "error", msg : "Error loading audio. Please try again."}));
-            });
-        }
+        if(id !== null && queueIdx >= 0) setURL(globalVars.server + "/mp3/" + id);
     },[id]);
 
     // set new song when queue index changes
@@ -116,8 +85,11 @@ function AudioPlayer(){
     }, [queueIdx]);
 
     // pause or play song from other components
+
+    // CAUSES WARNING - FIX
     useEffect(() => {
         if(audio.current !== null){
+            console.log(audioPlaying);
             let audioHandle = audio.current.audio.current;
             if(audioPlaying && audioHandle.paused)audioHandle.play();
             if(!audioPlaying && !audioHandle.paused) audioHandle.pause();
@@ -157,5 +129,6 @@ function AudioPlayer(){
     );
 
 }
-//"http://localhost:3000/test/60efa1df19860709e06f2170"
+
+//https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3
 export default AudioPlayer;
