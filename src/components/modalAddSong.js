@@ -105,7 +105,7 @@ function ModalAddSong(){
 
     return(
         <ModalContainer>
-            <ModalMessage>Input Youtube or Spotify link to add the song.</ModalMessage>
+            <ModalMessage>Input <b>Youtube</b> or <b>Spotify</b> link.</ModalMessage>
             <ModalForm onSubmit={postSong}>
                 <ModalInput value={url} onChange={(e) => setURL(e.target.value)} placeholder="Song Link"/>
                 <ModalAddButton>Add Song</ModalAddButton>

@@ -23,4 +23,11 @@ export const theme = {
 
     // bottom bar colors
     bottomBarBackground : 'rgb(20,20,20)',
+
+    // navbar colors
+    navbarIconColor : 'rgb(220,220,220)',
+    navbarSearchColor : 'rgb(40,40,40)',
+    navbarSearchBorderColor : 'rgb(60,60,60)',
   }
+
+  //#D8368D

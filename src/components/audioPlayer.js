@@ -9,7 +9,6 @@ import { getSong, getQueue } from '../redux/selectors';
 import { setQueueIdx, setShuffleState, setSong, setToast, setSongPlaying, clearQueue, clearSong } from "../redux/actions";
 
 import globalVars from '../global';
-import { faAudioDescription } from '@fortawesome/free-solid-svg-icons';
 
 const PlayerContainer = styled.div`
     width : 60%;

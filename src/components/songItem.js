@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setModalState, setModalEditedSong, setModalShow, setQueue, setQueueIdx, setSongPlaying, setToast } from '../redux/actions';
 import { getQueue, getSong } from '../redux/selectors';
 
-import {RiPlayListFill} from 'react-icons/ri';
-
+import {CgPlayListAdd} from 'react-icons/cg';
 
 import globalVars from '../global';
 
@@ -61,9 +60,9 @@ const SongImage = styled.img`
     height : 100%;
 `;
 
-const QueueIcon = styled(RiPlayListFill)`
+const QueueIcon = styled(CgPlayListAdd)`
     position : absolute;
-    bottom : 10px;
+    top : 86%;
     right : 5%;
     &:hover{
         cursor : pointer;
@@ -87,8 +86,8 @@ const QueueNextIcon = styled(FontAwesomeIcon)`
 
 const EditIcon = styled(FontAwesomeIcon)`
     position : absolute;
-    bottom : 10px;
-    right : 20%;
+    top : 87.5%;
+    right : 22%;
     &:hover{
         cursor : pointer;
     }
@@ -301,7 +300,7 @@ function SongItem({data}){
                         
                         </CenterButtonContainer>
                     }
-                    <QueueIcon size={"1.15rem"} onClick={queueClick} title="Add to Queue"/>
+                    <QueueIcon size={"1.5rem"} onClick={queueClick} title="Add to Queue"/>
                     <EditIcon size={"2x"}icon={faEdit} onClick={editClick}  title="Edit Song"/>
                 </ImageSubContainer>
 
