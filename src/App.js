@@ -16,8 +16,6 @@ import QueuePage from './pages/queuePage';
 import BottomBar from './components/bottomBar';
 import NavBar from './components/navBar';
 
-import ReactFontLoader from 'react-font-loader';
-
 import {SuccessToast, ErrorToast, RegularToast } from './components/toast';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,7 +33,6 @@ function App() {
 
   return(
     <ThemeProvider theme={theme}>
-      <ReactFontLoader url="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"/>
       <GlobalStyles />
       <ErrorToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "error"} message={useSelector(getToast).msg}/>
       <SuccessToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "success"} message={useSelector(getToast).msg}/>

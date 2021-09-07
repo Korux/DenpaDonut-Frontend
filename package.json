@@ -16,7 +16,6 @@
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
-    "react-font-loader": "^2.0.0",
     "react-h5-audio-player": "^3.7.1",
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.4",

@@ -9,9 +9,9 @@ const MainText = styled.div`
     white-space:nowrap;
     font-family: 'Noto Sans JP', sans-serif;
     font-size : 1.5rem;
+    font-weight : 400;
     margin : 15px 0;
     color : ${({ theme }) => theme.modalTextColor};
-
 `;
 
 const MainEditable = styled.input`
@@ -20,6 +20,7 @@ const MainEditable = styled.input`
     color : ${({ theme }) => theme.modalTextColor};
     font-family: 'Noto Sans JP', sans-serif;
     font-size : 1.5rem;
+    font-weight : 400;
     text-align : left;
     border : 0;
     border-bottom : 1px solid ${({ theme }) => theme.modalUnderlineDark};
@@ -39,24 +40,36 @@ const MainEditable = styled.input`
 `;
 
 const SubText = styled.div`
-    width : 80%;
+    width : calc(100% - 80px);
     text-align : left;
     text-overflow: ellipsis;
     overflow:hidden; 
     white-space:nowrap; 
     float:right;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size : 0.9rem;
+    font-weight : 100;
+    letter-spacing : 0.4px;
 `;
 
 const SubEditable = styled.input`
-    width : 80%;
+    width : calc(100% - 80px);
     float:right;
     text-align : left;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size : 0.9rem;
+    font-weight : 100;
+    letter-spacing : 0.4px;
 `;
 
 const SubLabel = styled.span`
-    width : 20%;
+    width : 80px;
     text-align : left;
     float:left;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size : 0.9rem;
+    font-weight : 300;
+    letter-spacing : 0.4px;
 `;
 
 const EditableText = ({type, value, tmp, mode, onEdit}) => {

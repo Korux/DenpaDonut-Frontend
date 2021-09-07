@@ -9,6 +9,7 @@ import {setForceUpdate, setToast} from '../redux/actions';
 import globalVars from '../global';
 
 import EditableText from './editableText';
+import ModalTags from './modalTags';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +21,7 @@ const ModalContainer = styled.div`
     display : flex;
     flex-flow : row wrap;
     width : 40vw;
-    min-width : 500px;
+    min-width : 650px;
 
     //background: linear-gradient( ${({gcolor}) => gcolor === null ? 'rgb(200,200,200)' : gcolor} 0%, rgba(0,0,0,0) 35%);
     border-radius : 15px;
@@ -219,6 +220,8 @@ function ModalEditSong(){
 
                         <EditableText type="year" value={song.year} tmp={tmpSong.year} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, year : e})}/>
                         <EditableText type="duration" value={song.duration} mode={mode} />
+
+                        <ModalTags/>
 
                         <ButtonContainer>
                             <EditButton mode={mode} onClick={() => setMode("edit")}>
