@@ -29,14 +29,11 @@ const ModalContainer = styled.div`
 
 const InfoContainer = styled.div`
     width : 55%;
-    position : relative;
 `;
 
 const ButtonContainer = styled.div`
-    margin: 15px 0;
     width : 100%;
-    position : absolute;
-    bottom : 5px;
+    margin : 15px 0;
 `;
 
 const ImageEditable = styled.img`
@@ -199,6 +196,45 @@ function ModalEditSong(){
         });
     };
 
+    const saveTag = (tag) => {
+        let newTags = song.tags.slice();
+        newTags.push(tag);
+        let data = {
+            album : tmpSong.album,
+            artist : tmpSong.artist,
+            tags : newTags,
+            title : tmpSong.title,
+            year : tmpSong.year
+        };
+
+        let reqOpts = {
+            method : "PATCH",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        };
+
+        fetch(globalVars.server + '/songs/' + song._id, reqOpts)
+        .then(response => response.json())
+        .then(data => {
+            if(data.Error){
+                dispatch(setToast({type : "error", msg : "Error with saving changes, please try again"}));
+                cancelEdit();
+            }else{
+                dispatch(setForceUpdate(true));
+                setSong({...tmpSong});
+                setMode("text");
+                dispatch(setToast({type : "success", msg : "Song info saved"}));
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch(setToast({type : "error", msg : "Error with saving changes, please try again"}));
+            cancelEdit();
+        });
+    };
+
     if(song === null) {
         return null;
     }else{
@@ -221,7 +257,7 @@ function ModalEditSong(){
                         <EditableText type="year" value={song.year} tmp={tmpSong.year} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, year : e})}/>
                         <EditableText type="duration" value={song.duration} mode={mode} />
 
-                        <ModalTags/>
+                        <ModalTags tags={song.tags} onAdd={saveTag}/>
 
                         <ButtonContainer>
                             <EditButton mode={mode} onClick={() => setMode("edit")}>

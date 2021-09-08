@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const MainText = styled.div`
@@ -72,6 +72,12 @@ const SubLabel = styled.span`
     letter-spacing : 0.4px;
 `;
 
+const SubContainer = styled.div`
+    width : 100%;
+    overflow : auto;
+    margin : 5px 0;
+`;
+
 const EditableText = ({type, value, tmp, mode, onEdit}) => {
 
 
@@ -83,41 +89,41 @@ const EditableText = ({type, value, tmp, mode, onEdit}) => {
                 );
             case "album":
                 return(
-                    <Fragment>
+                    <SubContainer>
                         <SubLabel>
                             Album: 
                         </SubLabel>
                         <SubEditable value={tmp} onChange={(e) => onEdit(e.target.value)}/>
-                    </Fragment>
+                    </SubContainer>
                 );
             case "artist":
                 return(
-                    <Fragment>
+                    <SubContainer>
                         <SubLabel>
                             Artist: 
                         </SubLabel>
                         <SubEditable value={tmp} onChange={(e) => onEdit(e.target.value)}/>
-                    </Fragment>
+                    </SubContainer>
                 );
             case "year":
                 return(
-                    <Fragment>
+                    <SubContainer>
                         <SubLabel>
                             Year: 
                         </SubLabel>
                         <SubEditable value={tmp} onChange={(e) => onEdit(e.target.value)}/>
-                    </Fragment>
+                    </SubContainer>
                 );
             case "duration":
                 return(
-                    <Fragment>
+                    <SubContainer>
                         <SubLabel>
                             Duration:
                         </SubLabel>
                         <SubText>
                             {Math.floor(value / 60)}:{value%60 < 10 ? '0' : ''}{Math.floor(value%60)}
                         </SubText>
-                    </Fragment>
+                    </SubContainer>
                 );
             default:
                 //something went wrong
@@ -133,47 +139,47 @@ const EditableText = ({type, value, tmp, mode, onEdit}) => {
                 );
             case "album":
                 return(
-                    <Fragment>
+                    <SubContainer>
                         <SubLabel>
                             Album: 
                         </SubLabel>
                         <SubText>
                             {value}
                         </SubText>
-                    </Fragment>
+                    </SubContainer>
                 );
             case "artist":
                 return(
-                    <Fragment>
+                    <SubContainer>
                         <SubLabel>
                             Artist: 
                         </SubLabel>
                         <SubText>
                             {value}
                         </SubText>
-                    </Fragment>
+                    </SubContainer>
                 );
             case "year":
                 return(
-                    <Fragment>
+                    <SubContainer>
                         <SubLabel>
                             Year: 
                         </SubLabel>
                         <SubText>
                             {value}
                         </SubText>
-                    </Fragment>
+                    </SubContainer>
                 );
             case "duration":
                 return(
-                    <Fragment>
+                    <SubContainer>
                         <SubLabel>
                             Duration:
                         </SubLabel>
                         <SubText>
                             {Math.floor(value / 60)}:{value%60 < 10 ? '0' : ''}{Math.floor(value%60)}
                         </SubText>
-                    </Fragment>
+                    </SubContainer>
                 );
             default:
                 //something went wrong

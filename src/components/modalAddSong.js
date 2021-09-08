@@ -24,7 +24,7 @@ const ModalInput = styled.input`
     width : 100%;
     background-color:${({ theme }) => theme.modalColor};
     border : 0;
-    border-bottom : 1px solid black;
+    border-bottom : 1px solid ${({ theme }) => theme.modalUnderlineDark};
     margin : 15px 0;
     color : ${({ theme }) => theme.modalTextColorDark};
 
@@ -33,7 +33,7 @@ const ModalInput = styled.input`
     &:focus {
         outline : none;
         color : ${({ theme }) => theme.modalTextColor};
-        border-bottom : 1px solid rgb(200,200,200);
+        border-bottom : 1px solid  ${({ theme }) => theme.modalUnderline};
         ::placeholder,
         ::-webkit-input-placeholder {
           color : ${({ theme }) => theme.modalTextColor};
