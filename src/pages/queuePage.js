@@ -38,6 +38,14 @@ function QueuePage(){
     var queue = useSelector(getQueue);
     const [queueItems, setQueueItems] = React.useState(null);
 
+    const handleDrag = () => {
+
+    };
+
+   const handleDragEnd = () => {
+
+    };
+
     // update queue on change
     useEffect(() => {
         if(queue.noqueue){
@@ -45,7 +53,7 @@ function QueuePage(){
         }else{
             let items = [];
             queue.queue.forEach((item, i) => {
-                items.push(<QueueItem data={item} key={i}/>);
+                items.push(<QueueItem data={item} key={i} id={i} onDrag={handleDrag} onDragEnd={handleDragEnd}/>);
             });
             if(queue.idx > 0) items = items.slice(queue.idx);
             setQueueItems(items);

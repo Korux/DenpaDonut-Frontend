@@ -20,7 +20,7 @@ import {SuccessToast, ErrorToast, RegularToast } from './components/toast';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { clearToast } from './redux/actions';
-import { getToast } from './redux/selectors';
+import { getDrag, getToast } from './redux/selectors';
 
 const BlankFooter = styled.div`
   width : 100%;
@@ -29,11 +29,12 @@ const BlankFooter = styled.div`
 
 function App() {
 
+  var isDragging = useSelector(getDrag).dragging;
   const dispatch = useDispatch();
 
   return(
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
+      <GlobalStyles drag={isDragging}/>
       <ErrorToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "error"} message={useSelector(getToast).msg}/>
       <SuccessToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "success"} message={useSelector(getToast).msg}/>
       <RegularToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "regular"} message={useSelector(getToast).msg}/>

@@ -13,7 +13,8 @@ import {
     SET_MODAL_STATE,
     SET_MODAL_EDITED_SONG,
     SET_SONG_PLAYING,
-    SET_FORCE_UPDATE
+    SET_FORCE_UPDATE,
+    SET_DRAGGING
 } from './actions.js';
 
 const baseSong = {
@@ -155,13 +156,25 @@ function updateReducer(state={update:true}, action){
     }
 }
 
+function draggingReducer(state={dragging:false}, action){
+    switch(action.type){
+        case SET_DRAGGING:
+            return{
+                dragging : action.val
+            }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     song : songReducer,
     queue : queueReducer,
     toast : toastReducer,
     shuffle : shuffleReducer,
     modal : modalReducer,
-    update : updateReducer
+    update : updateReducer,
+    drag : draggingReducer
 });
 
 export default rootReducer;

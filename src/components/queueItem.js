@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState, useCallback, useMemo, useEffect} from 'react';
 import styled from 'styled-components';
 
 import globalVars from '../global';
 
 import {FaBars} from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { setDragging } from '../redux/actions';
 
 const QueueItemContainer = styled.div`
     width : 95%;
@@ -24,9 +26,7 @@ const QueueDrag = styled.div`
 `;
 
 const QueueDragIcon = styled(FaBars)`
-    &:hover{
-        cursor : pointer;
-    }
+    cursor: ${({dragging}) => dragging ? '-webkit-grabbing' : '-webkit-grab'};
 `;
 
 
@@ -72,13 +72,70 @@ const QueueDuration = styled.span`
     margin-right : 10px;
 `;
 
-function QueueItem({data}){
+const POSITION = {x: 0, y: 0};
+
+function QueueItem({data, id, onDrag, onDragEnd}){
+
+    const dispatch = useDispatch();
+
+    const [state, setState] = useState({
+        isDragging: false,
+        origin: POSITION,
+        translation: POSITION
+      });
+        
+      const handleMouseDown = useCallback(({clientX, clientY}) => {
+        setState(state => ({
+          ...state,
+          isDragging: true,
+          origin: {x: clientX, y: clientY}
+        }));
+        dispatch(setDragging(true));
+
+      }, []);
+        
+      const handleMouseMove = useCallback(({clientX, clientY}) => {
+        const translation = {x: clientX - state.origin.x, y: clientY - state.origin.y};
+            
+        setState(state => ({
+          ...state,
+          translation
+        }));
+            
+        onDrag({translation, id});
+      }, [state.origin, onDrag, id]);
+        
+      const handleMouseUp = useCallback(() => {
+        setState(state => ({
+          ...state,
+          isDragging: false
+        }));
+        dispatch(setDragging(false));
+        onDragEnd();
+      }, [onDragEnd]);
+        
+      useEffect(() => {
+        if (state.isDragging) {
+          window.addEventListener('mousemove', handleMouseMove);
+          window.addEventListener('mouseup', handleMouseUp);
+        } else {
+          window.removeEventListener('mousemove', handleMouseMove);
+          window.removeEventListener('mouseup', handleMouseUp);
+    
+          setState(state => ({...state, translation: {x: 0, y: 0}}));
+        }
+      }, [state.isDragging, handleMouseMove, handleMouseUp]);
+        
+      const styles = useMemo(() => ({
+        transform: `translate(${state.translation.x}px, ${state.translation.y}px)`,
+        zIndex: state.isDragging ? 2 : 1,
+      }), [state.isDragging, state.translation]);
 
  
     return(
-        <QueueItemContainer>
+        <QueueItemContainer style={styles}>
             <QueueDrag>
-                <QueueDragIcon className="dragHandle"/>
+                <QueueDragIcon onMouseDown={handleMouseDown} dragging={state.isDragging}/>
             </QueueDrag>
             <QueueImage src={globalVars.server + '/pic/' + data.picid}/>
             <QueueTitleContainer>

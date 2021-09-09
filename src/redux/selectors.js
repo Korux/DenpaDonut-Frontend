@@ -22,3 +22,7 @@ export function getModal(state){
 export function getUpdate(state){
     return state.update;
 }
+
+export function getDrag(state){
+    return state.drag;
+}

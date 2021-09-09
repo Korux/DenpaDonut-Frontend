@@ -88,7 +88,6 @@ function AudioPlayer(){
     // CAUSES WARNING - FIX
     useEffect(() => {
         if(audio.current !== null){
-            console.log(audioPlaying);
             let audioHandle = audio.current.audio.current;
             if(audioPlaying && audioHandle.paused)audioHandle.play();
             if(!audioPlaying && !audioHandle.paused) audioHandle.pause();

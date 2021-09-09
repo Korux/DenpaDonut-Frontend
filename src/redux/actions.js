@@ -11,6 +11,7 @@ export const SET_MODAL_STATE = "SET_MODAL_STATE";
 export const SET_MODAL_EDITED_SONG = "SET_MODAL_EDITED_SONG";
 export const SET_SONG_PLAYING = "SET_SONG_PLAYING";
 export const SET_FORCE_UPDATE = "SET_FORCE_UPDATE";
+export const SET_DRAGGING = "SET_DRAGGING";
 
 export function setSong(song){
     return { type : SET_SONG, song };
@@ -62,4 +63,8 @@ export function setModalEditedSong(song){
 
 export function setForceUpdate(val){
     return { type : SET_FORCE_UPDATE, val };
+}
+
+export function setDragging(val){
+    return { type : SET_DRAGGING, val };
 }

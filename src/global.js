@@ -5,8 +5,15 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     margin-top : 35px;
     padding: 0;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: ${({drag}) => drag ? 'none' : 'auto'};  /* IE and Edge */
+    scrollbar-width: ${({drag}) => drag ? 'none' : 'auto'};  /* Firefox */
+    -webkit-touch-callout: ${({drag}) => drag ? 'none' : 'auto'}; /* iOS Safari */
+    -webkit-user-select:${({drag}) => drag ? 'none' : 'auto'}; /* Safari */
+     -khtml-user-select:${({drag}) => drag ? 'none' : 'auto'}; /* Konqueror HTML */
+       -moz-user-select: ${({drag}) => drag ? 'none' : 'auto'}; /* Old versions of Firefox */
+        -ms-user-select: ${({drag}) => drag ? 'none' : 'auto'}; /* Internet Explorer/Edge */
+            user-select: ${({drag}) => drag ? 'none' : 'auto'}; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
   }
 
   *::-webkit-scrollbar {
