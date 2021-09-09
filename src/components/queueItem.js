@@ -91,7 +91,7 @@ function QueueItem({data, id, onDrag, onDragEnd}){
           origin: {x: clientX, y: clientY}
         }));
         dispatch(setDragging(true));
-
+        window.getSelection().removeAllRanges();
       }, []);
         
       const handleMouseMove = useCallback(({clientX, clientY}) => {
@@ -135,7 +135,7 @@ function QueueItem({data, id, onDrag, onDragEnd}){
     return(
         <QueueItemContainer style={styles}>
             <QueueDrag>
-                <QueueDragIcon onMouseDown={handleMouseDown} dragging={state.isDragging}/>
+                <QueueDragIcon onMouseDown={handleMouseDown} dragging={state.isDragging ? 1 : 0}/>
             </QueueDrag>
             <QueueImage src={globalVars.server + '/pic/' + data.picid}/>
             <QueueTitleContainer>
