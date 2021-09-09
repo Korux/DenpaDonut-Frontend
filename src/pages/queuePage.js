@@ -17,10 +17,20 @@ const QueueContainer = styled.div`
     align-items : center;
 `;
 
+const QueueListHeader = styled.div`
+`;
+
+const QueueListHeaderContainer = styled.div`
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    width : 95%;
+`;
+
 const LineBreak = styled.span`
     width : 100%;
     height : 2px;
-    background-color:white;
+    background-color : rgb(100,100,100);
 `;
 
 function QueuePage(){
@@ -45,6 +55,20 @@ function QueuePage(){
     return(
         <QueueContainer>
             <QueueHeader/>
+            <QueueListHeaderContainer>
+                <QueueListHeader style={{width : "calc(32% + 67.5px)"}}>
+                    TITLE
+                </QueueListHeader>
+                <QueueListHeader style={{width : "32%"}}>
+                    ALBUM
+                </QueueListHeader>
+                <QueueListHeader style={{width : "32%"}}>
+                    YEAR
+                </QueueListHeader>
+                <QueueListHeader style={{width : "4%"}}>
+                    DURATION
+                </QueueListHeader>
+            </QueueListHeaderContainer>
             <LineBreak/>
             {queueItems === null && 'loading'}
 
