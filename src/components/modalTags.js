@@ -1,73 +1,112 @@
-import React, {useEffect, useRef} from 'react';
+import React, {Fragment, useEffect, useRef} from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { setToast} from '../redux/actions';
 
-const AddTagBottomText = styled.button`
-    width : 20%;
-    float : right;
-    margin-right : 5%;
-    margin-top : 10px;
-    border : 0;
-`;
 const AddTagInput = styled.input`
     width : 95%;
     background-color:${({ theme }) => theme.modalColor};
     border : 0;
-    border-bottom : 1px solid ${({ theme }) => theme.modalUnderlineDark};
     color : ${({ theme }) => theme.modalTextColorDark};
     float : left;
+    font-size : 14px;
+    padding-bottom : 3px;
 
     transition : border 0.2s ease-in-out;
     &:focus{
         outline : none;
         color : ${({ theme }) => theme.modalTextColor};
-        border-bottom : 1px solid  ${({ theme }) => theme.modalUnderline};
-        ::placeholder,
-        ::-webkit-input-placeholder {
-          color : ${({ theme }) => theme.modalTextColor};
-        }
-        :-ms-input-placeholder {
-           color : ${({ theme }) => theme.modalTextColor};
-        }
     }
 `;
 
 const AddTagContainer = styled.div`
 `;
 
+const AddTagButton = styled.div`
+    background-color : ${({ theme }) => theme.modalColor};
+    border-radius : 10px;
+    width : fit-content;
+    height : 22px;
+    padding : 0 3px;
+
+    font-size : 13px;
+    color : ${({ theme }) => theme.modalTagTextColor};
+    cursor : pointer;
+
+    &:hover{
+        color : white;
+    };
+
+`;
 
 const AddTagForm = ({onSubmit}) => {
 
     const [Tag, setTag] = React.useState("");
-    const inputRef = useRef(null);
+    const [mode, setMode] = React.useState("button");
+    const dispatch = useDispatch();
 
     function handleCancel(){
+        setMode("button");
         setTag("");
     }
 
-    function handleAdd(){
-        setTag("");
-        onSubmit(Tag);
+    function handleAdd(e){
+        if(e.key === 'Enter'){
+            if(Tag !== ""){
+                onSubmit(Tag, 'add');
+                handleCancel();
+            }
+            else
+                dispatch(setToast({type : "error", msg : "Tag cannot be empty"}));
+        }
     }
 
     return(
         <AddTagContainer>
-            <AddTagInput ref={inputRef} value={Tag} onChange={e => setTag(e.target.value)} placeholder="Add Tag"/>
-            <AddTagBottomText onClick={handleAdd}>Add</AddTagBottomText>
-            <AddTagBottomText onClick={handleCancel}>Cancel</AddTagBottomText>
+            {mode === "button" && <AddTagButton onClick={() => {setMode("input")}}>+ Add Tag</AddTagButton>}
+            {mode === "input" && <AddTagInput value={Tag} autoFocus onBlur ={handleCancel} onChange={e => setTag(e.target.value)} onKeyDown={handleAdd}/>}
         </AddTagContainer>
     );
 };
 
 
 const StyledTag = styled.div`
-    background-color : #D8368D;
-    border-radius : 10px;
+    background-color : ${({ theme }) => theme.modalTagColor};
+    border-radius : 10px 0 0 10px;
     width : fit-content;
     height : 22px;
-    padding : 0 5px;
-    margin : 0 3px;
+    padding : 0 3px 0 5px;
+    margin : 0 0 0 3px;
     font-size : 13px;
+    color : ${({ theme }) => theme.modalTagTextColor};
 `;
+
+const RemoveTagButton = styled.div`
+    background-color : ${({ theme }) => theme.modalTagColor};
+    border-radius : 0 10px 10px 0;
+    width : fit-content;
+    height : 22px;
+    padding : 0 7px 0 3px;
+    margin : 0 3px 0 0;
+    font-size : 13px;
+    cursor : pointer;
+    color : ${({ theme }) => theme.modalTagTextColor};
+`;
+
+const Tag = ({text, onRemove}) => {
+
+    function handleRemove(){
+        onRemove(text, 'remove');
+    }
+
+    return(
+        <Fragment>
+            <StyledTag>{text}</StyledTag>
+            <RemoveTagButton onClick={handleRemove}>x</RemoveTagButton>
+        </Fragment>
+    );
+
+};
 
 const TagsContainer = styled.div`
 
@@ -92,7 +131,7 @@ const TagsDisplay = styled.div`
     margin-top : 7px;
 `;
 
-function ModalTags({tags, onAdd}){
+function ModalTags({tags, onEdit}){
 
     const [Tags, setTags] = React.useState(null);
 
@@ -100,7 +139,7 @@ function ModalTags({tags, onAdd}){
         let newTags = [];
         tags.forEach((tag,i) => {
             if(tag !== '-' && tag !== "")
-                newTags.push(<StyledTag key={i}>{tag}</StyledTag>);
+                newTags.push(<Tag key={i} text={tag} onRemove={(tag,type)=>onEdit(tag,type)}/>);
         });
         setTags(newTags);
     },[tags]);
@@ -110,8 +149,8 @@ function ModalTags({tags, onAdd}){
             <TagsHeader>Tags:</TagsHeader>
             <TagsDisplay>
                 {Tags}
+                <AddTagForm onSubmit={(tag, type) => onEdit(tag, type)}/>
             </TagsDisplay>
-            <AddTagForm onSubmit={(tag) => onAdd(tag)}/>
         </TagsContainer>
     );
 

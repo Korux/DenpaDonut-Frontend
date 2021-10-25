@@ -195,13 +195,22 @@ function ModalEditSong(){
         });
     };
 
-    const saveTag = (tag) => {
+    const editTag = (tag, type) => {
         let newTags = song.tags.slice();
-        newTags.push(tag);
+        if(type === "add"){
+            if(newTags.includes(tag)){
+                dispatch(setToast({type : "error", msg : "This tag already exists"}));
+                return;
+            }
+            else
+                newTags.push(tag);
+        }
+        else if(type === "remove")
+            newTags = newTags.filter(a => a!== tag);
         let data = {
             album : tmpSong.album,
             artist : tmpSong.artist,
-            tags : newTags,
+            tags : newTags.sort(),
             title : tmpSong.title,
             year : tmpSong.year
         };
@@ -219,18 +228,14 @@ function ModalEditSong(){
         .then(data => {
             if(data.Error){
                 dispatch(setToast({type : "error", msg : "Error with saving tag, please try again"}));
-                cancelEdit();
             }else{
                 dispatch(setForceUpdate(true));
                 setSong({...tmpSong, tags : newTags});
-                setMode("text");
-                dispatch(setToast({type : "success", msg : "Tag added"}));
             }
         })
         .catch(err => {
             console.log(err);
             dispatch(setToast({type : "error", msg : "Error with saving changes, please try again"}));
-            cancelEdit();
         });
     };
 
@@ -256,7 +261,7 @@ function ModalEditSong(){
                         <EditableText type="year" value={song.year} tmp={tmpSong.year} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, year : e})}/>
                         <EditableText type="duration" value={song.duration} mode={mode} />
 
-                        <ModalTags tags={song.tags} onAdd={saveTag}/>
+                        <ModalTags tags={song.tags} onEdit={editTag}/>
 
                         {/* <ButtonContainer>
                             <EditButton mode={mode} onClick={() => setMode("edit")}>

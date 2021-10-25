@@ -8,8 +8,10 @@ export const theme = {
     modalTextColor : 'rgb(220,220,220)',
     modalTextColorDark : 'rgb(120,120,120)',
     modalButtonColor : 'rgb(60,60,60)',
-    modalUnderlineDark : "#000",
+    modalUnderlineDark : "rgb(20,20,20)",
     modalUnderline : 'rgb(200,200,200)',
+    modalTagTextColor : 'rgb(230,230,230)',
+    modalTagColor : '#D8368D',
 
     // song page colors
     songInfoBackground : 'rgba(0,0,0,0)',
