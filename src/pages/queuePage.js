@@ -10,6 +10,12 @@ import ShuffleButton from '../components/shuffleButton';
 import QueueItem from '../components/queueItem';
 import QueueHeader from '../components/queueHeader';
 
+const QueueSeparatorLine = styled.span`
+width : 100%;
+height : 2px;
+background-color : rgb(100,100,100);
+`;
+
 const QueueContainer = styled.div`
     display : flex;
     flex-flow: column wrap;
@@ -53,9 +59,10 @@ function QueuePage(){
         }else{
             let items = [];
             queue.queue.forEach((item, i) => {
-                items.push(<QueueItem data={item} key={i} id={i} onDrag={handleDrag} onDragEnd={handleDragEnd}/>);
+                items.push(<QueueItem data={item} key={i+1} id={i} onDrag={handleDrag} onDragEnd={handleDragEnd}/>);
+                items.push(<QueueSeparatorLine key={-i}/>);
             });
-            if(queue.idx > 0) items = items.slice(queue.idx);
+            if(queue.idx > 0) items = items.slice(queue.idx * 2) ;
             setQueueItems(items);
         }
     },[queue]);

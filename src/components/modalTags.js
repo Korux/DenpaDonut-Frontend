@@ -61,9 +61,12 @@ const AddTagForm = ({onSubmit}) => {
 
 const StyledTag = styled.div`
     background-color : #D8368D;
-    border-radius : 5px;
+    border-radius : 10px;
     width : fit-content;
-    height : fit-content;
+    height : 22px;
+    padding : 0 5px;
+    margin : 0 3px;
+    font-size : 13px;
 `;
 
 const TagsContainer = styled.div`
@@ -86,19 +89,18 @@ const TagsDisplay = styled.div`
     border-radius : 10px;
     width : 100%;
     flex : 1 1 auto;
+    margin-top : 7px;
 `;
 
 function ModalTags({tags, onAdd}){
 
-        console.log(tags);
-
     const [Tags, setTags] = React.useState(null);
 
     useEffect(() => {
-        console.log('her');
         let newTags = [];
         tags.forEach((tag,i) => {
-            newTags.push(<StyledTag key={i}>{tag}</StyledTag>);
+            if(tag !== '-' && tag !== "")
+                newTags.push(<StyledTag key={i}>{tag}</StyledTag>);
         });
         setTags(newTags);
     },[tags]);

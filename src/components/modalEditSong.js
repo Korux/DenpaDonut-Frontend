@@ -20,8 +20,7 @@ const fac = new FastAverageColor();
 const ModalContainer = styled.div`
     display : flex;
     flex-flow : row wrap;
-    width : 40vw;
-    min-width : 650px;
+    width : 850px;
 
     //background: linear-gradient( ${({gcolor}) => gcolor === null ? 'rgb(200,200,200)' : gcolor} 0%, rgba(0,0,0,0) 35%);
     border-radius : 15px;
@@ -219,13 +218,13 @@ function ModalEditSong(){
         .then(response => response.json())
         .then(data => {
             if(data.Error){
-                dispatch(setToast({type : "error", msg : "Error with saving changes, please try again"}));
+                dispatch(setToast({type : "error", msg : "Error with saving tag, please try again"}));
                 cancelEdit();
             }else{
                 dispatch(setForceUpdate(true));
-                setSong({...tmpSong});
+                setSong({...tmpSong, tags : newTags});
                 setMode("text");
-                dispatch(setToast({type : "success", msg : "Song info saved"}));
+                dispatch(setToast({type : "success", msg : "Tag added"}));
             }
         })
         .catch(err => {
@@ -259,7 +258,7 @@ function ModalEditSong(){
 
                         <ModalTags tags={song.tags} onAdd={saveTag}/>
 
-                        <ButtonContainer>
+                        {/* <ButtonContainer>
                             <EditButton mode={mode} onClick={() => setMode("edit")}>
                                 Edit
                             </EditButton>
@@ -269,7 +268,7 @@ function ModalEditSong(){
                             <CSButton mode={mode} onClick={saveEdit}>
                                 Save
                             </CSButton>
-                        </ButtonContainer>
+                        </ButtonContainer> */}
                     </InfoContainer>
 
 

@@ -208,7 +208,7 @@ const InfoContainer = styled.div`
     &:before{
         content : "";
         float : left;
-        padding-top : 40%;
+        padding-top : 35%;
     }
 `;
 

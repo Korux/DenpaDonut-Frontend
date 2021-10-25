@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import {MdEdit} from 'react-icons/md';
+
 const MainText = styled.div`
     width : 90%;
     text-align : left;
@@ -37,6 +39,12 @@ const MainEditable = styled.input`
         :-ms-input-placeholder {
            color : ${({ theme }) => theme.modalTextColor};
     }
+`;
+
+const TitleContainer = styled.div`
+    width : 100%;
+    display  :flex;
+    align-items : center;
 `;
 
 const SubText = styled.div`
@@ -76,6 +84,10 @@ const SubContainer = styled.div`
     width : 100%;
     overflow : auto;
     margin : 5px 0;
+`;
+
+const EditTextIcon = styled(MdEdit)`
+ 
 `;
 
 const EditableText = ({type, value, tmp, mode, onEdit}) => {
@@ -133,9 +145,12 @@ const EditableText = ({type, value, tmp, mode, onEdit}) => {
         switch(type){
             case "title":
                 return(
-                    <MainText>
-                        {value}
-                    </MainText>
+                    <TitleContainer>
+                        <MainText>
+                            {value}
+                        </MainText>
+                        <EditTextIcon/>
+                    </TitleContainer>
                 );
             case "album":
                 return(
