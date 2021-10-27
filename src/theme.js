@@ -12,6 +12,7 @@ export const theme = {
     modalUnderline : 'rgb(200,200,200)',
     modalTagTextColor : 'rgb(230,230,230)',
     modalTagColor : '#D8368D',
+    modalTagContainerColor : 'rgb(70,70,70)',
 
     // song page colors
     songInfoBackground : 'rgba(0,0,0,0)',

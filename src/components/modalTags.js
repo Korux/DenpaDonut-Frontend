@@ -5,7 +5,7 @@ import { setToast} from '../redux/actions';
 
 const AddTagInput = styled.input`
     width : 95%;
-    background-color:${({ theme }) => theme.modalColor};
+    background-color:${({ theme }) => theme.modalTagContainerColor};
     border : 0;
     color : ${({ theme }) => theme.modalTextColorDark};
     float : left;
@@ -23,7 +23,7 @@ const AddTagContainer = styled.div`
 `;
 
 const AddTagButton = styled.div`
-    background-color : ${({ theme }) => theme.modalColor};
+    background-color : ${({ theme }) => theme.modalTagContainerColor};
     border-radius : 10px;
     width : fit-content;
     height : 22px;
@@ -126,9 +126,11 @@ const TagsDisplay = styled.div`
     display : flex;
     flex-flow : row wrap;
     border-radius : 10px;
-    width : 100%;
+    width : 97%;
     flex : 1 1 auto;
     margin-top : 7px;
+    padding : 10px 8px;
+    background-color : ${({ theme }) => theme.modalTagContainerColor};
 `;
 
 function ModalTags({tags, onEdit}){

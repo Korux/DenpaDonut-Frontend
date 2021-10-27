@@ -6,7 +6,7 @@ import 'react-h5-audio-player/lib/styles.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getSong, getQueue } from '../redux/selectors';
-import { setQueueIdx, setShuffleState, setSong, setToast, setSongPlaying, clearQueue, clearSong } from "../redux/actions";
+import { setQueueIdx, setShuffleState, setSong, setSongPlaying, clearQueue, clearSong } from "../redux/actions";
 
 import globalVars from '../global';
 

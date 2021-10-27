@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useRef} from 'react';
+import React, {Fragment, useRef} from 'react';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,15 +14,10 @@ import ModalTags from './modalTags';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
 
-import FastAverageColor from 'fast-average-color';
-const fac = new FastAverageColor();
-
 const ModalContainer = styled.div`
     display : flex;
     flex-flow : row wrap;
     width : 850px;
-
-    //background: linear-gradient( ${({gcolor}) => gcolor === null ? 'rgb(200,200,200)' : gcolor} 0%, rgba(0,0,0,0) 35%);
     border-radius : 15px;
 `;
 
@@ -30,10 +25,6 @@ const InfoContainer = styled.div`
     width : 55%;
 `;
 
-const ButtonContainer = styled.div`
-    width : 100%;
-    margin : 15px 0;
-`;
 
 const ImageEditable = styled.img`
     width : 100%;
@@ -82,24 +73,24 @@ const ImageContainer = styled.div`
     }
 `;
 
-const EditButton = styled.button`
-    display : ${({mode}) => mode === "text" ? 'inline-block' : 'none'};
-    border : 0;
-    margin : 0 10px;
-    background-color : ${({theme}) => theme.modalButtonColor};
-    border-radius : 5px;
-    padding : 2px 10px;
-    color : ${({ theme }) => theme.modalTextColor};
+const CancelButton = styled.button`
+    height : 30px;
 `;
 
-const CSButton = styled.button`
-    display : ${({mode}) => mode === "edit" ? 'inline-block' : 'none'};
-    border : 0;
-    margin : 0 10px;
-    background-color : ${({theme}) => theme.modalButtonColor};
-    border-radius : 5px;
-    padding : 2px 10px;
-    color : ${({ theme }) => theme.modalTextColor};
+const SaveButton = styled.button`
+    height : 30px;
+`;
+
+const EditButton = styled.button`
+    height : 30px;
+`;
+
+const ButtonContainer = styled.div`
+    width : 95%;
+    margin-top : 20px;
+    display : flex;
+    justify-content : flex-end;
+    align-items : center;
 `;
 
 function ModalEditSong(){
@@ -107,18 +98,10 @@ function ModalEditSong(){
     const [song, setSong] = React.useState(useSelector(getModal).song);
     const [tmpSong, setTmpSong] = React.useState(useSelector(getModal).song);
     const [mode, setMode] = React.useState("text");
-    const [avgColor, setColor] = React.useState(null);
 
     const fileRef = useRef(null);
     const dispatch = useDispatch();
     var modalEditedSong = useSelector(getModal).song;
-
-    useEffect(() => {
-        fac.getColorAsync(globalVars.server + '/pic/' + song.picid)
-        .then(color => {
-            setColor(color.hex);
-        });
-    }, []);
 
     const handleFiles = (e) => {
         let file = e.target.files[0];
@@ -244,7 +227,7 @@ function ModalEditSong(){
     }else{
         return(
             <Fragment>
-                <ModalContainer gcolor={avgColor}>
+                <ModalContainer>
                     <ImageContainer>
                         <ImageEditDim>
                             <input type="file" ref={fileRef} onChange={handleFiles} hidden={true} accept="image/*"/>
@@ -262,21 +245,14 @@ function ModalEditSong(){
                         <EditableText type="duration" value={song.duration} mode={mode} />
 
                         <ModalTags tags={song.tags} onEdit={editTag}/>
+                        
+                        <ButtonContainer>
+                            {mode === "text" && <EditButton onClick={() => setMode("edit")}>Edit</EditButton>}
+                            {mode === "edit" &&<CancelButton onClick={cancelEdit}>Cancel</CancelButton>}
+                            {mode === "edit" &&<SaveButton onClick={saveEdit}>Save</SaveButton>}
+                        </ButtonContainer>
 
-                        {/* <ButtonContainer>
-                            <EditButton mode={mode} onClick={() => setMode("edit")}>
-                                Edit
-                            </EditButton>
-                            <CSButton mode={mode} onClick={cancelEdit}>
-                                Cancel
-                            </CSButton>
-                            <CSButton mode={mode} onClick={saveEdit}>
-                                Save
-                            </CSButton>
-                        </ButtonContainer> */}
                     </InfoContainer>
-
-
                 </ModalContainer>
             </Fragment>
         );

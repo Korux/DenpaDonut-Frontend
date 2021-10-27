@@ -149,7 +149,7 @@ const ImageContainer = styled.div`
 
 const ImageSubContainer = styled.div`
     width : 85%;
-    height : auto;
+    height : 85%;
     position : absolute;
     top : 50%;
     left: 50%;
