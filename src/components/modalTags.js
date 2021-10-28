@@ -120,6 +120,7 @@ const TagsHeader = styled.div`
     width : 100%;
     text-align : left;
     flex : 0 1 auto;
+    color : ${({ theme }) => theme.modalTextColor};
 `;
 
 const TagsDisplay = styled.div`

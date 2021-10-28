@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {MdEdit} from 'react-icons/md';
-
 const MainText = styled.div`
     width : 90%;
     text-align : left;
@@ -12,8 +10,12 @@ const MainText = styled.div`
     font-family: 'Noto Sans JP', sans-serif;
     font-size : 1.5rem;
     font-weight : 400;
+    float : left;
     margin : 15px 0;
+    padding : 1px;
+    border : 1px solid ${({ theme }) => theme.modalColor};
     color : ${({ theme }) => theme.modalTextColor};
+
 `;
 
 const MainEditable = styled.input`
@@ -24,8 +26,10 @@ const MainEditable = styled.input`
     font-size : 1.5rem;
     font-weight : 400;
     text-align : left;
-    border : 0;
+    float : left;
+    border : 1px solid ${({ theme }) => theme.modalColor};
     border-bottom : 1px solid ${({ theme }) => theme.modalUnderlineDark};
+    padding : 1px;
     margin : 15px 0;
     transition : border 0.3s ease-in-out;
     &:focus {
@@ -48,21 +52,27 @@ const TitleContainer = styled.div`
 `;
 
 const SubText = styled.div`
-    width : calc(100% - 80px);
+    width : calc(85% - 80px);
     text-align : left;
     text-overflow: ellipsis;
     overflow:hidden; 
     white-space:nowrap; 
-    float:right;
+    float:left;
     font-family: 'Noto Sans JP', sans-serif;
     font-size : 0.9rem;
     font-weight : 100;
     letter-spacing : 0.4px;
+    color : ${({ theme }) => theme.modalTextColor};
 `;
 
 const SubEditable = styled.input`
-    width : calc(100% - 80px);
-    float:right;
+    width : calc(85% - 80px);
+    border : 1px solid rgb(100,100,100);
+    background-color:${({ theme }) => theme.modalColor};
+    border : 1px solid ${({ theme }) => theme.modalColor};
+    border-bottom : 1px solid ${({ theme }) => theme.modalUnderlineDark};
+    color : ${({ theme }) => theme.modalTextColor};
+    float: left;
     text-align : left;
     font-family: 'Noto Sans JP', sans-serif;
     font-size : 0.9rem;
@@ -78,16 +88,13 @@ const SubLabel = styled.span`
     font-size : 0.9rem;
     font-weight : 300;
     letter-spacing : 0.4px;
+    color : ${({ theme }) => theme.modalTextColor};
 `;
 
 const SubContainer = styled.div`
     width : 100%;
     overflow : auto;
     margin : 5px 0;
-`;
-
-const EditTextIcon = styled(MdEdit)`
- 
 `;
 
 const EditableText = ({type, value, tmp, mode, onEdit}) => {
@@ -149,7 +156,6 @@ const EditableText = ({type, value, tmp, mode, onEdit}) => {
                         <MainText>
                             {value}
                         </MainText>
-                        <EditTextIcon/>
                     </TitleContainer>
                 );
             case "album":

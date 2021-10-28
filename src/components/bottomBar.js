@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 import AudioPlayer from './audioPlayer';
 import BottomSongInfo from './bottomSongInfo';
+import PlaylistPullout from './playlistPullout';
 
 const BottomBarContainer = styled.div`
     width : 100%;
@@ -18,10 +19,13 @@ const BottomBarContainer = styled.div`
 function BottomBar(){
 
     return(
-        <BottomBarContainer>
-            <BottomSongInfo/>
-            <AudioPlayer/>
-        </BottomBarContainer>
+        <Fragment>
+            <PlaylistPullout/>
+            <BottomBarContainer>
+                <BottomSongInfo/>
+                <AudioPlayer/>
+            </BottomBarContainer>
+        </Fragment>
 
     );
 }
