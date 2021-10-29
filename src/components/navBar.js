@@ -88,7 +88,7 @@ function NavBar(){
             <StyledNavbar variant="dark" fixed="top">
                 <NavColumn>
 
-                    <StyledLink to="/home" replace>
+                    <StyledLink to="/" replace>
                         <StyledBrand title="DenpaDonut Home"><img src={Logo} alt="logo"/></StyledBrand>
                     </StyledLink>
 

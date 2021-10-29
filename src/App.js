@@ -8,7 +8,6 @@ import { theme } from './theme';
 
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-import HomePage from './pages/homePage';
 import ErrorPage from './pages/errorPage';
 import SongsPage from './pages/songsPage';
 
@@ -43,17 +42,19 @@ function App() {
 
       <Switch>
 
-        <Route exact path="/home">
+        {/* <Route exact path="/home">
           <HomePage/>
-        </Route>
+        </Route> */}
 
         <Route exact path="/songs">
             <SongsPage/>
         </Route>
 
         <Route exact path="/">
-          <Redirect to="/home"/>
-        </Route>
+          <Redirect to="/songs"/>
+        </Route> 
+
+
 
         <Route exact path="/error">
           <ErrorPage/>
