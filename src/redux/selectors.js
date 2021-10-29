@@ -26,3 +26,7 @@ export function getUpdate(state){
 export function getDrag(state){
     return state.drag;
 }
+
+export function getScroll(state){
+    return state.scroll;
+}

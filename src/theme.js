@@ -23,6 +23,7 @@ export const theme = {
     // queue page colors
     queueItemBackground : 'rgb(60,60,60)',
     queueImageBackground : 'rgb(220,220,220)',
+    queueBackground : 'rgb(30,30,30)',
 
     // bottom bar colors
     bottomBarBackground : 'rgb(20,20,20)',

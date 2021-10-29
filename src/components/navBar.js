@@ -11,7 +11,7 @@ import SearchFilter from './searchFilter';
 import SongModal from './songModal';
 
 import { useDispatch} from 'react-redux';
-import { setModalState, setModalShow } from '../redux/actions';
+import { setModalState, setModalShow, setQueueShow } from '../redux/actions';
 import { Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -93,16 +93,16 @@ function NavBar(){
                     </StyledLink>
 
                     <StyledTooltip title="Queue">
-                        <StyledLink to="/queue" replace>
-                            <PlaylistIcon size="2rem"/>
+                        <StyledLink to="/" onClick={ (event) => event.preventDefault() }>
+                            <PlaylistIcon size="2rem" onClick={() => dispatch(setQueueShow(true))}/>
                         </StyledLink>
                     </StyledTooltip>
 
-                    <StyledTooltip title="Songs">
+                    {/* <StyledTooltip title="Songs">
                         <StyledLink to="/songs" replace>
                             <MusicLibIcon size="1.5rem"/>        
                         </StyledLink>
-                    </StyledTooltip>
+                    </StyledTooltip> */}
 
                     <StyledTooltip title="Add Song">
                         <StyledLink to="/" onClick={ (event) => event.preventDefault() }>

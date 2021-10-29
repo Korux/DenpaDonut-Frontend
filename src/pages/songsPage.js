@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import styled from 'styled-components';
+import Loading from '../components/loading';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {setToast} from '../redux/actions';
@@ -83,7 +84,7 @@ function SongsPage(){
 
     return(
         <SongsContainer>
-            {songs === null && 'loading'}
+            {songs === null &&  <Loading type={'spin'} color={'#555555'} height={100} width={100}/>}
             {songs !== null && songs.length === 0 && <EmptySongsDisplay/>}
             {songs !== null && songs.length > 0 && songs}
         </SongsContainer>

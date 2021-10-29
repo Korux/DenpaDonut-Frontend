@@ -1,8 +1,8 @@
 import React, { useEffect, createRef, Fragment } from 'react';
 import styled from 'styled-components';
 
-import Player from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import Player from '../h5-audio-player/index.tsx'
+import '../h5-audio-player/styles.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getSong, getQueue } from '../redux/selectors';

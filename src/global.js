@@ -14,6 +14,8 @@ export const GlobalStyles = createGlobalStyle`
         -ms-user-select: ${({drag}) => drag ? 'none' : 'auto'}; /* Internet Explorer/Edge */
             user-select: ${({drag}) => drag ? 'none' : 'auto'}; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+
+    overflow : ${({scroll}) => scroll ? 'scroll' : 'hidden'};
   }
 
   *::-webkit-scrollbar {

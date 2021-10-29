@@ -11,7 +11,6 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import HomePage from './pages/homePage';
 import ErrorPage from './pages/errorPage';
 import SongsPage from './pages/songsPage';
-import QueuePage from './pages/queuePage';
 
 import BottomBar from './components/bottomBar';
 import NavBar from './components/navBar';
@@ -20,7 +19,7 @@ import {SuccessToast, ErrorToast, RegularToast } from './components/toast';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { clearToast } from './redux/actions';
-import { getDrag, getToast } from './redux/selectors';
+import { getDrag, getScroll, getToast } from './redux/selectors';
 
 const BlankFooter = styled.div`
   width : 100%;
@@ -30,11 +29,12 @@ const BlankFooter = styled.div`
 function App() {
 
   var isDragging = useSelector(getDrag).dragging;
+  var isScrollable = useSelector(getScroll).scroll;
   const dispatch = useDispatch();
 
   return(
     <ThemeProvider theme={theme}>
-      <GlobalStyles drag={isDragging}/>
+      <GlobalStyles drag={isDragging} scroll={isScrollable}/>
       <ErrorToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "error"} message={useSelector(getToast).msg}/>
       <SuccessToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "success"} message={useSelector(getToast).msg}/>
       <RegularToast onClose={() => dispatch(clearToast())} show={useSelector(getToast).type === "regular"} message={useSelector(getToast).msg}/>
@@ -49,10 +49,6 @@ function App() {
 
         <Route exact path="/songs">
             <SongsPage/>
-        </Route>
-
-            <Route exact path="/queue">
-            <QueuePage/>
         </Route>
 
         <Route exact path="/">

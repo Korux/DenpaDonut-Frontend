@@ -1,10 +1,10 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getModal } from '../redux/selectors';
-import { setModalShow, setModalState } from '../redux/actions';
+import { setModalShow, setModalState, setScrollable } from '../redux/actions';
 
 import ModalAddSong from './modalAddSong';
 import ModalEditSong from './modalEditSong';
@@ -45,6 +45,10 @@ function SongModal(){
         dispatch(setModalShow(false));
         dispatch(setModalState("none"));
     };
+
+    useEffect(() => {
+        dispatch(setScrollable(!modal.show));
+    },[modal]);
 
     return(
         <Fragment>

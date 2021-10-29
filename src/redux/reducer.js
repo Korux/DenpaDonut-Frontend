@@ -14,7 +14,9 @@ import {
     SET_MODAL_EDITED_SONG,
     SET_SONG_PLAYING,
     SET_FORCE_UPDATE,
-    SET_DRAGGING
+    SET_DRAGGING,
+    SET_SCROLLABLE,
+    SET_QUEUE_SHOW
 } from './actions.js';
 
 const baseSong = {
@@ -60,6 +62,7 @@ const baseQueue = {
     queue: null,
     noqueue : true,
     idx : -1,
+    show : false,
 }
 
 function queueReducer(state=baseQueue, action){
@@ -76,6 +79,11 @@ function queueReducer(state=baseQueue, action){
             return{
                 ...state,
                 idx : action.idx,
+            }
+        case SET_QUEUE_SHOW:
+            return{
+                ...state,
+                show : action.show
             }
         default:
             return state;
@@ -167,6 +175,17 @@ function draggingReducer(state={dragging:false}, action){
     }
 }
 
+function scrollReducer(state={scroll : true}, action){
+    switch(action.type){
+        case SET_SCROLLABLE:
+            return{
+                scroll : action.val
+            }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     song : songReducer,
     queue : queueReducer,
@@ -174,7 +193,8 @@ const rootReducer = combineReducers({
     shuffle : shuffleReducer,
     modal : modalReducer,
     update : updateReducer,
-    drag : draggingReducer
+    drag : draggingReducer,
+    scroll : scrollReducer
 });
 
 export default rootReducer;

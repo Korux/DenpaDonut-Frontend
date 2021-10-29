@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Fragment} from 'react';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
@@ -6,21 +6,31 @@ import { getQueue } from '../redux/selectors';
 
 import ShuffleButton from '../components/shuffleButton';
 
-
 import QueueItem from '../components/queueItem';
-import QueueHeader from '../components/queueHeader';
+import Loading from '../components/loading';
 
-const QueueSeparatorLine = styled.span`
-width : 100%;
-height : 2px;
-background-color : rgb(100,100,100);
-`;
+import EmptyImg from '../images/empty.png';
+const EmptyQueueDisplay = () => {
+    return(
+        <div>
+            <img style={{width : '200px'}} src={EmptyImg} alt={"error image"}/>
+            <div style={{fontSize : '16px'}}>
+                No Songs in Queue
+            </div>
+        </div>
+    );
+
+}
 
 const QueueContainer = styled.div`
-    display : flex;
-    flex-flow: column wrap;
-    justify-content : center;
-    align-items : center;
+    height : 45%;
+    width : 100%;
+    background-color : ${({theme}) => theme.queueBackground};
+    transition : all 0.3s ease-in-out;
+    position : fixed;
+    bottom : ${({open}) => open ? '0' : '-45%'};
+    z-index : 998;
+    overflow-y : scroll;
 `;
 
 const QueueListHeader = styled.div`
@@ -30,7 +40,13 @@ const QueueListHeaderContainer = styled.div`
     display : flex;
     align-items : center;
     justify-content : center;
-    width : 95%;
+    width : 100%;
+    height : 50px;
+    position : fixed;
+    transition : all 0.3s ease-in-out;
+    bottom : ${({open}) => open ? '45%' : '-50px'};
+    background-color :${({theme}) => theme.queueBackground};
+    z-index : 999;
 `;
 
 const LineBreak = styled.span`
@@ -39,18 +55,10 @@ const LineBreak = styled.span`
     background-color : rgb(100,100,100);
 `;
 
-function QueuePage(){
+function QueuePullout({open}){
 
     var queue = useSelector(getQueue);
     const [queueItems, setQueueItems] = React.useState(null);
-
-    const handleDrag = () => {
-
-    };
-
-   const handleDragEnd = () => {
-
-    };
 
     // update queue on change
     useEffect(() => {
@@ -59,18 +67,17 @@ function QueuePage(){
         }else{
             let items = [];
             queue.queue.forEach((item, i) => {
-                items.push(<QueueItem data={item} key={i+1} id={i} onDrag={handleDrag} onDragEnd={handleDragEnd}/>);
-                items.push(<QueueSeparatorLine key={-i}/>);
+                items.push(<QueueItem data={item} key={i+1} id={i} />);
             });
             if(queue.idx > 0) items = items.slice(queue.idx * 2) ;
             setQueueItems(items);
         }
     },[queue]);
 
+
     return(
-        <QueueContainer>
-            <QueueHeader/>
-            <QueueListHeaderContainer>
+        <Fragment>
+            <QueueListHeaderContainer open={open}>
                 <QueueListHeader style={{width : "calc(32% + 67.5px)"}}>
                     TITLE
                 </QueueListHeader>
@@ -85,18 +92,20 @@ function QueuePage(){
                 </QueueListHeader>
             </QueueListHeaderContainer>
             <LineBreak/>
-            {queueItems === null && 'loading'}
+            <QueueContainer open={open}>
+                {queueItems === null && <Loading type={'spin'} color={'#555555'} height={75} width={75}/>}
 
-            {queueItems !== null && queueItems.length === 0 &&
-                <div>
-                    'empty'
+                {queueItems !== null && queueItems.length === 0 &&
+                <Fragment>
+                    <EmptyQueueDisplay/>
                     <ShuffleButton/>
-                </div>
-            }
+                </Fragment>
+                }
 
-            {queueItems !== null && queueItems.length > 0 && queueItems}
-        </QueueContainer>
+                {queueItems !== null && queueItems.length > 0 && queueItems}
+            </QueueContainer>
+        </Fragment>
     );
 }
 
-export default QueuePage;
+export default QueuePullout;

@@ -25,7 +25,7 @@ function ShuffleButton(){
 
     return(
         <button onClick={setShuffledQueue} disabled={useSelector(getShuffle).shuffle === "loading"}>
-            aa
+            Shuffle
         </button>
     );
 

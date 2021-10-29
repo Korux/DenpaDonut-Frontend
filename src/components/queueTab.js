@@ -5,10 +5,10 @@ import {BiChevronsUp} from 'react-icons/bi';
 
 const Pullout = styled.div`
     width : 40px;
-    height : 20px;
+    height : 18px;
     background-color : white;
     position : fixed;
-
+    bottom : 0;
     left : 50%;
     transform : translateX(-20px);
     border-top-left-radius : 40px;
@@ -17,37 +17,38 @@ const Pullout = styled.div`
     border-bottom : 1px solid ${({theme}) => theme.bottomBarBackground};
     z-index : 100;
     background-color:${({theme}) => theme.bottomBarBackground};
-
     display : flex;
     justify-content : center;
     align-items : center;
+    transition : all 0.1s ease-in-out;
+    cursor : pointer;
+    
 `;
 
 const HoverZone = styled.div`
-    width : 100px;
-    height : 100px;
+    width : 200px;
+    height : 120px;
     position : fixed;
-    bottom : 100px;
+    bottom : 80px;
     left : 50%;
-    transform : translateX(-50px);
-    z-index : 999;
-
-    &:hover{
-        background-color:white;
+    transform : translateX(-100px);
+    z-index : 1;
+    display : ${({show}) => show ? 'block' : 'none'};
+    &:hover ${Pullout}{
+        bottom : 20px;
     }
 
 `;
 
 const PulloutIcon = styled(BiChevronsUp)`
     color : ${({theme}) => theme.navbarIconColor};
-    margin-top : 2px;
+    margin-top : 3px;
 `;
 
-function PlaylistPullout(){
-
+function QueueTab({onClick, show}){
     return(
-        <HoverZone>
-            <Pullout>
+        <HoverZone show={show}>
+            <Pullout onClick={onClick}>
                 <PulloutIcon size={"1.4rem"}/>
             </Pullout>
         </HoverZone>
@@ -55,4 +56,4 @@ function PlaylistPullout(){
 
 }
 
-export default PlaylistPullout;
+export default QueueTab;
