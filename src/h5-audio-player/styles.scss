@@ -149,7 +149,7 @@ $rhap_font-family: inherit !default;
 
 .rhap_additional-controls {
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 1 0;
   align-items: center;
 }
 
@@ -162,7 +162,7 @@ $rhap_font-family: inherit !default;
 }
 
 .rhap_main-controls {
-  flex: 0 1 auto;
+  flex: 1 1 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -185,7 +185,7 @@ $rhap_font-family: inherit !default;
 
 .rhap_volume-controls {
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 1 0;
   justify-content: flex-end;
   align-items: center;
 }

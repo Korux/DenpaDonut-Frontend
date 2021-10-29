@@ -25,6 +25,7 @@ import Duration from './Duration'
 import VolumeBar from './VolumeBar'
 import { RHAP_UI, MAIN_LAYOUT, AUDIO_PRELOAD_ATTRIBUTE, TIME_FORMAT } from './constants'
 import { throttle, getMainLayoutClassName, getDisplayTimeBySeconds } from './utils'
+import ShuffleButton from '../components/shuffleButton'
 
 type CustomUIModule = RHAP_UI | ReactElement
 type CustomUIModules = Array<CustomUIModule>
@@ -159,7 +160,7 @@ class H5AudioPlayer extends Component<PlayerProps> {
     customIcons: {},
     customProgressBarSection: [RHAP_UI.CURRENT_TIME, RHAP_UI.PROGRESS_BAR, RHAP_UI.DURATION],
     customControlsSection: [RHAP_UI.ADDITIONAL_CONTROLS, RHAP_UI.MAIN_CONTROLS, RHAP_UI.VOLUME_CONTROLS],
-    customAdditionalControls: [RHAP_UI.LOOP],
+    customAdditionalControls: [RHAP_UI.LOOP, RHAP_UI.SHUFFLE],
     customVolumeControls: [RHAP_UI.VOLUME],
     layout: 'stacked',
     hasDefaultKeyBindings: true,
@@ -498,6 +499,12 @@ class H5AudioPlayer extends Component<PlayerProps> {
             {loopIcon}
           </button>
         )
+      }
+
+      case RHAP_UI.SHUFFLE: {
+        return (
+            <ShuffleButton type={"shuffle-icon"}/>
+        );
       }
       case RHAP_UI.VOLUME: {
         const { volume = muted ? 0 : volumeProp } = this.audio.current || {}
