@@ -47,13 +47,9 @@ const QueueListHeaderContainer = styled.div`
     bottom : ${({open}) => open ? '45%' : '-50px'};
     background-color :${({theme}) => theme.queueBackground};
     z-index : 999;
+    border-bottom : 1px solid black;
 `;
 
-const LineBreak = styled.span`
-    width : 100%;
-    height : 2px;
-    background-color : rgb(100,100,100);
-`;
 
 function QueuePullout({open}){
 
@@ -91,7 +87,7 @@ function QueuePullout({open}){
                     DURATION
                 </QueueListHeader>
             </QueueListHeaderContainer>
-            <LineBreak/>
+            
             <QueueContainer open={open}>
                 {queueItems === null && <Loading type={'spin'} color={'#555555'} height={75} width={75}/>}
 

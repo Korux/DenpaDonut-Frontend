@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
-import {BiChevronsUp} from 'react-icons/bi';
+import {BiChevronUp} from 'react-icons/bi';
 
 const Pullout = styled.div`
     width : 40px;
@@ -22,7 +22,7 @@ const Pullout = styled.div`
     align-items : center;
     transition : all 0.1s ease-in-out;
     cursor : pointer;
-    
+
 `;
 
 const HoverZone = styled.div`
@@ -40,7 +40,7 @@ const HoverZone = styled.div`
 
 `;
 
-const PulloutIcon = styled(BiChevronsUp)`
+const PulloutIcon = styled(BiChevronUp)`
     color : ${({theme}) => theme.navbarIconColor};
     margin-top : 3px;
 `;
