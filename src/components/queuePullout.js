@@ -98,7 +98,7 @@ function QueuePullout({open}){
                 {queueItems !== null && queueItems.length === 0 &&
                 <Fragment>
                     <EmptyQueueDisplay/>
-                    <ShuffleButton/>
+                    <ShuffleButton type="shuffle-standard"/>
                 </Fragment>
                 }
 

@@ -8,6 +8,19 @@ import { getShuffle } from '../redux/selectors';
 
 import {IoMdShuffle} from 'react-icons/io';
 
+const ShuffleButtonStandard = styled.button`
+    border : none;
+    border-radius : 20px;
+    font-size : 16px;
+    font-weight : 900;
+    letter-spacing : .125rem;
+    color :  ${({theme}) => theme.modalTextColor};
+    padding : 5px 12px;
+    margin-top : 1%;
+    background-color : ${({theme}) => theme.buttonConfirmColor};
+
+`;
+
 const ShuffleButtonIcon = styled.button`
     background-color : rgba(0,0,0,0);
     border : none;
@@ -46,7 +59,9 @@ function ShuffleButton({type}){
             );
         case "shuffle-standard":
             return(
-                <button onClick={setShuffledQueue} disabled={shuffling} />
+                <ShuffleButtonStandard onClick={setShuffledQueue} disabled={shuffling}>
+                    SHUFFLE
+                </ShuffleButtonStandard>
             );
         default:
             return(

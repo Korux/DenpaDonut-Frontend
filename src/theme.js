@@ -18,7 +18,7 @@ export const theme = {
     songInfoBackground : 'rgba(0,0,0,0)',
     songContainerBackground : 'rgb(55,55,55)',
     songImageBackground : 'rgb(220,220,220)',
-    songPlayPauseColor : '#FFB8BF', 
+    songPlayPauseColor : '#FFB8BF',
 
     // queue page colors
     queueItemBackground : 'rgb(60,60,60)',
@@ -32,6 +32,10 @@ export const theme = {
     navbarIconColor : 'rgb(220,220,220)',
     navbarSearchColor : 'rgb(40,40,40)',
     navbarSearchBorderColor : 'rgb(60,60,60)',
+
+    // button colors
+    buttonConfirmColor : 'rgb(50,160,20)',
+    buttonCancelColor : 'rgb(220,220,220)',
   }
 
   //#D8368D

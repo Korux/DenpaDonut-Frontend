@@ -74,15 +74,39 @@ const ImageContainer = styled.div`
 `;
 
 const CancelButton = styled.button`
-    height : 30px;
+    border : none;
+    border-radius : 12px;
+    font-size : 15px;
+    font-weight : 700;
+    letter-spacing : 1px;
+    color :  ${({theme}) => theme.modalTextColor};
+    padding : 3px 8px;
+    background-color : ${({theme}) => theme.buttonConfirmColor};
+    margin : 0 5px;
 `;
 
 const SaveButton = styled.button`
-    height : 30px;
+    border : none;
+    border-radius : 12px;
+    font-size : 15px;
+    font-weight : 700;
+    letter-spacing : 1px;
+    color :  ${({theme}) => theme.modalTextColor};
+    padding : 3px 8px;
+    background-color : ${({theme}) => theme.buttonConfirmColor};
+    margin : 0 5px;
 `;
 
 const EditButton = styled.button`
-    height : 30px;
+    border : none;
+    border-radius : 12px;
+    font-size : 15px;
+    font-weight : 700;
+    letter-spacing : 1px;
+    color :  ${({theme}) => theme.modalTextColor};
+    padding : 3px 8px;
+    background-color : ${({theme}) => theme.buttonConfirmColor};
+    margin : 0 5px;
 `;
 
 const ButtonContainer = styled.div`
@@ -245,11 +269,11 @@ function ModalEditSong(){
                         <EditableText type="duration" value={song.duration} mode={mode} />
 
                         <ModalTags tags={song.tags} onEdit={editTag}/>
-                        
+
                         <ButtonContainer>
-                            {mode === "text" && <EditButton onClick={() => setMode("edit")}>Edit</EditButton>}
-                            {mode === "edit" &&<CancelButton onClick={cancelEdit}>Cancel</CancelButton>}
-                            {mode === "edit" &&<SaveButton onClick={saveEdit}>Save</SaveButton>}
+                            {mode === "text" && <EditButton onClick={() => setMode("edit")}>EDIT</EditButton>}
+                            {mode === "edit" &&<CancelButton onClick={cancelEdit}>CANCEL</CancelButton>}
+                            {mode === "edit" &&<SaveButton onClick={saveEdit}>SAVE</SaveButton>}
                         </ButtonContainer>
 
                     </InfoContainer>
