@@ -21,9 +21,11 @@ export const theme = {
     songPlayPauseColor : '#FFB8BF',
 
     // queue page colors
-    queueItemBackground : 'rgb(60,60,60)',
+    queueItemBackground : 'rgba(60,60,60,0.6)',
     queueImageBackground : 'rgb(220,220,220)',
     queueBackground : 'rgb(30,30,30)',
+    queueTextLight : 'rgb(240,240,240)',
+    queueTextDark : 'rgb(180,180,180)',
 
     // bottom bar colors
     bottomBarBackground : 'rgb(20,20,20)',

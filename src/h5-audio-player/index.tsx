@@ -503,7 +503,7 @@ class H5AudioPlayer extends Component<PlayerProps> {
 
       case RHAP_UI.SHUFFLE: {
         return (
-            <ShuffleButton type={"shuffle-icon"}/>
+            <ShuffleButton key={key} type={"shuffle-icon"}/>
         );
       }
       case RHAP_UI.VOLUME: {

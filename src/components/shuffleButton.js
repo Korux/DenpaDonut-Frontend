@@ -12,7 +12,7 @@ const ShuffleButtonStandard = styled.button`
     border : none;
     border-radius : 20px;
     font-size : 16px;
-    font-weight : 900;
+    font-weight : 700;
     letter-spacing : .125rem;
     color :  ${({theme}) => theme.modalTextColor};
     padding : 5px 12px;

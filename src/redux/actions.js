@@ -14,6 +14,7 @@ export const SET_FORCE_UPDATE = "SET_FORCE_UPDATE";
 export const SET_DRAGGING = "SET_DRAGGING";
 export const SET_SCROLLABLE = "SET_SCROLLABLE";
 export const SET_QUEUE_SHOW = "SET_QUEUE_SHOW";
+export const REMOVE_FROM_QUEUE = 'REMOVE_FROM_QUEUE';
 
 export function setSong(song){
     return { type : SET_SONG, song };
@@ -77,4 +78,8 @@ export function setScrollable(val){
 
 export function setQueueShow(show){
     return {type : SET_QUEUE_SHOW, show };
+}
+
+export function removeFromQueue(idx){
+    return {type : REMOVE_FROM_QUEUE, idx };
 }

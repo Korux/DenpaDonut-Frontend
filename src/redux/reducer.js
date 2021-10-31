@@ -16,7 +16,8 @@ import {
     SET_FORCE_UPDATE,
     SET_DRAGGING,
     SET_SCROLLABLE,
-    SET_QUEUE_SHOW
+    SET_QUEUE_SHOW,
+    REMOVE_FROM_QUEUE
 } from './actions.js';
 
 const baseSong = {
@@ -85,6 +86,17 @@ function queueReducer(state=baseQueue, action){
                 ...state,
                 show : action.show
             }
+        case REMOVE_FROM_QUEUE:
+            let newQueue = state.queue.slice();
+            newQueue.splice(action.idx,1);
+            let newIdx = state.idx;
+            if(action.idx < newIdx) newIdx -= 1;
+            return{
+                ...state,
+                queue : newQueue,
+                idx : newIdx,
+            }
+
         default:
             return state;
     }

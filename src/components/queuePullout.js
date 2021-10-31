@@ -33,6 +33,7 @@ const QueueContainer = styled.div`
     overflow-y : scroll;
 `;
 
+
 const QueueListHeader = styled.div`
 `;
 
@@ -65,7 +66,6 @@ function QueuePullout({open}){
             queue.queue.forEach((item, i) => {
                 items.push(<QueueItem data={item} key={i+1} id={i} />);
             });
-            if(queue.idx > 0) items = items.slice(queue.idx * 2) ;
             setQueueItems(items);
         }
     },[queue]);
