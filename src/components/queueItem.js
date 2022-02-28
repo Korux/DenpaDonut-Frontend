@@ -6,29 +6,17 @@ import globalVars from '../global';
 import { removeFromQueue, setQueueIdx, setSongPlaying } from '../redux/actions';
 import { getQueue, getSong } from '../redux/selectors';
 
-const QueueItemContainer = styled.div`
-    width : 90%;
-    height : 75px;
-    display : flex;
-    align-items : center;
-    justify-content : center;
-    margin : 10px auto;
-
-    &:hover{
-        background-color : ${({theme}) => theme.queueItemBackground};
-        border-radius : 5px;
-    }
-`;
+import { MdCancel,MdPlayCircle,MdPauseCircle } from 'react-icons/md';
 
 const QueueImage = styled.img`
     width : auto;
-    height : 70%;
+    height : 90%;
     background-color:${({ theme }) => theme.queueImageBackground};
     border-radius : 10px;
 `;
 
 const QueueTitleContainer = styled.div`
-    width : 60%;
+    width : 70%;
     height : fit-content;
     margin-left : 15px;
 
@@ -49,27 +37,87 @@ const QueueArtist = styled.div`
     color : ${({ theme }) => theme.queueTextDark};
 `;
 
+//-----------
 
 const QueueDuration = styled.span`
-    text-align : right;
+    width : 50%;
+    font-size : 18px;
+    letter-spacing : 0.3px;
+    color : ${({ theme }) => theme.queueTextLight};
 `;
 
-const QueueRemoveButton = styled.button`
+const QueueRemoveButton = styled(MdCancel)`
+width : 2rem;
+height : 2rem;
+margin : 10px auto;
+color : rgb(120,120,120);
+&:hover{
+    cursor : pointer;
+    color : rgb(210,210,210);
+}
+
 `;
 
-const QueueNumberingContainer = styled.div`
+//------------
+
+
+const QueueNumber = styled.div`
+    width : 50%;
+    height : auto;
+    font-size : 1.5rem;
+    text-align : center;
+    color : ${({ theme }) => theme.queueTextDark};
+`;
+
+const QueuePlay = styled(MdPlayCircle)`
+    width : 2rem;
+    height : 2rem;
+`;
+
+const QueuePause = styled(MdPauseCircle)`
+    width : 2rem;
+    height : 2rem;
+`;
+
+const QueuePlayNewSong = styled(MdPlayCircle)`
+    width : 2rem;
+    height : 2rem;
+`;
+
+const QueueItemColDuration = styled.div`
+    width  :10%;
     height : 100%;
-    width : auto;
-
+    display : flex;
+    align-items : center;
 `;
 
-const QueueNumber = styled.div``;
+const QueueItemColNumbers = styled(QueueItemColDuration)`
+    justify-content : center;
+`;
 
-const QueuePlay = styled.button``;
 
-const QueuePause = styled.button``;
 
-const QueuePlayNewSong = styled.button``;
+const QueueItemContainer = styled.div`
+    width : 80%;
+    height : 20%;
+    display : flex;
+    align-items : center;
+    justify-content : space-between;
+    margin : 25px auto;
+
+    &:hover{
+        background-color : ${({theme}) => theme.queueItemBackground};
+        border-radius : 5px;
+    }
+
+    ${QueueRemoveButton}{
+        display : none;
+    }
+
+    &:hover ${QueueRemoveButton}{
+        display : block;
+    }
+`;
 
 function QueueItem({data, id}){
 
@@ -89,26 +137,32 @@ function QueueItem({data, id}){
 
     return(
         <QueueItemContainer>
-            <QueueNumberingContainer
+
+            <QueueItemColNumbers
             onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-            >
-                {currIdx === id && songPlaying && <QueuePause onClick={() => dispatch(setSongPlaying(false))}>Pause</QueuePause>}
-                {currIdx === id && !songPlaying && <QueuePlay onClick={() => dispatch(setSongPlaying(true))}>Play</QueuePlay>}
-                {currIdx !== id && !isHovering &&<QueueNumber>{id+1}</QueueNumber>}
-                {currIdx !== id && isHovering &&<QueuePlayNewSong onClick={() => dispatch(setQueueIdx(id))}>Play</QueuePlayNewSong>}
-            </QueueNumberingContainer>
+            onMouseOut={handleMouseOut}>
+
+                    {currIdx === id && songPlaying && <QueuePause onClick={() => dispatch(setSongPlaying(false))}/>}
+                    {currIdx === id && !songPlaying && <QueuePlay onClick={() => dispatch(setSongPlaying(true))}/>}
+                    {currIdx !== id && !isHovering &&<QueueNumber>{id+1}</QueueNumber>}
+                    {currIdx !== id && isHovering &&<QueuePlayNewSong onClick={() => dispatch(setQueueIdx(id))}/>}
+
+            </QueueItemColNumbers>
+
             <QueueImage src={globalVars.server + '/pic/' + data.picid}/>
-            <QueueTitleContainer>
-                <QueueTitle>
-                    {data.title}
-                </QueueTitle>
-                <QueueArtist>
-                    {data.artist}
-                </QueueArtist>
-            </QueueTitleContainer>
-            <QueueDuration>{Math.floor(data.duration / 60)}:{data.duration%60 < 10 ? '0' : ''}{Math.floor(data.duration%60)}</QueueDuration>
-            <QueueRemoveButton disabled={currIdx === id} onClick={() => dispatch(removeFromQueue(id))}>Remove</QueueRemoveButton>
+                <QueueTitleContainer>
+                    <QueueTitle>
+                        {data.title}
+                    </QueueTitle>
+                    <QueueArtist>
+                        {data.artist}
+                    </QueueArtist>
+                </QueueTitleContainer>
+
+            <QueueItemColDuration>
+                <QueueDuration>{Math.floor(data.duration / 60)}:{data.duration%60 < 10 ? '0' : ''}{Math.floor(data.duration%60)}</QueueDuration>
+                <QueueRemoveButton hidden={currIdx === id}onClick={() => dispatch(removeFromQueue(id))}/>
+            </QueueItemColDuration>
         </QueueItemContainer>
     );
 }
