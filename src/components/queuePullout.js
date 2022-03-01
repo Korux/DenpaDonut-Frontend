@@ -7,6 +7,7 @@ import { getQueue } from '../redux/selectors';
 import ShuffleButton from '../components/shuffleButton';
 
 import QueueItem from '../components/queueItem';
+import QueueHeader from '../components/queueHeader';
 import Loading from '../components/loading';
 
 import EmptyImg from '../images/empty.png';
@@ -34,23 +35,6 @@ const QueueContainer = styled.div`
 `;
 
 
-const QueueListHeader = styled.div`
-`;
-
-const QueueListHeaderContainer = styled.div`
-    display : flex;
-    align-items : center;
-    justify-content : center;
-    width : 100%;
-    height : 50px;
-    position : fixed;
-    transition : all 0.3s ease-in-out;
-    bottom : ${({open}) => open ? '45%' : '-50px'};
-    background-color :${({theme}) => theme.queueBackground};
-    z-index : 999;
-    border-bottom : 1px solid black;
-`;
-
 
 function QueuePullout({open}){
 
@@ -73,20 +57,7 @@ function QueuePullout({open}){
 
     return(
         <Fragment>
-            <QueueListHeaderContainer open={open}>
-                <QueueListHeader style={{width : "calc(32% + 67.5px)"}}>
-                    TITLE
-                </QueueListHeader>
-                <QueueListHeader style={{width : "32%"}}>
-                    ALBUM
-                </QueueListHeader>
-                <QueueListHeader style={{width : "32%"}}>
-                    YEAR
-                </QueueListHeader>
-                <QueueListHeader style={{width : "4%"}}>
-                    DURATION
-                </QueueListHeader>
-            </QueueListHeaderContainer>
+            <QueueHeader open={open}/>
             
             <QueueContainer open={open}>
                 {queueItems === null && <Loading type={'spin'} color={'#555555'} height={75} width={75}/>}
