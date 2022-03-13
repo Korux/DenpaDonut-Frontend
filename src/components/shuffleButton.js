@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import {clearQueue, clearSong, setQueue, setQueueIdx, setShuffleState, setToast} from '../redux/actions';
-import QueueShuffler from '../components/queueShuffler';
+import QueueShuffler from './queueShuffler';
 import { getShuffle } from '../redux/selectors';
 
 import {IoMdShuffle} from 'react-icons/io';

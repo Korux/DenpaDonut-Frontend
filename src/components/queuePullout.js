@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getQueue } from '../redux/selectors';
 
-import ShuffleButton from '../components/shuffleButton';
+import ShuffleButton from './shuffleButton';
 
-import QueueItem from '../components/queueItem';
-import QueueHeader from '../components/queueHeader';
-import Loading from '../components/loading';
+import QueueItem from './queueItem';
+import QueueHeader from './queueHeader';
+import Loading from './loading';
 
 import EmptyImg from '../images/empty.png';
 const EmptyQueueDisplay = () => {
