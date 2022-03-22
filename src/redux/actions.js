@@ -15,6 +15,7 @@ export const SET_DRAGGING = "SET_DRAGGING";
 export const SET_SCROLLABLE = "SET_SCROLLABLE";
 export const SET_QUEUE_SHOW = "SET_QUEUE_SHOW";
 export const REMOVE_FROM_QUEUE = 'REMOVE_FROM_QUEUE';
+export const SET_USER = "SET_USER";
 
 export function setSong(song){
     return { type : SET_SONG, song };
@@ -82,4 +83,8 @@ export function setQueueShow(show){
 
 export function removeFromQueue(idx){
     return {type : REMOVE_FROM_QUEUE, idx };
+}
+
+export function setUser(loggedin, user, token){
+    return {type : SET_USER, loggedin, user, token};
 }

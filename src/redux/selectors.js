@@ -30,3 +30,7 @@ export function getDrag(state){
 export function getScroll(state){
     return state.scroll;
 }
+
+export function getUser(state){
+    return state.user;
+}

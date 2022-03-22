@@ -17,7 +17,8 @@ import {
     SET_DRAGGING,
     SET_SCROLLABLE,
     SET_QUEUE_SHOW,
-    REMOVE_FROM_QUEUE
+    REMOVE_FROM_QUEUE,
+    SET_USER
 } from './actions.js';
 
 const baseSong = {
@@ -198,6 +199,25 @@ function scrollReducer(state={scroll : true}, action){
     }
 }
 
+const baseUser = {
+    loggedin : false,
+    user : null,
+    token : null
+}
+
+function userReducer(state=baseUser, action){
+    switch(action.type){
+        case SET_USER:
+            return{
+                loggedin : action.loggedin,
+                user : action.user,
+                token : action.token
+            }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     song : songReducer,
     queue : queueReducer,
@@ -206,7 +226,8 @@ const rootReducer = combineReducers({
     modal : modalReducer,
     update : updateReducer,
     drag : draggingReducer,
-    scroll : scrollReducer
+    scroll : scrollReducer,
+    user : userReducer
 });
 
 export default rootReducer;

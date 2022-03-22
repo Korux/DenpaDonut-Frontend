@@ -10,10 +10,14 @@ import Logo from '../images/logo.png';
 import SearchFilter from './searchFilter';
 import SongModal from './songModal';
 
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setModalState, setModalShow, setQueueShow } from '../redux/actions';
+import { getUser } from '../redux/selectors';
 import { Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+
+import UserLogin from './userLogin';
+import UserLogout from './userLogout';
 
 const StyledNavbar = styled(Navbar)`
     display:flex;
@@ -109,6 +113,8 @@ function NavBar(){
                             <AddSongIcon size="1.5rem" onClick={showModal}/>
                         </StyledLink>
                     </StyledTooltip>
+                    {!useSelector(getUser).loggedin && <UserLogin/>}
+                    {useSelector(getUser).loggedin &&<UserLogout/>}
                 </NavColumn>
 
                 <NavColumnSearch>
