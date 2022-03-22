@@ -6,10 +6,11 @@ export const theme = {
     //modal colors
     modalColor : 'rgb(50,50,50)',
     modalTextColor : 'rgb(220,220,220)',
+    modalTextCancelColor : 'rgb(180,180,180)',
     modalTextColorDark : 'rgb(120,120,120)',
     modalButtonColor : 'rgb(60,60,60)',
-    modalUnderlineDark : "rgb(20,20,20)",
-    modalUnderline : 'rgb(200,200,200)',
+    modalUnderlineDark : "rgb(120,120,120)",
+    modalUnderline : 'rgb(250,250,250)',
     modalTagTextColor : 'rgb(230,230,230)',
     modalTagColor : '#D8368D',
     modalTagContainerColor : 'rgb(70,70,70)',
@@ -36,8 +37,8 @@ export const theme = {
     navbarSearchBorderColor : 'rgb(60,60,60)',
 
     // button colors
-    buttonConfirmColor : 'rgb(50,160,20)',
-    buttonCancelColor : 'rgb(220,220,220)',
+    buttonConfirmColor : 'rgb(50,140,10)',
+    buttonCancelColor : 'rgb(100,100,100)',
   }
 
   //#D8368D

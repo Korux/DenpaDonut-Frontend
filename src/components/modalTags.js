@@ -72,7 +72,7 @@ const AddTagForm = ({onSubmit}) => {
 
 const StyledTag = styled.div`
     background-color : ${({ theme }) => theme.modalTagColor};
-    border-radius : 10px 0 0 10px;
+    border-radius : 4px 0 0 4px;
     width : fit-content;
     height : 22px;
     padding : 0 3px 0 5px;
@@ -83,7 +83,7 @@ const StyledTag = styled.div`
 
 const RemoveTagButton = styled.div`
     background-color : ${({ theme }) => theme.modalTagColor};
-    border-radius : 0 10px 10px 0;
+    border-radius : 0 8px 8px 0;
     width : fit-content;
     height : 22px;
     padding : 0 7px 0 3px;

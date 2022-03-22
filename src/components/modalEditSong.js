@@ -22,7 +22,7 @@ const ModalContainer = styled.div`
 `;
 
 const InfoContainer = styled.div`
-    width : 55%;
+    width : 52%;
 `;
 
 
@@ -58,7 +58,7 @@ const ImageEditDim = styled.div`
 `;
 
 const ImageContainer = styled.div`
-    width : 41%;
+    width : 44%;
     height : auto;
     margin : 2%;
     position : relative;
@@ -75,36 +75,36 @@ const ImageContainer = styled.div`
 
 const CancelButton = styled.button`
     border : none;
-    border-radius : 12px;
-    font-size : 15px;
-    font-weight : 700;
+    border-radius : 4px;
+    font-size : 14px;
+    font-weight : 500;
     letter-spacing : 1px;
-    color :  ${({theme}) => theme.modalTextColor};
-    padding : 3px 8px;
-    background-color : ${({theme}) => theme.buttonConfirmColor};
+    color :  ${({theme}) => theme.modalTextCancelColor};
+    padding : 5px 15px;
+    background-color : ${({theme}) => theme.buttonCancelColor};
     margin : 0 5px;
 `;
 
 const SaveButton = styled.button`
     border : none;
-    border-radius : 12px;
-    font-size : 15px;
-    font-weight : 700;
+    border-radius : 4px;
+    font-size : 14px;
+    font-weight : 500;
     letter-spacing : 1px;
     color :  ${({theme}) => theme.modalTextColor};
-    padding : 3px 8px;
+    padding : 5px 15px;
     background-color : ${({theme}) => theme.buttonConfirmColor};
     margin : 0 5px;
 `;
 
 const EditButton = styled.button`
-    border : none;
-    border-radius : 12px;
-    font-size : 15px;
-    font-weight : 700;
+border : none;
+    border-radius : 4px;
+    font-size : 14px;
+    font-weight : 500;
     letter-spacing : 1px;
     color :  ${({theme}) => theme.modalTextColor};
-    padding : 3px 8px;
+    padding : 5px 15px;
     background-color : ${({theme}) => theme.buttonConfirmColor};
     margin : 0 5px;
 `;
@@ -261,19 +261,19 @@ function ModalEditSong(){
                     </ImageContainer>
 
                     <InfoContainer>
-                        <EditableText type="title" value={song.title} tmp={tmpSong.title} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, title : e})}/>
-                        <EditableText type="artist" value={song.artist} tmp={tmpSong.artist}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, artist : e})}/>
-                        <EditableText type="album" value = {song.album} tmp={tmpSong.album}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, album : e})}/>
+                        <EditableText type="Title" value={song.title} tmp={tmpSong.title} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, title : e})}/>
+                        <EditableText type="Artist" value={song.artist} tmp={tmpSong.artist}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, artist : e})}/>
+                        <EditableText type="Album" value = {song.album} tmp={tmpSong.album}  mode={mode} onEdit={(e) => setTmpSong({...tmpSong, album : e})}/>
 
-                        <EditableText type="year" value={song.year} tmp={tmpSong.year} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, year : e})}/>
-                        <EditableText type="duration" value={song.duration} mode={mode} />
+                        <EditableText type="Year" value={song.year} tmp={tmpSong.year} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, year : e})}/>
+                        <EditableText type="Duration" value={song.duration} mode={mode} />
 
                         <ModalTags tags={song.tags} onEdit={editTag}/>
 
                         <ButtonContainer>
-                            {mode === "text" && <EditButton onClick={() => setMode("edit")}>EDIT</EditButton>}
-                            {mode === "edit" &&<CancelButton onClick={cancelEdit}>CANCEL</CancelButton>}
-                            {mode === "edit" &&<SaveButton onClick={saveEdit}>SAVE</SaveButton>}
+                            {mode === "text" && <EditButton onClick={() => setMode("edit")}>Edit</EditButton>}
+                            {mode === "edit" &&<CancelButton onClick={cancelEdit}>Cancel</CancelButton>}
+                            {mode === "edit" &&<SaveButton onClick={saveEdit}>Save</SaveButton>}
                         </ButtonContainer>
 
                     </InfoContainer>
