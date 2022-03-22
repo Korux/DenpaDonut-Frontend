@@ -5,6 +5,9 @@ import styled from 'styled-components';
 
 import { MdLogout } from 'react-icons/md';
 
+import { setUser} from '../redux/actions';
+import { useDispatch } from 'react-redux';
+
 const LogoutButton = styled.a`
     margin : 0 10px;
     &:hover{
@@ -19,8 +22,11 @@ const LogoutIcon = styled(MdLogout)`
 const clientId = globalVars.clientid;
 
 function UserLogout() {
+
+  const dispatch = useDispatch();
+
   const onLogoutSuccess = (res) => {
-    console.log('Logged out Success');
+    dispatch(setUser({loggedin : false, userinfo : null, tokeninfo : null}));
   };
 
   const onFailure = () => {

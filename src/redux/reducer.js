@@ -209,9 +209,9 @@ function userReducer(state=baseUser, action){
     switch(action.type){
         case SET_USER:
             return{
-                loggedin : action.loggedin,
-                user : action.user,
-                token : action.token
+                loggedin : action.user.loggedin,
+                user : action.user.userinfo,
+                token : action.user.tokeninfo
             }
         default:
             return state;

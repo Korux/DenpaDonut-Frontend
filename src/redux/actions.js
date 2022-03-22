@@ -85,6 +85,6 @@ export function removeFromQueue(idx){
     return {type : REMOVE_FROM_QUEUE, idx };
 }
 
-export function setUser(loggedin, user, token){
-    return {type : SET_USER, loggedin, user, token};
+export function setUser(user){
+    return {type : SET_USER, user};
 }

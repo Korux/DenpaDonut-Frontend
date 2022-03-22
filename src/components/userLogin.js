@@ -5,8 +5,7 @@ import styled from 'styled-components';
 
 import { MdLogin } from 'react-icons/md';
 
-import { ErrorToast } from './toast';
-import { setUser,setToast } from '../redux/actions';
+import { setUser,setToast} from '../redux/actions';
 import { useDispatch } from 'react-redux';
 
 const LoginButton = styled.a`
@@ -44,8 +43,7 @@ function UserLogin(){
     const dispatch = useDispatch();
 
     const onSuccess = (res) => {
-        console.log(res);
-        dispatch(setUser({loggedin : true, user : res.profileObj, token : res.tokenObj}));
+        dispatch(setUser({loggedin : true, userinfo : res.profileObj, tokeninfo : res.tokenObj}));
         refreshTokenSetup(res);
     };
     
