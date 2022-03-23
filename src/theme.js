@@ -39,6 +39,7 @@ export const theme = {
     // button colors
     buttonConfirmColor : 'rgb(50,140,10)',
     buttonCancelColor : 'rgb(100,100,100)',
+    buttonDeleteColor : 'rgb(150,40,10)',
   }
 
   //#D8368D

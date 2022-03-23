@@ -8,6 +8,7 @@ import { setModalState, setModalEditedSong, setModalShow, setQueue, setQueueIdx,
 import { getQueue, getSong } from '../redux/selectors';
 
 import {CgPlayListAdd} from 'react-icons/cg';
+import {FaTrashAlt} from 'react-icons/fa';
 
 import globalVars from '../global';
 
@@ -64,6 +65,17 @@ const QueueIcon = styled(CgPlayListAdd)`
     position : absolute;
     top : 86%;
     right : 5%;
+    &:hover{
+        cursor : pointer;
+    }
+    transition : all 0.2s ease-in-out;
+    
+`;
+
+const DeleteIcon = styled(FaTrashAlt)`
+    position : absolute;
+    top : 87.5%;
+    right : 38%;
     &:hover{
         cursor : pointer;
     }
@@ -176,6 +188,11 @@ const ImageSubContainer = styled.div`
         bottom : 5px;
     }
 
+    ${DeleteIcon}{
+        opacity : 0;
+        bottom : 5px;
+    }
+
     ${CenterButtonContainer}{
         opacity : 0;
     }
@@ -190,6 +207,11 @@ const ImageSubContainer = styled.div`
     }
 
     &:hover ${QueueIcon}{
+        opacity : 1;
+        bottom : 9px;
+    }
+
+    &:hover ${DeleteIcon}{
         opacity : 1;
         bottom : 9px;
     }
@@ -273,6 +295,12 @@ function SongItem({data}){
         if(queueIdx === -1) dispatch(setQueueIdx(0));
     };
 
+    const deleteClick = () => {
+        dispatch(setModalEditedSong(data));
+        dispatch(setModalState("delete"));
+        dispatch(setModalShow(true));
+    };
+
     return(
         <SongContainer>
             <SongHoverDim/>
@@ -302,6 +330,7 @@ function SongItem({data}){
                     }
                     <QueueIcon size={"1.5rem"} onClick={queueClick} title="Add to Queue"/>
                     <EditIcon size={"2x"}icon={faEdit} onClick={editClick}  title="Edit Song"/>
+                    <DeleteIcon size={"1.05rem"} onClick={deleteClick} title="Delete Song"/>
                 </ImageSubContainer>
 
             </ImageContainer>

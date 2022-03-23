@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setToast, setModalEditedSong, setModalState, setForceUpdate } from '../redux/actions';
+import { getUser } from '../redux/selectors';
 
 import globalVars from '../global';
 
@@ -61,6 +62,8 @@ function ModalAddSong(){
     const [url, setURL] = React.useState("");
     const dispatch = useDispatch();
 
+    var userinfo = useSelector(getUser);
+
     function postSong(event){
         event.preventDefault();
         let reqData = {
@@ -70,6 +73,7 @@ function ModalAddSong(){
         method : 'POST',
         headers : {
             'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ' + userinfo.token.id_token
         },
         body : JSON.stringify(reqData),
         };

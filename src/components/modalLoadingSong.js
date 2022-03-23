@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 function ModalLoadingSong(){
     return(
-
+        <div></div>
     );
 }
 

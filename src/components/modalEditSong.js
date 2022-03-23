@@ -2,14 +2,14 @@ import React, {Fragment, useRef} from 'react';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getModal } from '../redux/selectors';
+import { getModal, getUser } from '../redux/selectors';
 
 import {setForceUpdate, setToast} from '../redux/actions';
 
 import globalVars from '../global';
 
 import EditableText from './editableText';
-import ModalTags from './modalTags';
+import SongTags from './songTags';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
@@ -28,7 +28,10 @@ const InfoContainer = styled.div`
 
 const ImageEditable = styled.img`
     width : 100%;
-    height : auto;
+    height : 100%;
+    position : absolute;
+    top : 0;
+    left : 0;
 `;
 
 
@@ -55,11 +58,13 @@ const ImageEditDim = styled.div`
     top : 0;
     left : 0;
     background : radial-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.7));
+    z-index : 3;
 `;
 
 const ImageContainer = styled.div`
     width : 44%;
-    height : auto;
+    height : 0;
+    padding-top : 44%;
     margin : 2%;
     position : relative;
     background-color:${({theme}) => theme.songImageBackground};
@@ -126,6 +131,7 @@ function ModalEditSong(){
     const fileRef = useRef(null);
     const dispatch = useDispatch();
     var modalEditedSong = useSelector(getModal).song;
+    var userinfo = useSelector(getUser);
 
     const handleFiles = (e) => {
         let file = e.target.files[0];
@@ -138,6 +144,9 @@ function ModalEditSong(){
             data.append('id',modalEditedSong._id);
             let reqOpts = {
                 method : 'PATCH',
+                headers: {
+                    'Authorization' : 'Bearer ' + userinfo.token.id_token
+                },
                 body : data
             };
 
@@ -177,7 +186,8 @@ function ModalEditSong(){
         let reqOpts = {
             method : "PATCH",
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization' : 'Bearer ' + userinfo.token.id_token
             },
             body : JSON.stringify(data)
         };
@@ -225,7 +235,8 @@ function ModalEditSong(){
         let reqOpts = {
             method : "PATCH",
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization' : 'Bearer ' + userinfo.token.id_token
             },
             body : JSON.stringify(data)
         };
@@ -268,7 +279,7 @@ function ModalEditSong(){
                         <EditableText type="Year" value={song.year} tmp={tmpSong.year} mode={mode} onEdit={(e) => setTmpSong({...tmpSong, year : e})}/>
                         <EditableText type="Duration" value={song.duration} mode={mode} />
 
-                        <ModalTags tags={song.tags} onEdit={editTag}/>
+                        <SongTags tags={song.tags} onEdit={editTag}/>
 
                         <ButtonContainer>
                             {mode === "text" && <EditButton onClick={() => setMode("edit")}>Edit</EditButton>}

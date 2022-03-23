@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { MdLogout } from 'react-icons/md';
 
-import { setUser} from '../redux/actions';
+import { setUser, clearSong, clearQueue } from '../redux/actions';
 import { useDispatch } from 'react-redux';
 
 const LogoutButton = styled.a`
@@ -27,6 +27,8 @@ function UserLogout() {
 
   const onLogoutSuccess = (res) => {
     dispatch(setUser({loggedin : false, userinfo : null, tokeninfo : null}));
+    dispatch(clearSong());
+    dispatch(clearQueue());
   };
 
   const onFailure = () => {

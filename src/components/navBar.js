@@ -8,7 +8,7 @@ import { MdLibraryMusic, MdLibraryAdd, MdQueueMusic } from 'react-icons/md';
 import Logo from '../images/logo.png';
 
 import SearchFilter from './searchFilter';
-import SongModal from './songModal';
+import ModalBase from './modalBase';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setModalState, setModalShow, setQueueShow } from '../redux/actions';
@@ -88,7 +88,7 @@ function NavBar(){
 
     return(
         <Fragment>
-            <SongModal/>
+            <ModalBase/>
             <StyledNavbar variant="dark" fixed="top">
                 <NavColumn>
 

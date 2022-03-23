@@ -134,7 +134,7 @@ const TagsDisplay = styled.div`
     background-color : ${({ theme }) => theme.modalTagContainerColor};
 `;
 
-function ModalTags({tags, onEdit}){
+function SongTags({tags, onEdit}){
 
     const [Tags, setTags] = React.useState(null);
 
@@ -159,4 +159,4 @@ function ModalTags({tags, onEdit}){
 
 }
 
-export default ModalTags;
+export default SongTags;

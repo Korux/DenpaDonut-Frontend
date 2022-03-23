@@ -8,6 +8,7 @@ import { setModalShow, setModalState, setScrollable } from '../redux/actions';
 
 import ModalAddSong from './modalAddSong';
 import ModalEditSong from './modalEditSong';
+import ModalDeleteSong from './modalDeleteSong';
 
 const ModalContainer = styled.div`
     opacity :  ${({show}) => show ? '1' : '0'};
@@ -36,7 +37,7 @@ const ModalDim = styled.a`
     left: 0;
 `;
 
-function SongModal(){
+function ModalBase(){
 
     var modal = useSelector(getModal);
     const dispatch = useDispatch();
@@ -56,9 +57,10 @@ function SongModal(){
             <ModalContainer show={modal.show}>
                 {modal.type === "add" && <ModalAddSong/>}
                 {modal.type === "edit" && <ModalEditSong/>}
+                {modal.type === "delete" && <ModalDeleteSong/>}
             </ModalContainer>
         </Fragment>
     );
 }
 
-export default SongModal;
+export default ModalBase;
