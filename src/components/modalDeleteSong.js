@@ -74,7 +74,7 @@ function ModalDeleteSong(){
 
         fetch(globalVars.server + '/songs/' + song._id, reqOpts)
         .then(data => {
-            if(data){
+            if(data && data.Error){
                 dispatch(setToast({type : "error", msg : "Error with deleting song, please try again"}));
             }else{
                 dispatch(setForceUpdate(true));

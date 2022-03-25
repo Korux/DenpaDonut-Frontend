@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setToast, setModalEditedSong, setModalState, setForceUpdate } from '../redux/actions';
-import { getUser } from '../redux/selectors';
+import { setToast, setModalLoadingSong, setForceUpdate, setModalLoadingURL } from '../redux/actions';
+import { getModal, getUser } from '../redux/selectors';
 
 import globalVars from '../global';
 
@@ -65,9 +65,10 @@ function ModalAddSong(){
 
     const [url, setURL] = React.useState("");
     const dispatch = useDispatch();
-    const [loading, setLoading] = React.useState(false);
-
+    
+    var loading = useSelector(getModal).loadingsong;
     var userinfo = useSelector(getUser);
+    var loadingurl = useSelector(getModal).loadingurl;
 
     function postSong(event){
 
@@ -75,9 +76,11 @@ function ModalAddSong(){
         if(url.includes('youtube')){
             if(url.includes("&"))setURL(url.split('&')[0]);
             validurl = true;
+            dispatch(setModalLoadingURL(url));
         }else if(url.includes('spotify.com/track')){
             if(url.includes('?'))setURL(url.split('?')[0]);
             validurl = true;
+            dispatch(setModalLoadingURL(url));
         }
 
         if(!validurl){
@@ -85,7 +88,7 @@ function ModalAddSong(){
             return;
         }
 
-        setLoading(true);
+        dispatch(setModalLoadingSong(true));
 
         event.preventDefault();
         let reqData = {
@@ -105,19 +108,19 @@ function ModalAddSong(){
         .then(data => {
             if(data.Error){
                 dispatch(setToast({msg : data.Error, type:"error"}));
-                setLoading(false);
+                dispatch(setModalLoadingSong(false));
             }
             else{
                 dispatch(setForceUpdate(true));
                 dispatch(setToast({msg : "Successfully added song.", type:"success"}));
-                setLoading(false);
+                dispatch(setModalLoadingSong(false));
             }
         })
         .catch(err => {
             // do something with error from POST
             console.log(err);
             dispatch(setToast({msg : "Unknown error adding song. Please try again.", type:"error"}));
-            setLoading(false);
+            dispatch(setModalLoadingSong(false));
         });
     }
 
@@ -135,7 +138,7 @@ function ModalAddSong(){
 
             {loading &&
                 <Fragment>
-                    <ModalMessage>currently loading song from: <br/> {url}</ModalMessage>
+                    <ModalMessage>currently loading song from: <br/> {loadingurl}</ModalMessage>
                 </Fragment>
             }
         </ModalContainer>

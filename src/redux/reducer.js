@@ -18,7 +18,9 @@ import {
     SET_SCROLLABLE,
     SET_QUEUE_SHOW,
     REMOVE_FROM_QUEUE,
-    SET_USER
+    SET_USER,
+    SET_MODAL_LOADING_SONG,
+    SET_MODAL_LOADING_URL
 } from './actions.js';
 
 const baseSong = {
@@ -141,7 +143,9 @@ function shuffleReducer(state=baseShuffle, action){
 const baseModal = {
     show : false,
     type : "none",
-    song : null
+    song : null,
+    loadingsong : false,
+    loadingurl : null,
 };
 
 function modalReducer(state=baseModal, action){
@@ -160,6 +164,16 @@ function modalReducer(state=baseModal, action){
             return{
                 ...state,
                 song : action.song
+            }
+        case SET_MODAL_LOADING_SONG:
+            return{
+                ...state,
+                loadingsong : action.loading
+            }
+        case SET_MODAL_LOADING_URL:
+            return{
+                ...state,
+                loadingurl : action.url
             }
         default:
             return state;

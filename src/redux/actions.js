@@ -8,6 +8,8 @@ export const SET_SHUFFLE = "SET_SHUFFLE";
 export const SET_QUEUE_IDX = "SET_QUEUE_IDX";
 export const SET_MODAL_SHOW = "SET_MODAL_SHOW";
 export const SET_MODAL_STATE = "SET_MODAL_STATE";
+export const SET_MODAL_LOADING_SONG = "SET_MODAL_LOADING_SONG";
+export const SET_MODAL_LOADING_URL = "SET_MODAL_LOADING_URL";
 export const SET_MODAL_EDITED_SONG = "SET_MODAL_EDITED_SONG";
 export const SET_SONG_PLAYING = "SET_SONG_PLAYING";
 export const SET_FORCE_UPDATE = "SET_FORCE_UPDATE";
@@ -63,6 +65,14 @@ export function setModalShow(show){
 
 export function setModalEditedSong(song){
     return { type : SET_MODAL_EDITED_SONG, song };
+}
+
+export function setModalLoadingSong(loading){
+    return { type : SET_MODAL_LOADING_SONG, loading };
+}
+
+export function setModalLoadingURL(url){
+    return { type : SET_MODAL_LOADING_URL, url };
 }
 
 export function setForceUpdate(val){
