@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getQueue } from '../redux/selectors';
 
-import ShuffleButton from './shuffleButton';
 
 import QueueItem from './queueItem';
 import QueueHeader from './queueHeader';
@@ -65,7 +64,6 @@ function QueuePullout({open}){
                 {queueItems !== null && queueItems.length === 0 &&
                 <Fragment>
                     <EmptyQueueDisplay/>
-                    <ShuffleButton type="shuffle-standard"/>
                 </Fragment>
                 }
 

@@ -1,12 +1,13 @@
 import React, { useEffect, createRef, Fragment } from 'react';
 import styled from 'styled-components';
 
-import Player from 'react-h5-audio-player';
+import Player, {RHAP_UI} from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getSong, getQueue } from '../redux/selectors';
-import { setQueueIdx, setShuffleState, setSong, setSongPlaying, clearQueue, clearSong } from "../redux/actions";
+import { setQueueIdx, setShuffleState, setSong, setSongPlaying, clearQueue, clearSong} from "../redux/actions";
+import ShuffleButton from './shuffleButton';
 
 import globalVars from '../global';
 
@@ -25,6 +26,8 @@ const StyledPlayer = styled(Player)`
     > * > .rhap_progress-section > *{
         color : rgb(230,230,230);
     }
+
+    display:${({show}) => show ? 'block' : 'none'};
 `;
 
 function AudioPlayer(){
@@ -97,31 +100,36 @@ function AudioPlayer(){
     return(
         <Fragment>
             <PlayerContainer>
-
-            {
-            noQueue &&
                 <StyledPlayer
                     src={null}
                     showFilledVolume
                     showSkipControls
                     showJumpControls={false}
+                    customAdditionalControls={
+                        [RHAP_UI.LOOP,
+                        <ShuffleButton/>]
+                    }
+                    show={noQueue}
                 />
-            }
-                {!noQueue &&
-                    <StyledPlayer
-                        src={url}
-                        ref={audio}
-                        showFilledVolume
-                        showSkipControls
-                        showJumpControls={false}
-                        onCanPlayThrough={() => dispatch(setShuffleState("ready"))}
-                        onClickNext={nextSong}
-                        onClickPrevious={previousSong}
-                        onEnded={nextSong}
-                        onPlay={audioOnPlay}
-                        onPause={audioOnPause}
-                    />
-                }
+                <StyledPlayer
+                    src={url}
+                    ref={audio}
+                    showFilledVolume
+                    showSkipControls
+                    showJumpControls={false}
+                    onCanPlayThrough={() => dispatch(setShuffleState("ready"))}
+                    onClickNext={nextSong}
+                    onClickPrevious={previousSong}
+                    onEnded={nextSong}
+                    onPlay={audioOnPlay}
+                    onPause={audioOnPause}
+                    customAdditionalControls={
+                        [RHAP_UI.LOOP,
+                        <ShuffleButton/>]
+                    }
+                    show={!noQueue}
+                />
+                
             </PlayerContainer>
         </Fragment>
     );

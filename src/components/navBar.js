@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 
-import { MdLibraryMusic, MdLibraryAdd, MdQueueMusic } from 'react-icons/md';
+import { MdLibraryAdd, MdQueueMusic } from 'react-icons/md';
 
 import Logo from '../images/logo.png';
 
@@ -58,11 +58,6 @@ const PlaylistIcon = styled(MdQueueMusic)`
 
 `;
 
-const MusicLibIcon = styled(MdLibraryMusic)`
-
-    color : ${({theme}) => theme.navbarIconColor};
-`;
-
 const AddSongIcon = styled(MdLibraryAdd)`
     color : ${({theme}) => theme.navbarIconColor};
 `;
@@ -101,12 +96,6 @@ function NavBar(){
                             <PlaylistIcon size="2rem" onClick={() => dispatch(setQueueShow(true))}/>
                         </StyledLink>
                     </StyledTooltip>
-
-                    {/* <StyledTooltip title="Songs">
-                        <StyledLink to="/songs" replace>
-                            <MusicLibIcon size="1.5rem"/>        
-                        </StyledLink>
-                    </StyledTooltip> */}
 
                     <StyledTooltip title="Add Song">
                         <StyledLink to="/" onClick={ (event) => event.preventDefault() }>

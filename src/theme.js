@@ -8,7 +8,6 @@ export const theme = {
     modalTextColor : 'rgb(220,220,220)',
     modalTextCancelColor : 'rgb(180,180,180)',
     modalTextColorDark : 'rgb(120,120,120)',
-    modalButtonColor : 'rgb(60,60,60)',
     modalUnderlineDark : "rgb(120,120,120)",
     modalUnderline : 'rgb(250,250,250)',
     modalTagTextColor : 'rgb(230,230,230)',

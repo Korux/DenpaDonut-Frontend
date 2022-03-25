@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToast, setModalEditedSong, setModalState, setForceUpdate } from '../redux/actions';
@@ -47,10 +47,14 @@ const ModalInput = styled.input`
 
 const ModalAddButton = styled.button`
     color : ${({ theme }) => theme.modalTextColor};
-    background-color : ${({ theme }) => theme.modalButtonColor};
+    background-color : ${({theme}) => theme.buttonConfirmColor};
     border : none;
+    border-radius : 4px;
+    font-size : 14px;
+    font-weight : 500;
+    letter-spacing : 1px;
     padding : 5px 15px;
-    border-radius : 5px;
+    margin : 0 5px;
 `;
 
 const ModalMessage = styled.div`
@@ -61,10 +65,28 @@ function ModalAddSong(){
 
     const [url, setURL] = React.useState("");
     const dispatch = useDispatch();
+    const [loading, setLoading] = React.useState(false);
 
     var userinfo = useSelector(getUser);
 
     function postSong(event){
+
+        let validurl = false;
+        if(url.includes('youtube')){
+            if(url.includes("&"))setURL(url.split('&')[0]);
+            validurl = true;
+        }else if(url.includes('spotify.com/track')){
+            if(url.includes('?'))setURL(url.split('?')[0]);
+            validurl = true;
+        }
+
+        if(!validurl){
+            dispatch(setToast({msg : "URL is not a youtube or spotify track.", type:"error"}));
+            return;
+        }
+
+        setLoading(true);
+
         event.preventDefault();
         let reqData = {
             url : url
@@ -81,39 +103,41 @@ function ModalAddSong(){
         fetch(globalVars.server + "/songs", reqOpts)
         .then(response => response.json())
         .then(data => {
-            if(data.Error)dispatch(setToast({msg : data.Error, type:"error"}));
+            if(data.Error){
+                dispatch(setToast({msg : data.Error, type:"error"}));
+                setLoading(false);
+            }
             else{
                 dispatch(setForceUpdate(true));
-                fetch(globalVars.server + "/songs/" + data.id)
-                .then(response => response.json())
-                .then(data => {
-                    if(data.Error)dispatch(setToast({msg : data.Error, type:"error"}));
-                    else{
-                        dispatch(setModalEditedSong(data));
-                        dispatch(setModalState("edit"));
-                        dispatch(setToast({msg : "Successfully added song.", type:"success"}));
-                    }
-                })
-                .catch(err => {
-                    // do something with error from GET
-                    dispatch(setToast({msg : "Unknown error getting song data. Please try again.", type:"error"}));
-                });
+                dispatch(setToast({msg : "Successfully added song.", type:"success"}));
+                setLoading(false);
             }
         })
         .catch(err => {
             // do something with error from POST
             console.log(err);
             dispatch(setToast({msg : "Unknown error adding song. Please try again.", type:"error"}));
+            setLoading(false);
         });
     }
 
     return(
         <ModalContainer>
-            <ModalMessage>Input <b>Youtube</b> or <b>Spotify</b> link.</ModalMessage>
-            <ModalForm onSubmit={postSong}>
-                <ModalInput value={url} onChange={(e) => setURL(e.target.value)} placeholder="Song Link"/>
-                <ModalAddButton>Add Song</ModalAddButton>
-            </ModalForm>
+            {!loading && 
+            <Fragment>
+                <ModalMessage>Input <b>Youtube</b> or <b>Spotify</b> link.</ModalMessage>
+                <ModalForm onSubmit={postSong}>
+                    <ModalInput value={url} onChange={(e) => setURL(e.target.value)} placeholder="Song Link"/>
+                    <ModalAddButton>Add Song</ModalAddButton>
+                </ModalForm>
+            </Fragment>
+            }
+
+            {loading &&
+                <Fragment>
+                    <ModalMessage>currently loading song from: <br/> {url}</ModalMessage>
+                </Fragment>
+            }
         </ModalContainer>
     );
 
