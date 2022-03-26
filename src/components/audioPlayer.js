@@ -27,6 +27,12 @@ const StyledPlayer = styled(Player)`
         color : rgb(230,230,230);
     }
 
+    // all controls same width
+    > * > .rhap_controls-section > * {
+        width : 33%;
+    }
+
+
     display:${({show}) => show ? 'block' : 'none'};
 `;
 

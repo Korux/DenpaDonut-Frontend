@@ -6,6 +6,8 @@ import { getModal, getUser } from '../redux/selectors';
 
 import globalVars from '../global';
 
+import Loading from './loading';
+
 const ModalContainer = styled.div`
     width : 35vw;
     min-width : 250px;
@@ -59,6 +61,12 @@ const ModalAddButton = styled.button`
 
 const ModalMessage = styled.div`
     width : 100%;
+    height : 50%;
+`;
+
+const ModalSongURL = styled.a`
+    width : 100%;
+    height : 50%;
 `;
 
 function ModalAddSong(){
@@ -75,12 +83,12 @@ function ModalAddSong(){
         let validurl = false;
         if(url.includes('youtube')){
             if(url.includes("&"))setURL(url.split('&')[0]);
+            dispatch(setModalLoadingURL(url.split('&')[0]));
             validurl = true;
-            dispatch(setModalLoadingURL(url));
         }else if(url.includes('spotify.com/track')){
             if(url.includes('?'))setURL(url.split('?')[0]);
+            dispatch(setModalLoadingURL(url.split('?')[0]));
             validurl = true;
-            dispatch(setModalLoadingURL(url));
         }
 
         if(!validurl){
@@ -138,7 +146,10 @@ function ModalAddSong(){
 
             {loading &&
                 <Fragment>
-                    <ModalMessage>currently loading song from: <br/> {loadingurl}</ModalMessage>
+                    <ModalMessage>currently loading song from:</ModalMessage>
+                    <ModalSongURL href={loadingurl}>{loadingurl}</ModalSongURL>
+                    <Loading type={'bubbles'} color={'#CCCCCC'} height={10} width={100}/>
+
                 </Fragment>
             }
         </ModalContainer>

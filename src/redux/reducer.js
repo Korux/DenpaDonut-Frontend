@@ -118,7 +118,7 @@ function toastReducer(state=baseToast, action){
                 type : action.toast.type
             }
         case CLEAR_TOAST:
-            return baseToast;
+            return {...state, type:"none"}
         default:
             return state;
 

@@ -89,8 +89,6 @@ function SongsPage(){
                 dispatch(setToast({type : "error", msg : "Error fetching song data. Please try again."}));
                 setSongs([]);
             });
-        }else{
-            setSongs([]);
         }
     },[search, userinfo]);
 
@@ -107,8 +105,8 @@ function SongsPage(){
 
     return(
         <SongsContainer>
-            {songs === null &&  <Loading type={'spin'} color={'#555555'} height={100} width={100}/>}
-            {songs !== null && songs.length === 0 && !userinfo.loggedin && <NotLoggedInDisplay/>}
+            {songs === null &&  userinfo.loggedin &&<Loading type={'spin'} color={'#555555'} height={100} width={100}/>}
+            {!userinfo.loggedin && <NotLoggedInDisplay/>}
             {songs !== null && songs.length === 0 && userinfo.loggedin && <EmptySongsDisplay/>}
             {songs !== null && songs.length > 0 && songs}
         </SongsContainer>
