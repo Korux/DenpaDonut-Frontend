@@ -8,10 +8,15 @@ import { MdLogout } from 'react-icons/md';
 import { setUser, clearSong, clearQueue } from '../redux/actions';
 import { useDispatch } from 'react-redux';
 
-const LogoutButton = styled.a`
-    margin : 0 10px;
+const LogoutButton = styled.div`
+    margin : 10px 10px 10px 8%;
+    width : fit-content;
+    text-align : left;
+    font-weight : 400;
+    color : rgb(200,200,200);
     &:hover{
         cursor:pointer;
+        color : rgb(230,230,230);
     }
 `;
 
@@ -42,8 +47,8 @@ function UserLogout() {
   });
 
   return (
-    <LogoutButton>
-        <LogoutIcon size="2rem" onClick={signOut}/>
+    <LogoutButton  onClick={signOut}>
+        <LogoutIcon size="1.5rem"/> Log Out
     </LogoutButton>
   );
 

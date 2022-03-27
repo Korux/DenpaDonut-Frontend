@@ -108,7 +108,7 @@ function SongsPage(){
             {songs === null &&  userinfo.loggedin &&<Loading type={'spin'} color={'#555555'} height={100} width={100}/>}
             {!userinfo.loggedin && <NotLoggedInDisplay/>}
             {songs !== null && songs.length === 0 && userinfo.loggedin && <EmptySongsDisplay/>}
-            {songs !== null && songs.length > 0 && songs}
+            {songs !== null && songs.length > 0 && userinfo.loggedin && songs}
         </SongsContainer>
     );
 }

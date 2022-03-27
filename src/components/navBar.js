@@ -17,7 +17,7 @@ import { Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import UserLogin from './userLogin';
-import UserLogout from './userLogout';
+import UserInfo from './userInfo';
 
 const StyledNavbar = styled(Navbar)`
     display:flex;
@@ -37,10 +37,16 @@ const StyledBrand = styled(Navbar.Brand)`
     }
 `;
 
-const NavColumn = styled.div`
+const NavColumnLeft = styled.div`
     flex : 1;
     text-align : left;
 `;
+
+const NavColumnRight = styled.div`
+    flex : 1;
+    text-align : right;
+`;
+
 
 const NavColumnSearch = styled.div`
     flex : 1;
@@ -85,13 +91,21 @@ function NavBar(){
         <Fragment>
             <ModalBase/>
             <StyledNavbar variant="dark" fixed="top">
-                <NavColumn>
+                <NavColumnLeft>
 
                     <StyledLink to="/" replace>
                         <StyledBrand title="DenpaDonut Home"><img src={Logo} alt="logo"/></StyledBrand>
                     </StyledLink>
 
-                    <StyledTooltip title="Queue">
+                    
+                </NavColumnLeft>
+
+                <NavColumnSearch>
+                    <SearchFilter/>
+                </NavColumnSearch>
+
+                <NavColumnRight>
+                <StyledTooltip title="Queue">
                         <StyledLink to="/" onClick={ (event) => event.preventDefault() }>
                             <PlaylistIcon size="2rem" onClick={() => dispatch(setQueueShow(true))}/>
                         </StyledLink>
@@ -102,16 +116,16 @@ function NavBar(){
                             <AddSongIcon size="1.5rem" onClick={showModal}/>
                         </StyledLink>
                     </StyledTooltip>
-                    {!useSelector(getUser).loggedin && <UserLogin/>}
-                    {useSelector(getUser).loggedin &&<UserLogout/>}
-                </NavColumn>
 
-                <NavColumnSearch>
-                    <SearchFilter/>
-                </NavColumnSearch>
-
-                <NavColumn>
-                </NavColumn>
+                    {!useSelector(getUser).loggedin && 
+                    <StyledTooltip title="Login">
+                        <StyledLink to="/" onClick={ (event) => event.preventDefault() }>
+                            <UserLogin/>
+                        </StyledLink>
+                    </StyledTooltip>
+                    }
+                    {useSelector(getUser).loggedin && <UserInfo/>}
+                </NavColumnRight>
 
             </StyledNavbar>
         </Fragment>

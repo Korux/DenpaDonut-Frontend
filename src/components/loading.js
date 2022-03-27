@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styled from 'styled-components';
 
 import ReactLoading from 'react-loading';
@@ -10,8 +10,17 @@ const StyledLoading = styled(ReactLoading)`
     transform: translate(-50%, -50%);
 `;
 
+const StyledLoadingAlt = styled(ReactLoading)`
+`;
+
 function Loading({type,color,width,height}){
-    return(<StyledLoading type={type} color={color} height={height} width={width} />);
+    return(
+        <Fragment>
+            {type==="spin" && <StyledLoading type={type} color={color} height={height} width={width} />}
+            {type==="bubbles" && <StyledLoadingAlt type={type} color={color} height={height} width={width} />}
+        </Fragment>
+    
+    );
 }
 
 export default Loading;

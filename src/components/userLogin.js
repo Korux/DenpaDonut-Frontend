@@ -3,21 +3,16 @@ import {useGoogleLogin} from 'react-google-login';
 import globalVars from '../global';
 import styled from 'styled-components';
 
-import { MdLogin } from 'react-icons/md';
+import { BiLogIn } from 'react-icons/bi';
 
 import { setUser,setToast} from '../redux/actions';
 import { useDispatch } from 'react-redux';
 
-const LoginButton = styled.a`
-    margin : 0 10px;
-    &:hover{
-        cursor:pointer;
-    }
+const LoginIcon = styled(BiLogIn)`
+    color : ${({theme}) => theme.navbarIconColor};
+    margin : 0 5px 0 0;
 `;
 
-const LoginIcon = styled(MdLogin)`
-    color : ${({theme}) => theme.navbarIconColor};
-`;
 
 const clientId = globalVars.clientid;
 
@@ -62,9 +57,7 @@ function UserLogin(){
     });
 
     return (
-        <LoginButton>
-            <LoginIcon size="2rem" onClick={signIn}/>
-        </LoginButton>
+        <LoginIcon onClick={signIn} size="1.8rem"/>
     );
 
 }

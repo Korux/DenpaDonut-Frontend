@@ -61,12 +61,13 @@ const ModalAddButton = styled.button`
 
 const ModalMessage = styled.div`
     width : 100%;
-    height : 50%;
 `;
 
 const ModalSongURL = styled.a`
     width : 100%;
-    height : 50%;
+    font-weight : 500;
+    font-size : 1rem;
+    margin-top : 5px;
 `;
 
 function ModalAddSong(){
@@ -146,9 +147,9 @@ function ModalAddSong(){
 
             {loading &&
                 <Fragment>
-                    <ModalMessage>currently loading song from:</ModalMessage>
+                    <ModalMessage><b>Currently Loading Song From:</b></ModalMessage>
                     <ModalSongURL href={loadingurl}>{loadingurl}</ModalSongURL>
-                    <Loading type={'bubbles'} color={'#CCCCCC'} height={10} width={100}/>
+                    <Loading type={'bubbles'} color={'#CCCCCC'} height={60} width={60}/>
 
                 </Fragment>
             }

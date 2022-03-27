@@ -35,6 +35,7 @@ export const theme = {
     navbarSearchColor : 'rgb(40,40,40)',
     navbarSearchBorderColor : 'rgb(60,60,60)',
 
+
     // button colors
     buttonConfirmColor : 'rgb(50,140,10)',
     buttonCancelColor : 'rgb(100,100,100)',
