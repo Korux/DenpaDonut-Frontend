@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookies from 'universal-cookie';
 import {useGoogleLogin} from 'react-google-login';
 import globalVars from '../global';
 import styled from 'styled-components';
@@ -13,6 +14,7 @@ const LoginIcon = styled(BiLogIn)`
     margin : 0 5px 0 0;
 `;
 
+const cookies = new Cookies();
 
 const clientId = globalVars.clientid;
 
@@ -38,6 +40,7 @@ function UserLogin(){
     const dispatch = useDispatch();
 
     const onSuccess = (res) => {
+        cookies.set('usertoken', res.tokenObj.id_token, {path : '/'});
         dispatch(setUser({loggedin : true, userinfo : res.profileObj, tokeninfo : res.tokenObj}));
         refreshTokenSetup(res);
     };

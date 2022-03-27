@@ -7,7 +7,9 @@ import { MdLogout } from 'react-icons/md';
 
 import { setUser, clearSong, clearQueue } from '../redux/actions';
 import { useDispatch } from 'react-redux';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 const LogoutButton = styled.div`
     margin : 10px 10px 10px 8%;
     width : fit-content;
@@ -31,6 +33,7 @@ function UserLogout() {
   const dispatch = useDispatch();
 
   const onLogoutSuccess = (res) => {
+    cookies.remove('usertoken');
     dispatch(setUser({loggedin : false, userinfo : null, tokeninfo : null}));
     dispatch(clearSong());
     dispatch(clearQueue());
