@@ -13,7 +13,9 @@
     "youtube-dl-exec": "^1.2.4"
   },
   "scripts": {
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
   "name": "denpadonut_backend",
   "version": "1.0.0",
