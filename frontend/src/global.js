@@ -50,7 +50,8 @@ export const GlobalStyles = createGlobalStyle`
 `
 
 const globalVars = {
-  server : "https://denpadonut.herokuapp.com",
+  //server : "https://denpadonut.herokuapp.com",
+  server : 'http://localhost:3000',
   clientid : "837278079440-6e2p92o3b1olubaa8247p5cqpltc1ct4.apps.googleusercontent.com"
 }
 
