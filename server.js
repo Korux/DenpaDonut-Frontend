@@ -11,7 +11,7 @@ const {verifyToken, googleAuthVerifyToken} = require('./auth');
 const {getFiles, getMetadata} = require('./utils');
 const {streamFile, streamFileChunked,streamPicFileToDB, streamPicToDB, streamSongToDB,submitToSongs} = require('./stream');
 
-const appURL = 'https://korux.github.io';
+const appURL = 'https://denpadonut.herokuapp.com';
 const secret = "nanithefuckdidyoujustsaytomeyoulittleshit";
 
 const ObjectId = require('mongodb').ObjectId;
@@ -22,7 +22,7 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const cookieParser = require("cookie-parser");
 
@@ -460,11 +460,11 @@ app.delete('/songs/:id', verifyToken, googleAuthVerifyToken, (req,res) => {
 //--------------------------------------------
 
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'frontend/build')))
+app.use(express.static(path.join(__dirname, './frontend/build')));
 // Anything that doesn't match the above, send back index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-})
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/build','index.html'));
+});
 
 
 app.listen(PORT, () => {

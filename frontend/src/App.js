@@ -41,17 +41,9 @@ function App() {
       <NavBar/>
 
       <Switch>
-
-        {/* <Route exact path="/home">
-          <HomePage/>
-        </Route> */}
-
-        <Route exact path="/songs">
-            <SongsPage/>
-        </Route>
-
+        
         <Route exact path="/">
-          <Redirect to="/songs"/>
+        <SongsPage/>
         </Route> 
 
 
