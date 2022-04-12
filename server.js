@@ -5,6 +5,7 @@ const { exec } = require("child_process");
 const cors = require('cors');
 const fs = require('fs');
 const session = require('express-session');
+const path = require('path');
 
 const {verifyToken, googleAuthVerifyToken} = require('./auth');
 const {getFiles, getMetadata} = require('./utils');
