@@ -16,7 +16,7 @@ const EmptySongsDisplay = () => {
     return(
         <div>
             <img style={{width : '200px'}} src={EmptyImg} alt={"error image"}/>
-            <div style={{fontSize : '16px'}}>
+            <div style={{fontSize : '24px', fontWeight : '500'}}>
                 No Songs to Display
             </div>
         </div>
@@ -28,7 +28,7 @@ const NotLoggedInDisplay = () => {
     return(
         <div>
             <img style={{width : '200px'}} src={EmptyImg} alt={"error image"}/>
-            <div style={{fontSize : '16px'}}>
+            <div style={{fontSize : '24px', fontWeight : '500'}}>
                 You are not Logged In
             </div>
         </div>

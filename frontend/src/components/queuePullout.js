@@ -14,7 +14,7 @@ const EmptyQueueDisplay = () => {
     return(
         <div>
             <img style={{width : '200px'}} src={EmptyImg} alt={"error image"}/>
-            <div style={{fontSize : '16px'}}>
+            <div style={{fontSize : '24px', fontWeight : '500'}}>
                 No Songs in Queue
             </div>
         </div>

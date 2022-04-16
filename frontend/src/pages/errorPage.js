@@ -22,7 +22,7 @@ function ErrorPage(){
                 Page not Found
             </ErrorMsg>
             <ReturnMsg to={"/"} replace>
-                go to home
+                Go To Home
             </ReturnMsg>
         </div>
     );
